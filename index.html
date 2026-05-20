@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Model Radar</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main id="app" class="app" data-smoke="model-radar">
+      <header class="mast">
+        <div>
+          <p class="eyebrow">OFFICIAL MODEL RADAR</p>
+          <h1>World Model Radar</h1>
+        </div>
+        <div class="mast-readout">
+          <span>snapshot</span>
+          <strong id="refresh-label">--</strong>
+        </div>
+      </header>
+
+      <section id="signals" class="signal-grid" aria-label="world signals"></section>
+
+      <section class="radar-shell" aria-label="frontier radar">
+        <div class="radar-map">
+          <div class="radar-axis top">fresh</div>
+          <div class="radar-axis bottom">older</div>
+          <div class="radar-axis left">emerging</div>
+          <div class="radar-axis right">frontier</div>
+          <div id="model-dots" class="model-dots"></div>
+        </div>
+        <aside class="command-strip">
+          <div class="strip-head">
+            <span>NOW</span>
+            <strong id="top-model">--</strong>
+          </div>
+          <div id="leader-list" class="leader-list"></div>
+        </aside>
+      </section>
+
+      <section class="split">
+        <article class="selected-panel">
+          <div class="panel-kicker">CURRENT SIGNAL</div>
+          <div id="selected-model" class="selected-model"></div>
+        </article>
+        <article class="clock-panel">
+          <div class="panel-kicker">RELEASE CLOCKS</div>
+          <div id="clock-list" class="clock-list"></div>
+        </article>
+      </section>
+
+      <section class="source-panel">
+        <div class="panel-kicker">OFFICIAL SOURCES</div>
+        <div id="source-list" class="source-list"></div>
+      </section>
+    </main>
+
+    <script type="module" src="./src/app.mjs"></script>
+  </body>
+</html>
