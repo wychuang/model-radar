@@ -1,6 +1,6 @@
 export const modelRadarSnapshot = {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-07T23:18:00.896Z",
+  "generatedAt": "2026-06-08T23:22:16.248Z",
   "refresh": {
     "cadence": "daily",
     "nextRunHint": "daily low-frequency official-source refresh; failures keep the curated rows intact",
@@ -863,9 +863,9 @@ export const modelRadarSnapshot = {
         "gpt-5.4",
         "gpt-5.5-2026-04-23"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
-      "sha256": "adfae96026a897f49de01e53d42a7fafc4f52b588e97a23dc106b30e962c67c8",
+      "sha256": "c349efdfae231adb7cb3422219e8c4e12ce5f7c05bea4a22b157622a9e0a83cb",
       "foundSignals": [
         "gpt-5.5",
         "gpt-5.4",
@@ -885,9 +885,9 @@ export const modelRadarSnapshot = {
         "claude-sonnet-4-6",
         "claude-opus-4-7-20260416"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
-      "sha256": "d56814d10e717b89ff2c37b079e9d2b0178397d1d927d76b30c7787f92ee89a3",
+      "sha256": "c0ec25a201245617490c115a9f6fd38700a78aed6bae5b22f406e9caa1143484",
       "foundSignals": [
         "claude-opus-4-7",
         "claude-sonnet-4-6"
@@ -906,9 +906,9 @@ export const modelRadarSnapshot = {
         "gemini-3.1-pro-preview",
         "gemini-3-pro"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
-      "sha256": "df11cca3b6dc7b2c1b539dd2fbf59ae07d2c6ff88bbb253cad616500555fe615",
+      "sha256": "e6797d0d58a5e280b0c45544c5c352b57fced010155fbf64be3ec48dfa9c0ffd",
       "foundSignals": [
         "gemini-3.1-pro",
         "gemini-3.1-pro-preview",
@@ -928,9 +928,9 @@ export const modelRadarSnapshot = {
         "grok-4-3-fast",
         "grok-4"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
-      "sha256": "8f4ae1bcc823a1f4c2ea97c922cdbdfde95ec216f860b9d42bba299e667cb403",
+      "sha256": "845f7de63cabe95e04bb458d1cb64a549a50f0b8d1e7b1af7ab357f0eec8ca81",
       "foundSignals": [
         "grok-4"
       ],
@@ -948,7 +948,7 @@ export const modelRadarSnapshot = {
         "deepseek-v4",
         "deepseek-v3.2"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
       "sha256": "38107703007067c2a9ed80d7783b12a2aebfca945504f45ff66178ae5699516c",
       "foundSignals": [
@@ -969,12 +969,16 @@ export const modelRadarSnapshot = {
         "kimi-k2-6",
         "kimi-k2-thinking"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
-      "ok": false,
-      "sha256": "",
-      "foundSignals": [],
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
+      "ok": true,
+      "sha256": "3f2836adc0948509cb8e8b567d50f0d7be5b344cc19d8a5a0a0750a3f21f8a13",
+      "foundSignals": [
+        "kimi-k2.6",
+        "kimi-k2-6",
+        "kimi-k2-thinking"
+      ],
       "changed": false,
-      "error": "HTTP 404 Not Found"
+      "error": ""
     },
     {
       "id": "mistral-models",
@@ -987,9 +991,9 @@ export const modelRadarSnapshot = {
         "mistral-large-2512",
         "medium-3.5"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
-      "sha256": "c9805077b9e1e5710e6c1cf9d59df42e98ecf8eda2dc4f4b0e5c3b09237f8349",
+      "sha256": "ec9ccf1a285c46169db0c8f75263a3ea09d15e81ed6c929d60cc64d80e113d5e",
       "foundSignals": [
         "mistral-large-3",
         "medium-3.5"
@@ -1008,7 +1012,7 @@ export const modelRadarSnapshot = {
         "qwen3-thinking-2507",
         "qwen3-235b-a22b"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": false,
       "sha256": "",
       "foundSignals": [],
@@ -1026,9 +1030,9 @@ export const modelRadarSnapshot = {
         "llama-4-maverick",
         "llama-4"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
-      "sha256": "b015aae2b51edd3fdda2a41a3e30429b3623b694215c8bc98a376529ebb50f20",
+      "sha256": "cd1867fca85fe59304d5b86867f0e3eee3f5f561bdee1a4d2b143b76c68d549c",
       "foundSignals": [
         "llama-4-scout",
         "llama-4-maverick",
@@ -1048,7 +1052,7 @@ export const modelRadarSnapshot = {
         "command-a",
         "command-r"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
       "sha256": "0793c5f1741e8d14f62f9ff4952b68d0f2ba595a511898e4b1e42d66e650b176",
       "foundSignals": [
@@ -1070,9 +1074,9 @@ export const modelRadarSnapshot = {
         "nova-premier",
         "amazon.nova-2-omni-v1:0"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
-      "sha256": "6e3059ae6880ab4fd7cc188eb94e0859cce3f73c4aa0aadbf61f70e7fce3258d",
+      "sha256": "8a1974e8e8739d4b425b6240906de73975d3deec1601b38322609b43af6d5a86",
       "foundSignals": [],
       "changed": false,
       "error": ""
@@ -1088,9 +1092,9 @@ export const modelRadarSnapshot = {
         "glm-4-6",
         "glm-4.5"
       ],
-      "lastCheckedAt": "2026-06-07T23:18:00.896Z",
+      "lastCheckedAt": "2026-06-08T23:22:16.248Z",
       "ok": true,
-      "sha256": "87db383e66484b916bc1f23e1465fc1155fa87f31213b27f05dd762ed0aa52d7",
+      "sha256": "41153f9d04d55d000696cfa5758af4dfde3e2c33861ffaa7d492f83d9f52db59",
       "foundSignals": [
         "glm-4.6",
         "glm-4.5"
