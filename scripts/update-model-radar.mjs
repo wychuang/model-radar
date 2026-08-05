@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { modelRadarSeed } from "../src/model-radar-seed.mjs";
+import { modelRadarSnapshot } from "../src/model-radar-snapshot.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, "..");
@@ -52,7 +53,7 @@ export function mergeSourceStatuses(seed, statuses, generatedAt = new Date().toI
     generatedAt,
     refresh: {
       ...seed.refresh,
-      nextRunHint: "daily low-frequency official-source refresh; failures keep the curated rows intact"
+      nextRunHint: "daily low-frequency source refresh; failures keep curated benchmark rows intact"
     },
     sources: seed.sources.map((source) => {
       const status = statusesById.get(source.id);
@@ -62,7 +63,7 @@ export function mergeSourceStatuses(seed, statuses, generatedAt = new Date().toI
         ...source,
         lastCheckedAt: status.lastCheckedAt,
         ok: status.ok,
-        sha256: status.sha256,
+        sha256: status.ok ? status.sha256 : source.sha256 ?? "",
         foundSignals: status.foundSignals,
         changed: Boolean(status.ok && source.sha256 && source.sha256 !== status.sha256),
         error: status.error
@@ -71,16 +72,24 @@ export function mergeSourceStatuses(seed, statuses, generatedAt = new Date().toI
   };
 }
 
-export async function runUpdate({ seed = modelRadarSeed, outputPath = snapshotPath } = {}) {
+export async function runUpdate({ seed = modelRadarSeed, previousSnapshot = modelRadarSnapshot, outputPath = snapshotPath } = {}) {
   const fetchedAt = new Date().toISOString();
   const statuses = [];
+  const previousSources = new Map((previousSnapshot?.sources ?? []).map((source) => [source.id, source]));
+  const seedWithHistory = {
+    ...seed,
+    sources: seed.sources.map((source) => ({
+      ...source,
+      sha256: previousSources.get(source.id)?.sha256 ?? source.sha256 ?? ""
+    }))
+  };
 
-  for (const source of seed.sources) {
+  for (const source of seedWithHistory.sources) {
     statuses.push(await buildSourceStatus(source, { fetchedAt }));
     await delay(politeDelayMs);
   }
 
-  const snapshot = mergeSourceStatuses(seed, statuses, fetchedAt);
+  const snapshot = mergeSourceStatuses(seedWithHistory, statuses, fetchedAt);
   await writeSnapshot(outputPath, snapshot);
 
   return snapshot;
@@ -88,7 +97,7 @@ export async function runUpdate({ seed = modelRadarSeed, outputPath = snapshotPa
 
 async function defaultFetchText(url) {
   if (!isAllowedOfficialUrl(url)) {
-    throw new Error(`Refusing non-official or non-https URL: ${url}`);
+    throw new Error(`Refusing non-allowlisted or non-https URL: ${url}`);
   }
 
   const controller = new AbortController();
@@ -100,7 +109,7 @@ async function defaultFetchText(url) {
       redirect: "follow",
       headers: {
         "accept": "text/html,application/json,text/plain;q=0.9,*/*;q=0.5",
-        "user-agent": "model-radar/0.1 low-frequency official-docs checker"
+        "user-agent": "model-radar/0.2 low-frequency public-source checker"
       }
     });
 
@@ -117,18 +126,24 @@ async function defaultFetchText(url) {
 function isAllowedOfficialUrl(rawUrl) {
   const url = new URL(rawUrl);
   const allowedHosts = new Set([
-    "platform.openai.com",
-    "docs.anthropic.com",
-    "ai.google.dev",
-    "docs.x.ai",
+    "openai.com",
+    "www.anthropic.com",
+    "deepmind.google",
+    "x.ai",
     "api-docs.deepseek.com",
-    "platform.moonshot.ai",
+    "www.kimi.com",
     "docs.mistral.ai",
-    "qwenlm.github.io",
+    "qwen.ai",
     "ai.meta.com",
     "docs.cohere.com",
     "aws.amazon.com",
-    "docs.bigmodel.cn"
+    "z.ai",
+    "artificialanalysis.ai",
+    "arena.ai",
+    "www.swebench.com",
+    "www.tbench.ai",
+    "arcprize.org",
+    "agents-last-exam.org"
   ]);
 
   return url.protocol === "https:" && allowedHosts.has(url.hostname);
@@ -156,7 +171,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   runUpdate()
     .then((snapshot) => {
       const okCount = snapshot.sources.filter((source) => source.ok).length;
-      console.log(`model-radar snapshot refreshed: ${okCount}/${snapshot.sources.length} official sources checked`);
+      console.log(`model-radar snapshot refreshed: ${okCount}/${snapshot.sources.length} allowlisted sources checked`);
     })
     .catch((error) => {
       console.error(error);

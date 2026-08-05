@@ -27,7 +27,7 @@ jobs:
       - name: Verify before refresh
         run: npm test
 
-      - name: Refresh official source snapshot
+      - name: Refresh provider and benchmark source snapshot
         env:
           MODEL_RADAR_DELAY_MS: "1800"
         run: npm run update

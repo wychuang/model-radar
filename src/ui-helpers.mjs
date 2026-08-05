@@ -1,25 +1,28 @@
-const DAY_MS = 24 * 60 * 60 * 1000;
-
 export function clockStatusLabel(status) {
   return {
-    cooldown: "cool",
-    tracking: "track",
-    watch: "watch",
-    overdue: "late",
-    sunset: "retire"
-  }[status] ?? "scan";
+    cooldown: "COOL",
+    tracking: "TRACK",
+    watch: "WATCH",
+    overdue: "LATE"
+  }[status] ?? "SCAN";
 }
 
-export function metricBarStyle(score) {
-  return `--value: ${clamp(Number(score), 0, 100)}%;`;
+export function eventStatusLabel(status) {
+  return {
+    released: "已发生",
+    watch: "观察中",
+    deadline: "将到期"
+  }[status] ?? "信号";
 }
 
-export function modelDotStyle(model, today = new Date()) {
-  const score = clamp(Number(model.normalizedScore), 0, 100);
-  const days = Math.max(0, (toDate(today) - toDate(model.releasedAt)) / DAY_MS);
-  const fresh = clamp(100 - days, 0, 100);
-
-  return `--x: ${round(score)}%; --fresh: ${round(fresh)}%;`;
+export function metricBarStyle(value, metric = {}) {
+  if (value === null || value === undefined || !Number.isFinite(Number(value))) return "--value: 0%;";
+  const min = Number.isFinite(metric.min) ? metric.min : 0;
+  const max = Number.isFinite(metric.max) ? metric.max : 100;
+  const span = Math.max(1, max - min);
+  const raw = ((Number(value) - min) / span) * 100;
+  const percentage = metric.direction === "lower" ? 100 - raw : raw;
+  return `--value: ${round(clamp(percentage, 2, 100))}%;`;
 }
 
 export function shortDate(value) {
@@ -28,6 +31,17 @@ export function shortDate(value) {
 
   return new Intl.DateTimeFormat("en", {
     month: "short",
+    day: "2-digit",
+    timeZone: "UTC"
+  }).format(date);
+}
+
+export function isoShortDate(value) {
+  const date = toDate(value);
+  if (Number.isNaN(date.getTime())) return "unknown";
+  return new Intl.DateTimeFormat("en-CA", {
+    year: "numeric",
+    month: "2-digit",
     day: "2-digit",
     timeZone: "UTC"
   }).format(date);

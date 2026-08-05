@@ -3,56 +3,90 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Model Radar</title>
+    <meta name="description" content="A source-backed radar for frontier AI models, benchmarks, release events, and provider cadence.">
+    <title>Model Radar / 世界大模型雷达</title>
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
     <main id="app" class="app" data-smoke="model-radar">
       <header class="mast">
-        <div>
-          <p class="eyebrow">OFFICIAL MODEL RADAR</p>
-          <h1>World Model Radar</h1>
+        <div class="brand-block">
+          <p>LIVE FRONTIER INSTRUMENT / 001</p>
+          <h1>MODEL<br>RADAR</h1>
+          <span>世界大模型雷达</span>
         </div>
-        <div class="mast-readout">
-          <span>snapshot</span>
-          <strong id="refresh-label">--</strong>
+        <div class="mast-manifesto">
+          <strong>发生了什么<br>接下来盯什么</strong>
+          <p>官方发布 × 独立榜单 × 发行节奏</p>
+        </div>
+        <div class="mast-readout" aria-label="snapshot status">
+          <span>AS OF</span>
+          <strong id="as-of-label">--</strong>
+          <small id="refresh-label">--</small>
         </div>
       </header>
 
-      <section id="signals" class="signal-grid" aria-label="world signals"></section>
+      <section id="signals" class="signal-grid" aria-label="global model signals"></section>
 
-      <section class="radar-shell" aria-label="frontier radar">
-        <div class="radar-map">
-          <div class="radar-axis top">fresh</div>
-          <div class="radar-axis bottom">older</div>
-          <div class="radar-axis left">emerging</div>
-          <div class="radar-axis right">frontier</div>
-          <div id="model-dots" class="model-dots"></div>
-        </div>
-        <aside class="command-strip">
-          <div class="strip-head">
-            <span>NOW</span>
-            <strong id="top-model">--</strong>
+      <section class="switchboard" aria-labelledby="switchboard-title">
+        <header class="switchboard-head">
+          <div>
+            <p>BENCHMARK SWITCHBOARD</p>
+            <h2 id="switchboard-title">同一批模型，换一个问题，世界立刻重排</h2>
           </div>
-          <div id="leader-list" class="leader-list"></div>
-        </aside>
+          <div id="metric-tabs" class="metric-tabs" role="tablist" aria-label="选择评分口径"></div>
+        </header>
+
+        <div class="scoreboard">
+          <aside id="metric-hero" class="metric-hero" aria-live="polite"></aside>
+          <section class="ranking-panel" aria-label="model ranking">
+            <div class="ranking-head">
+              <span>RANK / MODEL</span>
+              <span>SOURCE RELATIVE POSITION</span>
+              <span>VALUE</span>
+            </div>
+            <div id="leaderboard" class="leaderboard"></div>
+          </section>
+          <aside id="selected-model" class="selected-model" aria-live="polite"></aside>
+        </div>
       </section>
 
-      <section class="split">
-        <article class="selected-panel">
-          <div class="panel-kicker">CURRENT SIGNAL</div>
-          <div id="selected-model" class="selected-model"></div>
-        </article>
-        <article class="clock-panel">
-          <div class="panel-kicker">RELEASE CLOCKS</div>
+      <section class="event-band" aria-labelledby="event-title">
+        <header>
+          <p>NOW / NEXT</p>
+          <h2 id="event-title">世界线</h2>
+        </header>
+        <div id="event-list" class="event-list"></div>
+      </section>
+
+      <section class="lower-deck">
+        <section class="clock-panel" aria-labelledby="clock-title">
+          <header class="section-head">
+            <div>
+              <p>RELEASE RHYTHM</p>
+              <h2 id="clock-title">发行压力钟</h2>
+            </div>
+            <span>推断窗口 / 不承诺日期</span>
+          </header>
           <div id="clock-list" class="clock-list"></div>
-        </article>
+        </section>
+
+        <section class="source-panel" aria-labelledby="source-title">
+          <header class="section-head">
+            <div>
+              <p>BENCHMARK INPUTS</p>
+              <h2 id="source-title">评测来源台</h2>
+            </div>
+            <span>点击进入原始页面</span>
+          </header>
+          <div id="source-list" class="source-list"></div>
+        </section>
       </section>
 
-      <section class="source-panel">
-        <div class="panel-kicker">OFFICIAL SOURCES</div>
-        <div id="source-list" class="source-list"></div>
-      </section>
+      <footer class="footnotes">
+        <strong>READ THE GAPS</strong>
+        <div id="notes"></div>
+      </footer>
     </main>
 
     <script type="module" src="./src/app.mjs"></script>

@@ -1,41 +1,91 @@
 export const modelRadarSnapshot = {
-  "schemaVersion": 1,
-  "generatedAt": "2026-08-04T23:16:03.274Z",
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-05T19:11:28.252Z",
   "refresh": {
     "cadence": "daily",
-    "nextRunHint": "daily low-frequency official-source refresh; failures keep the curated rows intact",
+    "nextRunHint": "daily low-frequency source refresh; failures keep curated benchmark rows intact",
     "workflow": ".github/workflows/model-radar.yml"
   },
-  "dimensions": [
+  "benchmarks": [
     {
-      "id": "reasoning",
-      "label": "Reasoning",
-      "shortLabel": "reason"
+      "id": "aa-index",
+      "label": "Artificial Analysis Intelligence Index",
+      "shortLabel": "AA INTEL",
+      "displayLabel": "AA 智力",
+      "direction": "higher",
+      "format": "index",
+      "min": 25,
+      "max": 65,
+      "sourceId": "benchmark-aa",
+      "asOf": "2026-08-06",
+      "description": "Independent composite intelligence index. Max-reasoning configurations are used when listed."
     },
     {
-      "id": "coding",
-      "label": "Coding",
-      "shortLabel": "code"
+      "id": "arena-elo",
+      "label": "Arena Text Leaderboard",
+      "shortLabel": "ARENA",
+      "displayLabel": "人类偏好",
+      "direction": "higher",
+      "format": "elo",
+      "min": 1350,
+      "max": 1520,
+      "sourceId": "benchmark-arena",
+      "asOf": "2026-08-01",
+      "description": "Crowd preference score from blind side-by-side votes. Preliminary rows are marked."
     },
     {
-      "id": "agent",
-      "label": "Agentic work",
-      "shortLabel": "agent"
+      "id": "swebench-pro",
+      "label": "SWE-Bench Pro",
+      "shortLabel": "SWE PRO",
+      "displayLabel": "真实工程",
+      "direction": "higher",
+      "format": "percent",
+      "min": 40,
+      "max": 85,
+      "sourceId": "benchmark-swe",
+      "asOf": "2026-08-06",
+      "description": "Repository-level software engineering tasks. Values here are vendor-reported unless noted."
     },
     {
-      "id": "vision",
-      "label": "Multimodal",
-      "shortLabel": "vision"
+      "id": "terminalbench",
+      "label": "Terminal-Bench 2.x",
+      "shortLabel": "TERMINAL",
+      "displayLabel": "终端 Agent",
+      "direction": "higher",
+      "format": "percent",
+      "min": 40,
+      "max": 90,
+      "sourceId": "benchmark-terminal",
+      "asOf": "2026-08-06",
+      "description": "Agent performance on practical terminal tasks. Harness and version can affect comparability."
     },
     {
-      "id": "context",
-      "label": "Context window",
-      "shortLabel": "ctx"
+      "id": "output-price",
+      "label": "API output price",
+      "shortLabel": "OUTPUT $",
+      "displayLabel": "输出价格",
+      "direction": "lower",
+      "format": "usd",
+      "min": 0,
+      "max": 50,
+      "sourceId": null,
+      "derivedFrom": "outputPrice",
+      "asOf": "2026-08-06",
+      "description": "Public list price in USD per million output tokens. Lower is better; discounts and cache tiers are excluded."
     },
     {
-      "id": "cost",
-      "label": "Cost pressure",
-      "shortLabel": "cost"
+      "id": "context-window",
+      "label": "Advertised context window",
+      "shortLabel": "CONTEXT",
+      "displayLabel": "上下文",
+      "direction": "higher",
+      "format": "tokens",
+      "min": 128000,
+      "max": 1050000,
+      "sourceId": null,
+      "derivedFrom": "contextTokens",
+      "asOf": "2026-08-06",
+      "description": "Advertised input context. Effective long-context quality is a separate question."
     }
   ],
   "providers": [
@@ -43,24 +93,13 @@ export const modelRadarSnapshot = {
       "id": "openai",
       "name": "OpenAI",
       "region": "US",
-      "accent": "#ff5a1f",
-      "latestModelId": "openai-gpt-5-5",
+      "accent": "#ff4f00",
+      "latestModelId": "openai-gpt-5-6-sol",
       "cycleLabel": "numbered frontier train",
-      "sourceIds": [
-        "openai-models"
-      ],
       "releaseHistory": [
-        {
-          "date": "2025-04-14",
-          "label": "GPT-4.1"
-        },
         {
           "date": "2025-08-07",
           "label": "GPT-5"
-        },
-        {
-          "date": "2025-11-12",
-          "label": "GPT-5.1"
         },
         {
           "date": "2025-12-11",
@@ -69,6 +108,10 @@ export const modelRadarSnapshot = {
         {
           "date": "2026-04-23",
           "label": "GPT-5.5"
+        },
+        {
+          "date": "2026-07-09",
+          "label": "GPT-5.6 Sol"
         }
       ]
     },
@@ -76,21 +119,10 @@ export const modelRadarSnapshot = {
       "id": "anthropic",
       "name": "Anthropic",
       "region": "US",
-      "accent": "#00bfb2",
-      "latestModelId": "anthropic-claude-opus-4-7",
-      "cycleLabel": "Opus/Sonnet alternating workhorses",
-      "sourceIds": [
-        "anthropic-models"
-      ],
+      "accent": "#00a88f",
+      "latestModelId": "anthropic-claude-opus-5",
+      "cycleLabel": "Opus/Sonnet alternating train",
       "releaseHistory": [
-        {
-          "date": "2025-05-22",
-          "label": "Claude 4"
-        },
-        {
-          "date": "2025-09-29",
-          "label": "Claude Sonnet 4.5"
-        },
         {
           "date": "2025-11-24",
           "label": "Claude Opus 4.5"
@@ -100,8 +132,12 @@ export const modelRadarSnapshot = {
           "label": "Claude Sonnet 4.6"
         },
         {
-          "date": "2026-04-16",
-          "label": "Claude Opus 4.7"
+          "date": "2026-06-09",
+          "label": "Claude Fable 5"
+        },
+        {
+          "date": "2026-07-24",
+          "label": "Claude Opus 5"
         }
       ]
     },
@@ -109,28 +145,25 @@ export const modelRadarSnapshot = {
       "id": "google",
       "name": "Google DeepMind",
       "region": "US",
-      "accent": "#f9ca24",
-      "latestModelId": "google-gemini-3-1-pro-preview",
-      "cycleLabel": "Gemini preview to stable cadence",
-      "sourceIds": [
-        "google-gemini-models"
-      ],
+      "accent": "#ffd400",
+      "latestModelId": "google-gemini-3-6-flash",
+      "cycleLabel": "Gemini preview to stable stream",
       "releaseHistory": [
-        {
-          "date": "2025-03-25",
-          "label": "Gemini 2.5 Pro"
-        },
-        {
-          "date": "2025-06-17",
-          "label": "Gemini 2.5 stable"
-        },
         {
           "date": "2025-11-18",
           "label": "Gemini 3 Pro"
         },
         {
           "date": "2026-02-19",
-          "label": "Gemini 3.1 Pro Preview"
+          "label": "Gemini 3.1 Pro"
+        },
+        {
+          "date": "2026-05-12",
+          "label": "Gemini 3.5 Flash"
+        },
+        {
+          "date": "2026-07-21",
+          "label": "Gemini 3.6 Flash"
         }
       ]
     },
@@ -139,16 +172,9 @@ export const modelRadarSnapshot = {
       "name": "xAI",
       "region": "US",
       "accent": "#cfff26",
-      "latestModelId": "xai-grok-4-3",
-      "cycleLabel": "rapid Grok reasoning releases",
-      "sourceIds": [
-        "xai-models"
-      ],
+      "latestModelId": "xai-grok-4-5",
+      "cycleLabel": "rapid Grok reasoning stream",
       "releaseHistory": [
-        {
-          "date": "2025-02-17",
-          "label": "Grok 3"
-        },
         {
           "date": "2025-07-09",
           "label": "Grok 4"
@@ -160,6 +186,10 @@ export const modelRadarSnapshot = {
         {
           "date": "2026-05-09",
           "label": "Grok 4.3"
+        },
+        {
+          "date": "2026-07-16",
+          "label": "Grok 4.5"
         }
       ]
     },
@@ -167,20 +197,13 @@ export const modelRadarSnapshot = {
       "id": "deepseek",
       "name": "DeepSeek",
       "region": "CN",
-      "accent": "#3157ff",
+      "accent": "#2667ff",
       "latestModelId": "deepseek-v4-pro",
       "cycleLabel": "price pressure plus long reasoning",
-      "sourceIds": [
-        "deepseek-pricing"
-      ],
       "releaseHistory": [
         {
           "date": "2025-01-20",
           "label": "DeepSeek-R1"
-        },
-        {
-          "date": "2025-05-28",
-          "label": "DeepSeek-R1-0528"
         },
         {
           "date": "2025-12-01",
@@ -188,7 +211,7 @@ export const modelRadarSnapshot = {
         },
         {
           "date": "2026-04-24",
-          "label": "DeepSeek-V4-Pro"
+          "label": "DeepSeek-V4 Pro"
         }
       ]
     },
@@ -196,20 +219,13 @@ export const modelRadarSnapshot = {
       "id": "moonshot",
       "name": "Moonshot AI",
       "region": "CN",
-      "accent": "#f05c9a",
-      "latestModelId": "moonshot-kimi-k2-6",
-      "cycleLabel": "Kimi coding and agent upgrades",
-      "sourceIds": [
-        "moonshot-docs"
-      ],
+      "accent": "#ff477e",
+      "latestModelId": "moonshot-kimi-k3",
+      "cycleLabel": "Kimi coding and agent stream",
       "releaseHistory": [
         {
           "date": "2025-07-11",
           "label": "Kimi K2"
-        },
-        {
-          "date": "2025-09-05",
-          "label": "Kimi K2 0905"
         },
         {
           "date": "2025-11-06",
@@ -217,7 +233,11 @@ export const modelRadarSnapshot = {
         },
         {
           "date": "2026-05-18",
-          "label": "Kimi K2.6 observed"
+          "label": "Kimi K2.6"
+        },
+        {
+          "date": "2026-07-16",
+          "label": "Kimi K3"
         }
       ]
     },
@@ -225,20 +245,13 @@ export const modelRadarSnapshot = {
       "id": "mistral",
       "name": "Mistral AI",
       "region": "EU",
-      "accent": "#ff8a00",
-      "latestModelId": "mistral-large-3",
+      "accent": "#f57c00",
+      "latestModelId": "mistral-medium-3-5",
       "cycleLabel": "open and enterprise model lattice",
-      "sourceIds": [
-        "mistral-models"
-      ],
       "releaseHistory": [
         {
           "date": "2025-05-07",
-          "label": "Medium 3"
-        },
-        {
-          "date": "2025-08-01",
-          "label": "Le Chat enterprise"
+          "label": "Mistral Medium 3"
         },
         {
           "date": "2025-12-01",
@@ -246,7 +259,7 @@ export const modelRadarSnapshot = {
         },
         {
           "date": "2026-03-18",
-          "label": "Medium 3.5"
+          "label": "Mistral Medium 3.5"
         }
       ]
     },
@@ -254,12 +267,9 @@ export const modelRadarSnapshot = {
       "id": "qwen",
       "name": "Alibaba Qwen",
       "region": "CN",
-      "accent": "#8d66ff",
-      "latestModelId": "qwen3-thinking-2507",
-      "cycleLabel": "open-weight dense/MoE stream",
-      "sourceIds": [
-        "qwen-blog"
-      ],
+      "accent": "#985eff",
+      "latestModelId": "qwen-3-7-max",
+      "cycleLabel": "dense and MoE release stream",
       "releaseHistory": [
         {
           "date": "2025-04-29",
@@ -267,15 +277,15 @@ export const modelRadarSnapshot = {
         },
         {
           "date": "2025-07-21",
-          "label": "Qwen3-2507"
-        },
-        {
-          "date": "2025-09-10",
-          "label": "Qwen3 Coder"
+          "label": "Qwen3 2507"
         },
         {
           "date": "2026-01-15",
-          "label": "Qwen3 long-context updates"
+          "label": "Qwen3 long context"
+        },
+        {
+          "date": "2026-05-20",
+          "label": "Qwen3.7 Max"
         }
       ]
     },
@@ -284,23 +294,24 @@ export const modelRadarSnapshot = {
       "name": "Meta",
       "region": "US",
       "accent": "#00a3ff",
-      "latestModelId": "meta-llama-4-scout-maverick",
-      "cycleLabel": "open-weight multimodal waves",
-      "sourceIds": [
-        "meta-llama"
-      ],
+      "latestModelId": "meta-muse-spark-1-1",
+      "cycleLabel": "open and API multimodal waves",
       "releaseHistory": [
-        {
-          "date": "2024-07-23",
-          "label": "Llama 3.1"
-        },
         {
           "date": "2024-12-06",
           "label": "Llama 3.3"
         },
         {
           "date": "2025-04-05",
-          "label": "Llama 4 Scout/Maverick"
+          "label": "Llama 4"
+        },
+        {
+          "date": "2026-04-29",
+          "label": "Muse Spark"
+        },
+        {
+          "date": "2026-07-09",
+          "label": "Muse Spark 1.1"
         }
       ]
     },
@@ -308,12 +319,9 @@ export const modelRadarSnapshot = {
       "id": "cohere",
       "name": "Cohere",
       "region": "CA",
-      "accent": "#08a045",
-      "latestModelId": "cohere-command-a-reasoning-08-2025",
-      "cycleLabel": "enterprise RAG and command models",
-      "sourceIds": [
-        "cohere-models"
-      ],
+      "accent": "#00a36c",
+      "latestModelId": "cohere-command-a-plus",
+      "cycleLabel": "enterprise RAG and Command stream",
       "releaseHistory": [
         {
           "date": "2025-03-13",
@@ -322,6 +330,10 @@ export const modelRadarSnapshot = {
         {
           "date": "2025-08-19",
           "label": "Command A Reasoning"
+        },
+        {
+          "date": "2026-05-20",
+          "label": "Command A+"
         }
       ]
     },
@@ -329,13 +341,9 @@ export const modelRadarSnapshot = {
       "id": "amazon",
       "name": "Amazon",
       "region": "US",
-      "accent": "#111111",
+      "accent": "#6f7782",
       "latestModelId": "amazon-nova-2-omni",
-      "cycleLabel": "Bedrock lifecycle train",
-      "sourceIds": [
-        "amazon-nova"
-      ],
-      "sunsetAt": "2026-09-14",
+      "cycleLabel": "Bedrock platform train",
       "releaseHistory": [
         {
           "date": "2024-12-03",
@@ -353,19 +361,12 @@ export const modelRadarSnapshot = {
     },
     {
       "id": "zhipu",
-      "name": "Zhipu GLM",
+      "name": "Z.ai",
       "region": "CN",
-      "accent": "#e0332f",
-      "latestModelId": "zhipu-glm-4-6",
-      "cycleLabel": "Chinese agent/coding release stream",
-      "sourceIds": [
-        "zhipu-docs"
-      ],
+      "accent": "#e53935",
+      "latestModelId": "zhipu-glm-5-2",
+      "cycleLabel": "GLM agent and coding stream",
       "releaseHistory": [
-        {
-          "date": "2025-01-20",
-          "label": "GLM-4-Plus"
-        },
         {
           "date": "2025-06-30",
           "label": "GLM-4.5"
@@ -373,21 +374,27 @@ export const modelRadarSnapshot = {
         {
           "date": "2025-09-30",
           "label": "GLM-4.6"
+        },
+        {
+          "date": "2026-02-11",
+          "label": "GLM-5"
+        },
+        {
+          "date": "2026-06-16",
+          "label": "GLM-5.2"
         }
       ]
     }
   ],
   "models": [
     {
-      "id": "openai-gpt-5-5",
+      "id": "openai-gpt-5-6-sol",
       "providerId": "openai",
-      "name": "GPT-5.5",
+      "name": "GPT-5.6 Sol",
       "modelIds": [
-        "gpt-5.5",
-        "gpt-5.5-2026-04-23"
+        "gpt-5.6-sol"
       ],
-      "releasedAt": "2026-04-23",
-      "dateConfidence": "official-doc",
+      "releasedAt": "2026-07-09",
       "stage": "frontier",
       "access": [
         "api",
@@ -399,35 +406,39 @@ export const modelRadarSnapshot = {
         "inputPerMTok": 5,
         "outputPerMTok": 30
       },
-      "scores": {
-        "reasoning": 100,
-        "coding": 99,
-        "agent": 99,
-        "vision": 94,
-        "context": 98,
-        "cost": 60
+      "posture": "Highest-cost general frontier lane with strong software and agent results.",
+      "watch": "Track whether smaller GPT-5.6 tiers inherit Sol's agent gains.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 59,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1483,
+          "rank": 15,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01"
+        },
+        "swebench-pro": {
+          "value": 64.6,
+          "sourceId": "openai-gpt-56",
+          "asOf": "2026-07-09",
+          "provenance": "vendor-reported"
+        }
       },
-      "posture": "new top-end general intelligence lane",
-      "shift": "Raises the ceiling; best when the task has hidden dependencies and long horizon planning.",
-      "nearFuture": "Watch whether smaller GPT-5.5 derivatives inherit the planning gains.",
-      "badges": [
-        "frontier",
-        "long context",
-        "agentic"
-      ],
       "sourceRefs": [
-        "openai-models"
+        "openai-gpt-56"
       ]
     },
     {
-      "id": "anthropic-claude-opus-4-7",
+      "id": "anthropic-claude-opus-5",
       "providerId": "anthropic",
-      "name": "Claude Opus 4.7",
+      "name": "Claude Opus 5",
       "modelIds": [
-        "claude-opus-4-7-20260416"
+        "claude-opus-5"
       ],
-      "releasedAt": "2026-04-16",
-      "dateConfidence": "official-doc",
+      "releasedAt": "2026-07-24",
       "stage": "frontier",
       "access": [
         "api",
@@ -439,36 +450,84 @@ export const modelRadarSnapshot = {
         "inputPerMTok": 5,
         "outputPerMTok": 25
       },
-      "scores": {
-        "reasoning": 98,
-        "coding": 99,
-        "agent": 99,
-        "vision": 95,
-        "context": 96,
-        "cost": 62
+      "posture": "Current Anthropic workhorse at near-Fable intelligence and half its price.",
+      "watch": "The practical question is how quickly Opus 5 becomes the default agent model.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 61,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1490,
+          "rank": 8,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01"
+        }
       },
-      "posture": "agent and code reliability lane",
-      "shift": "The signal is agent endurance: fewer dropped threads over long tool chains.",
-      "nearFuture": "Sonnet usually follows Opus pressure; watch the next cheaper workhorse.",
-      "badges": [
-        "frontier",
-        "coding",
-        "agentic"
-      ],
       "sourceRefs": [
-        "anthropic-models"
+        "anthropic-opus-5"
       ]
     },
     {
-      "id": "google-gemini-3-1-pro-preview",
-      "providerId": "google",
-      "name": "Gemini 3.1 Pro Preview",
+      "id": "anthropic-claude-fable-5",
+      "providerId": "anthropic",
+      "name": "Claude Fable 5",
       "modelIds": [
-        "gemini-3.1-pro-preview"
+        "claude-fable-5"
       ],
-      "releasedAt": "2026-02-19",
-      "dateConfidence": "official-doc",
-      "stage": "preview",
+      "releasedAt": "2026-06-09",
+      "stage": "frontier",
+      "access": [
+        "api",
+        "claude"
+      ],
+      "contextTokens": 1000000,
+      "outputTokens": 128000,
+      "priceUsd": {
+        "inputPerMTok": 10,
+        "outputPerMTok": 50
+      },
+      "posture": "Anthropic's expensive ceiling model and the current Arena preference leader.",
+      "watch": "Watch for capability transfer into the cheaper Opus and Sonnet lanes.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 60,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1509,
+          "rank": 1,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01"
+        },
+        "swebench-pro": {
+          "value": 80,
+          "sourceId": "anthropic-fable-5",
+          "asOf": "2026-06-09",
+          "provenance": "vendor-reported"
+        },
+        "terminalbench": {
+          "value": 84.3,
+          "sourceId": "anthropic-fable-5",
+          "asOf": "2026-06-09",
+          "provenance": "vendor-reported"
+        }
+      },
+      "sourceRefs": [
+        "anthropic-fable-5"
+      ]
+    },
+    {
+      "id": "google-gemini-3-6-flash",
+      "providerId": "google",
+      "name": "Gemini 3.6 Flash",
+      "modelIds": [
+        "gemini-3.6-flash"
+      ],
+      "releasedAt": "2026-07-21",
+      "stage": "frontier",
       "access": [
         "api",
         "ai-studio",
@@ -477,80 +536,99 @@ export const modelRadarSnapshot = {
       "contextTokens": 1000000,
       "outputTokens": 65536,
       "priceUsd": {
-        "inputPerMTok": 2,
-        "outputPerMTok": 12
+        "inputPerMTok": 1.5,
+        "outputPerMTok": 7.5
       },
-      "scores": {
-        "reasoning": 98,
-        "coding": 96,
-        "agent": 95,
-        "vision": 97,
-        "context": 96,
-        "cost": 72
+      "posture": "High-throughput multimodal model with unusually strong agent scores for a Flash tier.",
+      "watch": "The next signal is whether Gemini's Pro lane converts this speed into a new ceiling.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 50,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1483,
+          "rank": 16,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01",
+          "preliminary": true
+        },
+        "swebench-pro": {
+          "value": 58.7,
+          "sourceId": "google-gemini",
+          "asOf": "2026-07-21",
+          "provenance": "vendor-reported"
+        },
+        "terminalbench": {
+          "value": 78,
+          "sourceId": "google-gemini",
+          "asOf": "2026-07-21",
+          "provenance": "vendor-reported"
+        }
       },
-      "posture": "multimodal and search-connected frontier lane",
-      "shift": "Strong world model plus native multimodal surface; useful when text, images, and web context mix.",
-      "nearFuture": "The preview clock points toward a stable Gemini 3.1 family refresh.",
-      "badges": [
-        "preview",
-        "multimodal",
-        "long context"
-      ],
       "sourceRefs": [
-        "google-gemini-models"
+        "google-gemini"
       ]
     },
     {
-      "id": "xai-grok-4-3",
+      "id": "xai-grok-4-5",
       "providerId": "xai",
-      "name": "Grok 4.3",
+      "name": "Grok 4.5",
       "modelIds": [
-        "grok-4-3",
-        "grok-4-3-fast"
+        "grok-4.5"
       ],
-      "releasedAt": "2026-05-09",
-      "dateConfidence": "official-doc",
+      "releasedAt": "2026-07-16",
       "stage": "frontier",
       "access": [
         "api",
         "x"
       ],
-      "contextTokens": 1000000,
+      "contextTokens": 500000,
       "outputTokens": 131072,
       "priceUsd": {
-        "inputPerMTok": 1.25,
-        "outputPerMTok": 2.5
+        "inputPerMTok": 2,
+        "outputPerMTok": 6
       },
-      "scores": {
-        "reasoning": 95,
-        "coding": 93,
-        "agent": 96,
-        "vision": 89,
-        "context": 95,
-        "cost": 86
+      "posture": "Fast reasoning and terminal-agent challenger with aggressive list pricing.",
+      "watch": "Latency and sustained tool-use reliability are now the pressure points.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 54,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1469,
+          "rank": 35,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01"
+        },
+        "swebench-pro": {
+          "value": 64.7,
+          "sourceId": "xai-grok-45",
+          "asOf": "2026-07-16",
+          "provenance": "vendor-reported"
+        },
+        "terminalbench": {
+          "value": 83.3,
+          "sourceId": "xai-grok-45",
+          "asOf": "2026-07-16",
+          "provenance": "vendor-reported"
+        }
       },
-      "posture": "fast reasoning and live-information lane",
-      "shift": "The pressure point is speed per unit of reasoning rather than pure benchmark peak.",
-      "nearFuture": "If the fast tier holds quality, the market has to price latency differently.",
-      "badges": [
-        "recent",
-        "fast",
-        "long context"
-      ],
       "sourceRefs": [
-        "xai-models"
+        "xai-grok-45"
       ]
     },
     {
       "id": "deepseek-v4-pro",
       "providerId": "deepseek",
-      "name": "DeepSeek-V4-Pro",
+      "name": "DeepSeek-V4 Pro",
       "modelIds": [
-        "deepseek-v4-pro",
-        "deepseek-v4"
+        "deepseek-v4-pro"
       ],
       "releasedAt": "2026-04-24",
-      "dateConfidence": "official-doc",
       "stage": "frontier",
       "access": [
         "api"
@@ -558,40 +636,116 @@ export const modelRadarSnapshot = {
       "contextTokens": 1000000,
       "outputTokens": 384000,
       "priceUsd": {
-        "inputPerMTok": 0.44,
+        "inputPerMTok": 0.435,
         "outputPerMTok": 0.87
       },
-      "scores": {
-        "reasoning": 94,
-        "coding": 95,
-        "agent": 95,
-        "vision": 30,
-        "context": 97,
-        "cost": 98
+      "posture": "The strongest price shock in this board, paired with a million-token context.",
+      "watch": "Its economics force every frontier provider to explain its premium.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 44,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1458,
+          "rank": 49,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01"
+        }
       },
-      "posture": "price-performance shock lane",
-      "shift": "Long context and low output price make large-batch reasoning economically different.",
-      "nearFuture": "Watch whether western providers answer with price cuts or smaller routed models.",
-      "badges": [
-        "cost shock",
-        "long output",
-        "api"
-      ],
       "sourceRefs": [
-        "deepseek-pricing"
+        "deepseek-v4"
       ]
     },
     {
-      "id": "moonshot-kimi-k2-6",
+      "id": "moonshot-kimi-k3",
       "providerId": "moonshot",
-      "name": "Kimi K2.6",
+      "name": "Kimi K3",
       "modelIds": [
-        "kimi-k2.6",
-        "kimi-k2-6"
+        "kimi-k3"
       ],
-      "releasedAt": "2026-05-18",
-      "dateConfidence": "official-doc",
-      "stage": "frontier",
+      "releasedAt": "2026-07-16",
+      "stage": "open-weight",
+      "access": [
+        "api",
+        "web",
+        "open-weight"
+      ],
+      "contextTokens": 1000000,
+      "outputTokens": 131072,
+      "priceUsd": {
+        "inputPerMTok": 3,
+        "outputPerMTok": 15
+      },
+      "posture": "Large open-weight coding and agent model competing in the global top tier.",
+      "watch": "Open weights turn leaderboard movement into immediate deployment pressure.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 57,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1485,
+          "rank": 13,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01",
+          "preliminary": true
+        }
+      },
+      "sourceRefs": [
+        "moonshot-kimi-k3"
+      ]
+    },
+    {
+      "id": "mistral-medium-3-5",
+      "providerId": "mistral",
+      "name": "Mistral Medium 3.5",
+      "modelIds": [
+        "mistral-medium-3.5"
+      ],
+      "releasedAt": "2026-03-18",
+      "stage": "enterprise",
+      "access": [
+        "api",
+        "enterprise"
+      ],
+      "contextTokens": 262144,
+      "outputTokens": 65536,
+      "priceUsd": {
+        "inputPerMTok": 1.5,
+        "outputPerMTok": 7.5
+      },
+      "posture": "European enterprise alternative optimized around deployment control and latency.",
+      "watch": "A new Mistral flagship would reset the oldest clock on this board.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 30,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1427,
+          "rank": 94,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01"
+        }
+      },
+      "sourceRefs": [
+        "mistral-models"
+      ]
+    },
+    {
+      "id": "qwen-3-7-max",
+      "providerId": "qwen",
+      "name": "Qwen3.7 Max",
+      "modelIds": [
+        "qwen3.7-max",
+        "qwen3.7-max-preview"
+      ],
+      "releasedAt": "2026-05-20",
+      "stage": "preview",
       "access": [
         "api",
         "web"
@@ -599,180 +753,88 @@ export const modelRadarSnapshot = {
       "contextTokens": 1000000,
       "outputTokens": 131072,
       "priceUsd": {
-        "inputPerMTok": 0.6,
-        "outputPerMTok": 2.5
+        "inputPerMTok": 2.5,
+        "outputPerMTok": 7.5
       },
-      "scores": {
-        "reasoning": 93,
-        "coding": 96,
-        "agent": 94,
-        "vision": 82,
-        "context": 96,
-        "cost": 88
+      "posture": "Chinese general frontier model with strong human-preference placement.",
+      "watch": "Arena already shows a Qwen3.8 label; official confirmation is the next decisive event.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 46,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1475,
+          "rank": 23,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01",
+          "preliminary": true
+        }
       },
-      "posture": "coding and long-context Chinese frontier lane",
-      "shift": "Kimi is competing on usable coding depth, not only chat quality.",
-      "nearFuture": "Watch K2.6 stability and whether the agent surface becomes a default product.",
-      "badges": [
-        "recent",
-        "coding",
-        "cn frontier"
-      ],
       "sourceRefs": [
-        "moonshot-docs"
+        "qwen-models"
       ]
     },
     {
-      "id": "mistral-large-3",
-      "providerId": "mistral",
-      "name": "Mistral Large 3",
+      "id": "meta-muse-spark-1-1",
+      "providerId": "meta",
+      "name": "Muse Spark 1.1",
       "modelIds": [
-        "mistral-large-2512",
-        "mistral-large-3"
+        "muse-spark-1.1"
       ],
-      "releasedAt": "2025-12-01",
-      "dateConfidence": "official-doc",
-      "stage": "frontier",
+      "releasedAt": "2026-07-09",
+      "stage": "preview",
       "access": [
-        "api",
-        "enterprise"
+        "api-preview"
       ],
-      "contextTokens": 256000,
-      "outputTokens": 128000,
-      "priceUsd": null,
-      "scores": {
-        "reasoning": 91,
-        "coding": 92,
-        "agent": 90,
-        "vision": 86,
-        "context": 82,
-        "cost": 70
+      "contextTokens": 1000000,
+      "outputTokens": 65536,
+      "priceUsd": {
+        "inputPerMTok": 1.25,
+        "outputPerMTok": 4.25
       },
-      "posture": "European open-enterprise alternative lane",
-      "shift": "Mistral keeps a credible non-US frontier option in the enterprise stack.",
-      "nearFuture": "Watch the next open-weight release because it can reset deployment choices.",
-      "badges": [
-        "eu",
-        "enterprise",
-        "multimodal"
-      ],
+      "posture": "Meta's multimodal agentic API model and a sharp break from the Llama-only storyline.",
+      "watch": "Public API availability and open-weight strategy remain the missing pieces.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 51,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1490,
+          "rank": 9,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01",
+          "preliminary": true
+        }
+      },
       "sourceRefs": [
-        "mistral-models"
+        "meta-muse"
       ]
     },
     {
-      "id": "qwen3-thinking-2507",
-      "providerId": "qwen",
-      "name": "Qwen3 Thinking 2507",
+      "id": "cohere-command-a-plus",
+      "providerId": "cohere",
+      "name": "Command A+",
       "modelIds": [
-        "qwen3-thinking-2507",
-        "qwen3-235b-a22b-thinking-2507"
+        "command-a-plus"
       ],
-      "releasedAt": "2025-07-21",
-      "dateConfidence": "official-blog",
+      "releasedAt": "2026-05-20",
       "stage": "open-weight",
       "access": [
         "open-weight",
-        "api"
-      ],
-      "contextTokens": 262000,
-      "outputTokens": 65536,
-      "priceUsd": null,
-      "scores": {
-        "reasoning": 92,
-        "coding": 93,
-        "agent": 87,
-        "vision": 62,
-        "context": 83,
-        "cost": 92
-      },
-      "posture": "open-weight reasoning and localization lane",
-      "shift": "Qwen keeps open deployment pressure high, especially for Chinese and code-heavy workloads.",
-      "nearFuture": "A new Qwen open-weight wave would immediately reshape local inference decisions.",
-      "badges": [
-        "open weight",
-        "reasoning",
-        "cn"
-      ],
-      "sourceRefs": [
-        "qwen-blog"
-      ]
-    },
-    {
-      "id": "meta-llama-4-scout-maverick",
-      "providerId": "meta",
-      "name": "Llama 4 Scout/Maverick",
-      "modelIds": [
-        "llama-4-scout",
-        "llama-4-maverick"
-      ],
-      "releasedAt": "2025-04-05",
-      "dateConfidence": "official-blog",
-      "stage": "open-weight",
-      "access": [
-        "open-weight"
-      ],
-      "contextTokens": 10000000,
-      "outputTokens": 8192,
-      "priceUsd": null,
-      "scores": {
-        "reasoning": 86,
-        "coding": 84,
-        "agent": 78,
-        "vision": 90,
-        "context": 100,
-        "cost": 95
-      },
-      "posture": "open multimodal and extreme-context lane",
-      "shift": "The memorable fact is Scout's extreme context window and broad open-weight availability.",
-      "nearFuture": "The clock is old; the next Llama wave is a major open-model watch point.",
-      "badges": [
-        "open weight",
-        "10M context",
-        "multimodal"
-      ],
-      "sourceRefs": [
-        "meta-llama"
-      ]
-    },
-    {
-      "id": "cohere-command-a-reasoning-08-2025",
-      "providerId": "cohere",
-      "name": "Command A Reasoning",
-      "modelIds": [
-        "command-a-reasoning-08-2025"
-      ],
-      "releasedAt": "2025-08-19",
-      "dateConfidence": "official-doc",
-      "stage": "enterprise",
-      "access": [
-        "api",
         "enterprise"
       ],
-      "contextTokens": 256000,
-      "outputTokens": 32000,
-      "priceUsd": {
-        "inputPerMTok": 2.5,
-        "outputPerMTok": 10
-      },
-      "scores": {
-        "reasoning": 88,
-        "coding": 84,
-        "agent": 82,
-        "vision": 35,
-        "context": 82,
-        "cost": 74
-      },
-      "posture": "enterprise RAG and controlled generation lane",
-      "shift": "Cohere matters where deployment control, retrieval, and enterprise surface area beat raw hype.",
-      "nearFuture": "Watch for a Command A successor that narrows the reasoning gap.",
-      "badges": [
-        "enterprise",
-        "rag",
-        "reasoning"
-      ],
+      "contextTokens": 128000,
+      "outputTokens": 64000,
+      "priceUsd": null,
+      "posture": "Apache-licensed enterprise model with 25B active parameters and broad language coverage.",
+      "watch": "Independent benchmark coverage is still thin, so the missing cells matter here.",
+      "benchmarks": {},
       "sourceRefs": [
-        "cohere-models"
+        "cohere-command-a-plus"
       ]
     },
     {
@@ -780,11 +842,9 @@ export const modelRadarSnapshot = {
       "providerId": "amazon",
       "name": "Amazon Nova 2 Omni",
       "modelIds": [
-        "amazon.nova-2-omni-v1:0",
-        "nova-2-omni"
+        "amazon.nova-2-omni-v1:0"
       ],
       "releasedAt": "2025-12-02",
-      "dateConfidence": "official-doc",
       "stage": "platform",
       "access": [
         "bedrock"
@@ -792,189 +852,266 @@ export const modelRadarSnapshot = {
       "contextTokens": 1000000,
       "outputTokens": 32000,
       "priceUsd": null,
-      "scores": {
-        "reasoning": 86,
-        "coding": 80,
-        "agent": 82,
-        "vision": 94,
-        "context": 96,
-        "cost": 68
-      },
-      "posture": "cloud platform integration lane",
-      "shift": "The signal is lifecycle and platform reach: Bedrock can move enterprises even when benchmarks lag.",
-      "nearFuture": "Bedrock users should watch Nova Premier retirement and the Nova 2 migration path.",
-      "badges": [
-        "bedrock",
-        "multimodal",
-        "lifecycle watch"
-      ],
+      "posture": "Bedrock-native multimodal model whose distribution signal exceeds public benchmark coverage.",
+      "watch": "The next Nova lifecycle update matters most to existing AWS fleets.",
+      "benchmarks": {},
       "sourceRefs": [
         "amazon-nova"
       ]
     },
     {
-      "id": "zhipu-glm-4-6",
+      "id": "zhipu-glm-5-2",
       "providerId": "zhipu",
-      "name": "GLM-4.6",
+      "name": "GLM-5.2",
       "modelIds": [
-        "glm-4.6",
-        "glm-4-6"
+        "glm-5.2"
       ],
-      "releasedAt": "2025-09-30",
-      "dateConfidence": "official-doc",
+      "releasedAt": "2026-06-16",
       "stage": "frontier",
       "access": [
         "api",
         "chat"
       ],
-      "contextTokens": 200000,
-      "outputTokens": 32768,
-      "priceUsd": null,
-      "scores": {
-        "reasoning": 90,
-        "coding": 92,
-        "agent": 89,
-        "vision": 78,
-        "context": 78,
-        "cost": 82
+      "contextTokens": 1000000,
+      "outputTokens": 131072,
+      "priceUsd": {
+        "inputPerMTok": 1.4,
+        "outputPerMTok": 4.4
       },
-      "posture": "Chinese agent/coding workhorse lane",
-      "shift": "GLM keeps pressure on Chinese-language agent workflows and practical coding.",
-      "nearFuture": "Watch whether GLM moves from workhorse to clear frontier challenger.",
-      "badges": [
-        "cn",
-        "coding",
-        "agent"
-      ],
+      "posture": "Fast Chinese frontier challenger with strong terminal and software results.",
+      "watch": "Its speed and price make sustained agent reliability the key follow-up test.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 51,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-06"
+        },
+        "arena-elo": {
+          "value": 1469,
+          "rank": 33,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-01"
+        },
+        "swebench-pro": {
+          "value": 62.1,
+          "sourceId": "zhipu-glm-52",
+          "asOf": "2026-06-16",
+          "provenance": "vendor-reported"
+        },
+        "terminalbench": {
+          "value": 81,
+          "sourceId": "zhipu-glm-52",
+          "asOf": "2026-06-16",
+          "provenance": "vendor-reported"
+        }
+      },
       "sourceRefs": [
-        "zhipu-docs"
+        "zhipu-glm-52"
       ]
+    }
+  ],
+  "events": [
+    {
+      "id": "opus-5-live",
+      "date": "2026-07-24",
+      "status": "released",
+      "providerId": "anthropic",
+      "label": "Claude Opus 5 released",
+      "detail": "AA leader at 61; priced at $5 / $25 per million tokens.",
+      "sourceId": "anthropic-opus-5"
+    },
+    {
+      "id": "gemini-36-live",
+      "date": "2026-07-21",
+      "status": "released",
+      "providerId": "google",
+      "label": "Gemini 3.6 Flash released",
+      "detail": "A Flash-tier model enters the front pack on speed and agent tasks.",
+      "sourceId": "google-gemini"
+    },
+    {
+      "id": "july-frontier-cluster",
+      "date": "2026-07-16",
+      "status": "released",
+      "providerId": "xai",
+      "label": "Grok 4.5 and Kimi K3 land together",
+      "detail": "Two different release strategies converge on coding and agent work.",
+      "sourceId": "xai-grok-45"
+    },
+    {
+      "id": "qwen-38-watch",
+      "date": "2026-08-01",
+      "status": "watch",
+      "providerId": "qwen",
+      "label": "Qwen3.8 appears in Arena",
+      "detail": "A preliminary leaderboard row is visible; official model confirmation is pending.",
+      "sourceId": "benchmark-arena"
+    },
+    {
+      "id": "sonnet-price-window",
+      "date": "2026-08-31",
+      "status": "deadline",
+      "providerId": "anthropic",
+      "label": "Claude Sonnet 5 launch pricing window",
+      "detail": "Temporary launch pricing is scheduled to close; verify the API page before purchase decisions.",
+      "sourceId": "anthropic-opus-5"
+    },
+    {
+      "id": "qwen-retirement",
+      "date": "2026-10-10",
+      "status": "deadline",
+      "providerId": "qwen",
+      "label": "Legacy Qwen snapshot retirement window",
+      "detail": "Pinned production deployments should check model aliases before this date.",
+      "sourceId": "qwen-models"
     }
   ],
   "sources": [
     {
-      "id": "openai-models",
+      "id": "openai-gpt-56",
       "providerId": "openai",
-      "label": "OpenAI model docs",
-      "url": "https://platform.openai.com/docs/models/gpt-5.5",
+      "sourceType": "provider",
+      "label": "OpenAI GPT-5.6",
+      "url": "https://openai.com/index/gpt-5-6",
       "official": true,
       "watch": [
-        "gpt-5.5",
-        "gpt-5.4",
-        "gpt-5.5-2026-04-23"
+        "gpt-5.6",
+        "gpt-5.6-sol",
+        "swe-bench pro"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
-      "ok": true,
-      "sha256": "0883288be59169f5c414ab85e618182d5426d9bdc53e75944e5d351ba0b2d261",
-      "foundSignals": [
-        "gpt-5.5",
-        "gpt-5.4",
-        "gpt-5.5-2026-04-23"
-      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": false,
+      "sha256": "",
+      "foundSignals": [],
       "changed": false,
-      "error": ""
+      "error": "HTTP 403 Forbidden"
     },
     {
-      "id": "anthropic-models",
+      "id": "anthropic-opus-5",
       "providerId": "anthropic",
-      "label": "Anthropic model docs",
-      "url": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+      "sourceType": "provider",
+      "label": "Anthropic Claude Opus 5",
+      "url": "https://www.anthropic.com/news/claude-opus-5",
       "official": true,
       "watch": [
-        "claude-opus-4-7",
-        "claude-sonnet-4-6",
-        "claude-opus-4-7-20260416"
+        "claude opus 5",
+        "claude-opus-5",
+        "1m"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": true,
-      "sha256": "dcd5367a65d7b6328deb5ae3db0483108b58555746774e40fe178921042b112c",
+      "sha256": "457c5a49a0e9f4d5404510caeb057a8179b476e733b2b63e3b7588ada93e57b3",
       "foundSignals": [
-        "claude-opus-4-7",
-        "claude-sonnet-4-6"
+        "claude opus 5",
+        "claude-opus-5",
+        "1m"
       ],
       "changed": false,
       "error": ""
     },
     {
-      "id": "google-gemini-models",
+      "id": "anthropic-fable-5",
+      "providerId": "anthropic",
+      "sourceType": "provider",
+      "label": "Anthropic Claude Fable 5",
+      "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      "official": true,
+      "watch": [
+        "claude fable 5",
+        "terminal-bench",
+        "swe-bench"
+      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": true,
+      "sha256": "8cfef7c9c43722b743cf2bed8bc57fba8c40549939fe096456febb66974502c5",
+      "foundSignals": [
+        "claude fable 5"
+      ],
+      "changed": false,
+      "error": ""
+    },
+    {
+      "id": "google-gemini",
       "providerId": "google",
-      "label": "Gemini API model docs",
-      "url": "https://ai.google.dev/gemini-api/docs/models",
+      "sourceType": "provider",
+      "label": "Google Gemini models",
+      "url": "https://deepmind.google/models/gemini/",
       "official": true,
       "watch": [
-        "gemini-3.1-pro",
-        "gemini-3.1-pro-preview",
-        "gemini-3-pro"
+        "gemini 3.6 flash",
+        "gemini 3.5 pro",
+        "1m"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": true,
-      "sha256": "720607ccb3241789298520dafc2154154475374eecad594d0a94995c8185d3bb",
+      "sha256": "8cf391c08dc8f581e089580a59b8c6350aed8ae449220b0cbceb50caaf037c44",
       "foundSignals": [
-        "gemini-3.1-pro",
-        "gemini-3.1-pro-preview",
-        "gemini-3-pro"
+        "gemini 3.6 flash",
+        "1m"
       ],
       "changed": false,
       "error": ""
     },
     {
-      "id": "xai-models",
+      "id": "xai-grok-45",
       "providerId": "xai",
-      "label": "xAI model docs",
-      "url": "https://docs.x.ai/docs/models",
+      "sourceType": "provider",
+      "label": "xAI Grok 4.5",
+      "url": "https://x.ai/news/grok-4-5",
       "official": true,
       "watch": [
-        "grok-4-3",
-        "grok-4-3-fast",
-        "grok-4"
+        "grok 4.5",
+        "terminal-bench",
+        "swe-bench"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
-      "ok": true,
-      "sha256": "57e265fd0d9c0d50c0c1e91854ccc81f678cd456de6ae1291ff2ebab92f12596",
-      "foundSignals": [
-        "grok-4"
-      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": false,
+      "sha256": "",
+      "foundSignals": [],
       "changed": false,
-      "error": ""
+      "error": "fetch failed"
     },
     {
-      "id": "deepseek-pricing",
+      "id": "deepseek-v4",
       "providerId": "deepseek",
-      "label": "DeepSeek API docs",
-      "url": "https://api-docs.deepseek.com/quick_start/pricing",
+      "sourceType": "provider",
+      "label": "DeepSeek V4 Pro update",
+      "url": "https://api-docs.deepseek.com/updates/",
       "official": true,
       "watch": [
         "deepseek-v4-pro",
-        "deepseek-v4",
-        "deepseek-v3.2"
+        "v4 pro",
+        "1m"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": true,
-      "sha256": "4af7fef5015e26cc6188778893dff29bab115bd06bb882ba22fdd8be57bb0003",
+      "sha256": "40a94019efa6f56084c0f90b27f901f62b4aa7cd8025a7a415d83d39b2289d44",
       "foundSignals": [
         "deepseek-v4-pro",
-        "deepseek-v4"
+        "v4 pro"
       ],
       "changed": false,
       "error": ""
     },
     {
-      "id": "moonshot-docs",
+      "id": "moonshot-kimi-k3",
       "providerId": "moonshot",
-      "label": "Moonshot platform docs",
-      "url": "https://platform.moonshot.ai/docs/intro",
+      "sourceType": "provider",
+      "label": "Moonshot Kimi K3",
+      "url": "https://www.kimi.com/blog/kimi-k3",
       "official": true,
       "watch": [
-        "kimi-k2.6",
-        "kimi-k2-6",
-        "kimi-k2-thinking"
+        "kimi k3",
+        "open source",
+        "1m"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": true,
-      "sha256": "a5fde78a7e8d35e634c49931546825de7bb1911fa30dd74dbe9b4d0e0c549682",
+      "sha256": "8fe149fbf2be22d90ea7d036cb11a42928e0ab0c85528dd08e490588251d1a1c",
       "foundSignals": [
-        "kimi-k2.6",
-        "kimi-k2-6"
+        "kimi k3",
+        "open source",
+        "1m"
       ],
       "changed": false,
       "error": ""
@@ -982,82 +1119,82 @@ export const modelRadarSnapshot = {
     {
       "id": "mistral-models",
       "providerId": "mistral",
+      "sourceType": "provider",
       "label": "Mistral model overview",
       "url": "https://docs.mistral.ai/getting-started/models/models_overview/",
       "official": true,
       "watch": [
-        "mistral-large-3",
-        "mistral-large-2512",
-        "medium-3.5"
+        "medium 3.5",
+        "mistral large",
+        "262k"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
-      "ok": true,
-      "sha256": "6cf86e76f11f013e5e7c0ca4a12e010296ed13013c4d5e9ab12387055e079171",
-      "foundSignals": [
-        "mistral-large-3",
-        "medium-3.5"
-      ],
-      "changed": false,
-      "error": ""
-    },
-    {
-      "id": "qwen-blog",
-      "providerId": "qwen",
-      "label": "Qwen official blog",
-      "url": "https://qwenlm.github.io/blog/qwen3-2507/",
-      "official": true,
-      "watch": [
-        "qwen3-2507",
-        "qwen3-thinking-2507",
-        "qwen3-235b-a22b"
-      ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": false,
       "sha256": "",
       "foundSignals": [],
       "changed": false,
-      "error": "HTTP 404 Not Found"
+      "error": "fetch failed"
     },
     {
-      "id": "meta-llama",
-      "providerId": "meta",
-      "label": "Meta Llama 4 announcement",
-      "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+      "id": "qwen-models",
+      "providerId": "qwen",
+      "sourceType": "provider",
+      "label": "Qwen official models",
+      "url": "https://qwen.ai/home",
       "official": true,
       "watch": [
-        "llama-4-scout",
-        "llama-4-maverick",
-        "llama-4"
+        "qwen3.7",
+        "qwen3.8",
+        "qwen max"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": true,
-      "sha256": "df0472b41f793949729976e8399d79d7c67a657961aaaa3fecf8b4b53334b521",
+      "sha256": "aaa768780b16da133dec4019facf186ae1c9274c1fc54fff3bbcc41a63b8bea0",
       "foundSignals": [
-        "llama-4-scout",
-        "llama-4-maverick",
-        "llama-4"
+        "qwen3.8",
+        "qwen max"
       ],
       "changed": false,
       "error": ""
     },
     {
-      "id": "cohere-models",
-      "providerId": "cohere",
-      "label": "Cohere model docs",
-      "url": "https://docs.cohere.com/docs/models",
+      "id": "meta-muse",
+      "providerId": "meta",
+      "sourceType": "provider",
+      "label": "Meta Muse Spark 1.1",
+      "url": "https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/",
       "official": true,
       "watch": [
-        "command-a-reasoning-08-2025",
-        "command-a",
-        "command-r"
+        "muse spark",
+        "1.1",
+        "model api"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": false,
+      "sha256": "",
+      "foundSignals": [],
+      "changed": false,
+      "error": "fetch failed"
+    },
+    {
+      "id": "cohere-command-a-plus",
+      "providerId": "cohere",
+      "sourceType": "provider",
+      "label": "Cohere Command A+",
+      "url": "https://docs.cohere.com/docs/command-a-plus",
+      "official": true,
+      "watch": [
+        "command a+",
+        "command-a-plus",
+        "apache 2.0"
+      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": true,
-      "sha256": "a39f61c2b17a895589bd970ff19b17dc494e844cb8ff6c4e8551829400164d27",
+      "sha256": "b0df881e4fb0c1c18b35c0e70db2bf888db37a50c630c5409a71b66b7cb7b5aa",
       "foundSignals": [
-        "command-a-reasoning-08-2025",
-        "command-a",
-        "command-r"
+        "command a+",
+        "command-a-plus",
+        "apache 2.0"
       ],
       "changed": false,
       "error": ""
@@ -1065,46 +1202,185 @@ export const modelRadarSnapshot = {
     {
       "id": "amazon-nova",
       "providerId": "amazon",
+      "sourceType": "provider",
       "label": "Amazon Nova",
       "url": "https://aws.amazon.com/ai/generative-ai/nova/",
       "official": true,
       "watch": [
-        "nova-2-omni",
-        "nova-premier",
-        "amazon.nova-2-omni-v1:0"
+        "nova 2 omni",
+        "nova 2",
+        "bedrock"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": true,
-      "sha256": "37e743e0ee02e6b6839008de1954c03d0d5bb2c85e81fe8c7ffd88cdde031a04",
-      "foundSignals": [],
+      "sha256": "95b668ae4f933f962b2a20dbf5f5a3e7c33037caf94581e4432def6d0871aea7",
+      "foundSignals": [
+        "nova 2",
+        "bedrock"
+      ],
       "changed": false,
       "error": ""
     },
     {
-      "id": "zhipu-docs",
+      "id": "zhipu-glm-52",
       "providerId": "zhipu",
-      "label": "Zhipu GLM docs",
-      "url": "https://docs.bigmodel.cn/cn/guide/models",
+      "sourceType": "provider",
+      "label": "Z.ai GLM-5.2",
+      "url": "https://z.ai/blog/glm-5.2",
       "official": true,
       "watch": [
-        "glm-4.6",
-        "glm-4-6",
-        "glm-4.5"
+        "glm-5.2",
+        "terminal-bench",
+        "swe-bench"
       ],
-      "lastCheckedAt": "2026-08-04T23:16:03.274Z",
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
       "ok": true,
-      "sha256": "84685988423c80e0bbd670cd9ea8661de7ce497623d1050143a7e1ce535ac4df",
+      "sha256": "d0299326d21fd363483eabe4f4a719efc842022bc843f6e7c2d4ee77d4d8a5c0",
       "foundSignals": [
-        "glm-4.6",
-        "glm-4.5"
+        "glm-5.2"
+      ],
+      "changed": false,
+      "error": ""
+    },
+    {
+      "id": "benchmark-aa",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models",
+      "official": false,
+      "watch": [
+        "intelligence index",
+        "claude opus 5",
+        "gpt-5.6"
+      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": true,
+      "sha256": "fdd1e08f84b32cef21e43b1cab077acdcf9445f8fdff52546341ebf3504a8bf6",
+      "foundSignals": [
+        "intelligence index",
+        "claude opus 5",
+        "gpt-5.6"
+      ],
+      "changed": false,
+      "error": ""
+    },
+    {
+      "id": "benchmark-arena",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "Arena Text Leaderboard",
+      "url": "https://arena.ai/leaderboard/text",
+      "official": false,
+      "watch": [
+        "leaderboard",
+        "claude-fable-5",
+        "qwen3.8"
+      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": false,
+      "sha256": "",
+      "foundSignals": [],
+      "changed": false,
+      "error": "HTTP 403 Forbidden"
+    },
+    {
+      "id": "benchmark-swe",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "SWE-bench",
+      "url": "https://www.swebench.com/",
+      "official": false,
+      "watch": [
+        "swe-bench",
+        "verified",
+        "pro"
+      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": true,
+      "sha256": "32df14822f5e5cb76bc25c3d83a27ec0fb75f8f57828cec5f73821d75931b783",
+      "foundSignals": [
+        "swe-bench",
+        "verified",
+        "pro"
+      ],
+      "changed": false,
+      "error": ""
+    },
+    {
+      "id": "benchmark-terminal",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "Terminal-Bench",
+      "url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+      "official": false,
+      "watch": [
+        "terminal-bench",
+        "leaderboard",
+        "agent"
+      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": true,
+      "sha256": "2dc66e73ff17e9b90a7ce001ac0cf9fd77768dcda9d93b82ae5cb96ba5947bfa",
+      "foundSignals": [
+        "terminal-bench",
+        "leaderboard",
+        "agent"
+      ],
+      "changed": false,
+      "error": ""
+    },
+    {
+      "id": "benchmark-arc",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "ARC Prize Leaderboard",
+      "url": "https://arcprize.org/leaderboard",
+      "official": false,
+      "watch": [
+        "arc-agi",
+        "leaderboard",
+        "verified"
+      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": true,
+      "sha256": "376fd7c922864715109f9c7d498992127d649f539fa064458df2a4b454bc22f2",
+      "foundSignals": [
+        "arc-agi",
+        "leaderboard",
+        "verified"
+      ],
+      "changed": false,
+      "error": ""
+    },
+    {
+      "id": "benchmark-ale",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "Agents Last Exam",
+      "url": "https://agents-last-exam.org/",
+      "official": false,
+      "watch": [
+        "agents last exam",
+        "leaderboard",
+        "agent"
+      ],
+      "lastCheckedAt": "2026-08-05T19:11:28.252Z",
+      "ok": true,
+      "sha256": "b67ffe51f4b0dddc477409102636be9d511569faa5ca1cd616267aeffa53e7c0",
+      "foundSignals": [
+        "agents last exam",
+        "leaderboard",
+        "agent"
       ],
       "changed": false,
       "error": ""
     }
   ],
   "notes": [
-    "Scores are a normalized scan layer made from official benchmark claims, model cards, context windows, pricing, and product posture. They are for situational awareness, not a lab benchmark.",
-    "Release clocks are inferred from public release dots. They show watch pressure, not promised launch dates.",
-    "The daily job checks official pages for source changes and model-name signals, then regenerates this static snapshot."
+    "Every displayed benchmark value keeps its source and measurement date. Missing coverage stays visible as N/A.",
+    "Arena and Artificial Analysis are independent signals. SWE-Bench Pro and Terminal-Bench values can be vendor-reported and are labeled in the detail view.",
+    "Release clocks infer watch pressure from public release dates. They do not promise future launches.",
+    "The daily job checks a fixed source list serially, records page changes, and keeps curated values intact for human review."
   ]
 };

@@ -3,32 +3,30 @@ import { test } from "node:test";
 
 import {
   clockStatusLabel,
+  eventStatusLabel,
+  isoShortDate,
   metricBarStyle,
-  modelDotStyle,
   shortDate
 } from "../src/ui-helpers.mjs";
 
-test("clock labels are short enough for dense radar lanes", () => {
-  assert.equal(clockStatusLabel("cooldown"), "cool");
-  assert.equal(clockStatusLabel("tracking"), "track");
-  assert.equal(clockStatusLabel("watch"), "watch");
-  assert.equal(clockStatusLabel("overdue"), "late");
-  assert.equal(clockStatusLabel("sunset"), "retire");
+test("clock and event labels stay compact", () => {
+  assert.equal(clockStatusLabel("cooldown"), "COOL");
+  assert.equal(clockStatusLabel("tracking"), "TRACK");
+  assert.equal(clockStatusLabel("watch"), "WATCH");
+  assert.equal(clockStatusLabel("overdue"), "LATE");
+  assert.equal(eventStatusLabel("released"), "已发生");
+  assert.equal(eventStatusLabel("deadline"), "将到期");
 });
 
-test("metric bar style clamps model scores to stable percentages", () => {
-  assert.equal(metricBarStyle(123), "--value: 100%;");
-  assert.equal(metricBarStyle(-10), "--value: 0%;");
-  assert.equal(metricBarStyle(87.4), "--value: 87.4%;");
+test("metric bars respect source ranges and lower-is-better direction", () => {
+  assert.equal(metricBarStyle(65, { min: 25, max: 65, direction: "higher" }), "--value: 100%;");
+  assert.equal(metricBarStyle(25, { min: 25, max: 65, direction: "higher" }), "--value: 2%;");
+  assert.equal(metricBarStyle(0, { min: 0, max: 50, direction: "lower" }), "--value: 100%;");
+  assert.equal(metricBarStyle(50, { min: 0, max: 50, direction: "lower" }), "--value: 2%;");
+  assert.equal(metricBarStyle(null, { min: 0, max: 100 }), "--value: 0%;");
 });
 
-test("model dot style projects score and release recency into a radar coordinate", () => {
-  const style = modelDotStyle({ normalizedScore: 93, releasedAt: "2026-05-09" }, "2026-05-19");
-
-  assert.match(style, /--x: 93%/);
-  assert.match(style, /--fresh: 90%/);
-});
-
-test("shortDate keeps absolute dates compact", () => {
-  assert.equal(shortDate("2026-05-19"), "May 19");
+test("date helpers keep absolute dates scan-friendly", () => {
+  assert.equal(shortDate("2026-08-06"), "Aug 06");
+  assert.equal(isoShortDate("2026-08-06"), "2026-08-06");
 });

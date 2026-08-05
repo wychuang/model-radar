@@ -1,22 +1,30 @@
 # Model Radar / 世界大模型雷达
 
-Model Radar is a static dashboard for tracking official frontier LLM releases,
-performance posture, source changes, and inferred release-cycle pressure.
+Model Radar is a static, source-backed switchboard for current frontier models,
+benchmark rankings, official launches, and inferred provider release cadence.
 
-世界大模型雷达是一个静态网页应用，用来查看官方大模型更新、能力姿态、来源变化，以及根据公开发布时间点推断出的发行周期压力。
+世界大模型雷达是一块可追溯来源的静态观察台，用来切换查看前沿模型排名、官方发布、benchmark 覆盖和企业发行节奏。
+
+Public site / 在线页面:
+
+<https://wychuang.github.io/model-radar/>
 
 ## What It Shows / 展示内容
 
-- Latest official model rows from a fixed allowlist of provider sources.
-- A capability radar across reasoning, coding, agentic work, multimodal ability,
-  context, and cost pressure.
-- Release clocks that show watch windows without promising exact launch dates.
-- A source panel linking directly to official pages.
+- 13 current model rows across 12 provider lanes.
+- Six switchable views: Artificial Analysis Intelligence Index, Arena Text,
+  SWE-Bench Pro, Terminal-Bench, output price, and advertised context.
+- Raw values, measurement dates, source links, preliminary/vendor labels, and
+  visible `N/A` cells where comparable evidence is missing.
+- A NOW/NEXT event line and release clocks inferred from public release dates.
+- Additional watched sources for ARC Prize and Agents Last Exam.
 
-- 固定白名单官方来源里的最新模型条目。
-- 从推理、代码、agent 工作、多模态、上下文、成本压力组成的能力雷达。
-- 只提示观察窗口、不承诺具体发布日期的发行周期钟。
-- 直接跳转官方页面的来源面板。
+- 12 家企业、13 个当前模型条目。
+- 6 种可切换视图：AA 智力指数、Arena 人类偏好、SWE-Bench Pro、
+  Terminal-Bench、输出价格、标称上下文。
+- 展示原始分值、测量日期、来源链接、初步/厂商自报标签；缺少可比证据时明确显示 `N/A`。
+- NOW/NEXT 世界线，以及根据公开发布日期推断的发行压力钟。
+- 额外观察 ARC Prize 和 Agents Last Exam。
 
 ## Run / 运行
 
@@ -24,11 +32,7 @@ performance posture, source changes, and inferred release-cycle pressure.
 npm start
 ```
 
-Open:
-
-```text
-http://127.0.0.1:4174/
-```
+Open <http://127.0.0.1:4174/>.
 
 ## Refresh / 刷新
 
@@ -36,51 +40,43 @@ http://127.0.0.1:4174/
 npm run update
 ```
 
-The refresh job is deliberately low-risk: one daily pass over a small fixed
-official-source allowlist, serial requests, no login, no cookies, no proxy, no
-crawling, no endpoint discovery, no bypass behavior, and no repeated aggressive
-retry loop.
+The refresh performs one serial pass over a fixed 19-page allowlist. It records
+freshness, page hashes, failures, and watched terms. It has no login, cookies,
+proxy, link crawling, endpoint discovery, bypass behavior, or retry loop.
 
-刷新任务刻意保持低风控：每天一次，只访问少量固定官方来源，串行请求，不登录、不带 cookie、不使用代理、不爬取扩展链接、不做接口探测、不做绕过，也不做高频重试。
+刷新任务每天串行检查固定的 19 个公开页面，记录新鲜度、页面摘要、失败状态和观察词。任务不登录、不带 cookie、不使用代理、不扩展爬取链接、不探测接口、不绕过限制，也不进行循环重试。
 
-GitHub Actions schedule:
+Benchmark values stay curated because leaderboards use different harnesses,
+variants, and update schedules. A source page change becomes a review signal;
+it does not silently overwrite a score.
 
-```text
-.github/workflows/model-radar.yml
-```
+Benchmark 分数保留人工确认流程，因为各榜单的 harness、模型变体和更新时间并不统一。来源页面变化会形成复核信号，不会静默覆盖已有分数。
 
-GitHub Pages deployment:
-
-```text
-.github/workflows/pages.yml
-```
-
-Expected public URL after the first successful deployment:
+GitHub automation:
 
 ```text
-https://wychuang.github.io/model-radar/
-```
-
-Optional local Windows task registration script:
-
-```powershell
-.\scripts\register-daily-task.ps1 -Time "06:12"
+.github/workflows/model-radar.yml  # daily source check and snapshot commit
+.github/workflows/pages.yml        # GitHub Pages deployment
 ```
 
 ## Verify / 验证
 
 ```powershell
 npm test
-```
-
-```powershell
 .\scripts\check.ps1
 ```
 
-## Data Caveat / 数据说明
+## Reading Scores / 读分规则
 
-Scores are a compact situational-awareness layer, not a lab benchmark. They
-combine official model information, public source posture, context windows,
-pricing pressure, and release recency into a visual scan.
+| Label | Meaning / 含义 |
+| --- | --- |
+| `INDEPENDENT` | Value taken from the named independent leaderboard. / 独立榜单分值。 |
+| `VENDOR` | Vendor-reported result; benchmark and harness version still matter. / 厂商自报结果，仍需核对 benchmark 与 harness 版本。 |
+| `PRELIM` | Preliminary leaderboard row. / 尚未稳定的榜单条目。 |
+| `LIST` | Public list price or advertised context. / 公开标价或标称上下文。 |
+| `N/A` | Comparable source coverage is missing. / 缺少可比来源。 |
 
-分数不是实验室基准，而是面向“快速看懂世界变化”的态势层：综合官方模型信息、公开来源姿态、上下文窗口、价格压力和发布时间新鲜度。
+Release clocks are pattern estimates for attention management. Exact launch
+dates always require an official announcement.
+
+发行压力钟用于安排观察注意力。具体发布日期始终以企业官方公告为准。
