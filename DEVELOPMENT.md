@@ -38,7 +38,7 @@ benchmark values remain unchanged until reviewed in the seed file.
 - `src/app.mjs`: DOM rendering, metric tabs, model selection, and source links.
 - `scripts/update-model-radar.mjs`: serial low-frequency source checker and snapshot writer.
 - `.github/workflows/model-radar.yml`: daily snapshot refresh.
-- `.github/workflows/pages.yml`: static Pages build and deployment.
+- GitHub Pages: branch deployment from the `main` repository root.
 
 ## Editing Data / 编辑数据
 

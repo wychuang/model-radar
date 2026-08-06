@@ -56,8 +56,13 @@ GitHub automation:
 
 ```text
 .github/workflows/model-radar.yml  # daily source check and snapshot commit
-.github/workflows/pages.yml        # GitHub Pages deployment
+main / repository root             # GitHub Pages branch deployment
 ```
+
+GitHub Pages serves the repository root directly from `main`. This keeps the
+static deployment independent from the daily source-check workflow.
+
+GitHub Pages 直接发布 `main` 根目录，静态页面部署与每日来源检查互不依赖。
 
 ## Verify / 验证
 
