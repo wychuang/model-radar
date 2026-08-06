@@ -30,14 +30,16 @@ The daily refresh is a small public-source checker. Keep it boring:
 ## Product Taste / 产品审美
 
 - The first screen should be the dashboard itself, not a landing page.
-- Favor giant flat color blocks, compact source-backed labels, and a retro-future control-room feel.
+- Favor a quiet research-terminal feel: neutral surfaces, normal-width type, fine rules, and one restrained signal color.
+- Keep the information dense but visually calm enough for long monitoring sessions.
 - Avoid generic AI product cues: purple gradients, chat bubbles, glass cards, glowing orbs, mascot art.
 - Make "what changed" and "what may be next" obvious at a glance.
 - Preserve raw benchmark values, source dates, provenance labels, and visible `N/A` gaps.
 - Treat release clocks as observation pressure, never as promised launch dates.
 
 - 第一屏就是仪表盘，不做落地页。
-- 倾向大色块、紧凑来源标签、复古未来控制室气质。
+- 倾向安静的研究终端：中性底色、正常字宽、细分隔线，只使用一种克制的信号色。
+- 信息可以密集，视觉必须适合长时间查看。
 - 避免常见 AI 产品符号：紫色渐变、聊天气泡、玻璃卡片、发光圆球、吉祥物插画。
 - 让“发生了什么”和“可能接下来发生什么”一眼可见。
 - 保留 benchmark 原始值、来源日期、口径标签和清晰的 `N/A` 缺口。

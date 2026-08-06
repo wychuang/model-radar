@@ -72,6 +72,11 @@ test("release clocks expose inferred watch pressure", () => {
 
 test("view model carries benchmarks, events, sources, and glance signals", () => {
   const view = buildRadarViewModel(modelRadarSnapshot, "2026-08-06");
+  const noisySnapshot = {
+    ...modelRadarSnapshot,
+    sources: modelRadarSnapshot.sources.map((source) => ({ ...source, changed: true }))
+  };
+  const noisyView = buildRadarViewModel(noisySnapshot, "2026-08-06");
 
   assert.equal(view.generatedAt, modelRadarSnapshot.generatedAt);
   assert.equal(view.benchmarks.length, modelRadarSnapshot.benchmarks.length);
@@ -79,6 +84,8 @@ test("view model carries benchmarks, events, sources, and glance signals", () =>
   assert.ok(view.providerClocks.length >= 12);
   assert.ok(view.worldSignals.length >= 5);
   assert.ok(view.watchlist.some((entry) => entry.kind === "event"));
+  assert.ok(noisyView.watchlist.some((entry) => entry.kind === "event"));
+  assert.ok(noisyView.watchlist.some((entry) => entry.kind === "source-change"));
 });
 
 test("metric and token values stay compact and explicit", () => {

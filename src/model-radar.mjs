@@ -101,7 +101,7 @@ export function buildRadarViewModel(snapshot, today = new Date()) {
     providerClocks,
     events: [...(snapshot.events ?? [])].sort((left, right) => toDate(right.date) - toDate(left.date)),
     sources: snapshot.sources,
-    watchlist: [...sourceAlerts, ...eventAlerts].slice(0, 10),
+    watchlist: [...eventAlerts.slice(0, 4), ...sourceAlerts.slice(0, 6)],
     worldSignals: buildWorldSignals(snapshot, defaultRanking, now),
     notes: snapshot.notes ?? []
   };
