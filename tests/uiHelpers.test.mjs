@@ -10,11 +10,12 @@ import {
 } from "../src/ui-helpers.mjs";
 
 test("clock and event labels stay compact", () => {
-  assert.equal(clockStatusLabel("cooldown"), "COOL");
-  assert.equal(clockStatusLabel("tracking"), "TRACK");
-  assert.equal(clockStatusLabel("watch"), "WATCH");
-  assert.equal(clockStatusLabel("overdue"), "LATE");
+  assert.equal(clockStatusLabel("cooldown"), "周期前段");
+  assert.equal(clockStatusLabel("tracking"), "接近常见区间");
+  assert.equal(clockStatusLabel("watch"), "进入常见区间");
+  assert.equal(clockStatusLabel("overdue"), "超过常见区间");
   assert.equal(eventStatusLabel("released"), "已发生");
+  assert.equal(eventStatusLabel("watch"), "待官方确认");
   assert.equal(eventStatusLabel("deadline"), "将到期");
 });
 

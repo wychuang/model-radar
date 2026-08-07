@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Model Radar V2: a source-backed research dashboard for frontier model rankings, events, and inferred release cadence.">
+    <meta name="theme-color" content="#f4f4f1">
+    <title>Model Radar V2 / 世界大模型雷达</title>
+    <link rel="stylesheet" href="./styles-v2.css?v=20260807-data-aligned">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <div class="radar-shell" data-smoke="model-radar-v2">
+      <header class="command-bar">
+        <a class="brand" href="./v2.html" aria-label="Model Radar V2 首页">
+          <span class="brand-mark" aria-hidden="true"><i></i></span>
+          <span>
+            <strong>Model Radar</strong>
+            <small>世界大模型雷达 · V2</small>
+          </span>
+        </a>
+
+        <div class="snapshot-readout" aria-label="数据快照状态">
+          <span>SNAPSHOT</span>
+          <strong id="snapshot-date">—</strong>
+          <small id="refresh-date">—</small>
+        </div>
+
+        <nav class="utility-nav" aria-label="页面导航">
+          <a href="#timeline">NOW / NEXT</a>
+          <a href="#sources">来源</a>
+          <a class="view-switch" href="./radar.html">RADAR VIEW ↗</a>
+        </nav>
+      </header>
+
+      <main id="main-content">
+        <section class="situation-deck" aria-labelledby="situation-title">
+          <div class="situation-main">
+            <p class="eyebrow">CURRENT PICTURE / 当前态势</p>
+            <div id="leader-story" class="leader-story" aria-live="polite"></div>
+
+            <div class="metric-control">
+              <div class="metric-control-label">
+                <strong id="metric-picker-label">观察口径</strong>
+                <span>← → 键切换</span>
+              </div>
+              <div id="metric-tabs" class="metric-tabs" role="tablist" aria-labelledby="metric-picker-label"></div>
+            </div>
+          </div>
+
+          <aside class="glance-rail" aria-labelledby="glance-title">
+            <div class="glance-heading">
+              <p class="eyebrow">AT A GLANCE</p>
+              <h2 id="glance-title">发生了什么，接下来盯什么</h2>
+            </div>
+            <div id="glance-events" class="glance-events"></div>
+          </aside>
+        </section>
+
+        <section class="evidence-workspace" aria-labelledby="ranking-title">
+          <div class="ranking-surface">
+            <header class="section-heading ranking-heading">
+              <div>
+                <p class="eyebrow">LIVE ORDER / 即时排序</p>
+                <h2 id="ranking-title">同一批模型，切换口径重排</h2>
+              </div>
+              <div id="coverage-readout" class="coverage-readout" aria-live="polite"></div>
+            </header>
+
+            <div class="ranking-columns" aria-hidden="true">
+              <span>排名 / 模型</span>
+              <span>证据</span>
+              <span>相对位置</span>
+              <span>原始值</span>
+            </div>
+            <div id="ranking-list" class="ranking-list" role="list" aria-label="模型排名"></div>
+          </div>
+
+          <aside id="model-inspector" class="model-inspector" aria-labelledby="inspector-title" aria-live="polite"></aside>
+        </section>
+
+        <p id="view-status" class="sr-only" role="status" aria-live="polite"></p>
+
+        <section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
+          <header class="section-heading">
+            <div>
+              <p class="eyebrow">NOW / NEXT</p>
+              <h2 id="timeline-title">已发生与待观察</h2>
+            </div>
+            <p>观察事件与截止窗口；外部链接打开原始来源。</p>
+          </header>
+          <div id="event-list" class="event-list"></div>
+        </section>
+
+        <section class="lower-workspace">
+          <section class="release-section" aria-labelledby="release-title">
+            <header class="section-heading">
+              <div>
+                <p class="eyebrow">RELEASE PRESSURE</p>
+                <h2 id="release-title">发行节奏</h2>
+              </div>
+              <p>基于公开发行历史推断，仅用于安排观察注意力。</p>
+            </header>
+            <div id="release-clocks" class="release-clocks"></div>
+          </section>
+
+          <section id="sources" class="source-section" aria-labelledby="source-title">
+            <header class="section-heading">
+              <div>
+                <p class="eyebrow">SOURCE LEDGER</p>
+                <h2 id="source-title">评测来源</h2>
+              </div>
+              <p>状态来自最近一次低频检查。</p>
+            </header>
+            <div id="source-list" class="source-list"></div>
+          </section>
+        </section>
+
+        <footer class="method-footer" aria-labelledby="method-title">
+          <div>
+            <p class="eyebrow">READING GUIDE</p>
+            <h2 id="method-title">如何读这块雷达</h2>
+          </div>
+          <div id="method-notes" class="method-notes"></div>
+        </footer>
+      </main>
+    </div>
+
+    <script type="module" src="./src/app-v2.mjs?v=20260807-data-aligned"></script>
+  </body>
+</html>

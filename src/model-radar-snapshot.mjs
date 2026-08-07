@@ -3,7 +3,7 @@ export const modelRadarSnapshot = {
   "generatedAt": "2026-08-07T01:33:20.317Z",
   "refresh": {
     "cadence": "daily",
-    "nextRunHint": "daily low-frequency source refresh; failures keep curated benchmark rows intact",
+    "nextRunHint": "GitHub Actions checks the fixed source list once per day.",
     "workflow": ".github/workflows/model-radar.yml"
   },
   "benchmarks": [
@@ -14,7 +14,7 @@ export const modelRadarSnapshot = {
       "displayLabel": "AA 智力",
       "direction": "higher",
       "format": "index",
-      "min": 25,
+      "min": 20,
       "max": 65,
       "sourceId": "benchmark-aa",
       "asOf": "2026-08-06",
@@ -30,8 +30,21 @@ export const modelRadarSnapshot = {
       "min": 1350,
       "max": 1520,
       "sourceId": "benchmark-arena",
-      "asOf": "2026-08-01",
+      "asOf": "2026-08-07",
       "description": "Crowd preference score from blind side-by-side votes. Preliminary rows are marked."
+    },
+    {
+      "id": "output-speed",
+      "label": "Artificial Analysis output speed",
+      "shortLabel": "OUTPUT T/S",
+      "displayLabel": "生成速度",
+      "direction": "higher",
+      "format": "speed",
+      "min": 30,
+      "max": 220,
+      "sourceId": "benchmark-aa",
+      "asOf": "2026-08-07",
+      "description": "Measured output tokens per second from the model's first-party API or the benchmark's documented provider representation."
     },
     {
       "id": "swebench-pro",
@@ -48,7 +61,7 @@ export const modelRadarSnapshot = {
     },
     {
       "id": "terminalbench",
-      "label": "Terminal-Bench 2.x",
+      "label": "Terminal-Bench 2.1",
       "shortLabel": "TERMINAL",
       "displayLabel": "终端 Agent",
       "direction": "higher",
@@ -57,7 +70,7 @@ export const modelRadarSnapshot = {
       "max": 90,
       "sourceId": "benchmark-terminal",
       "asOf": "2026-08-06",
-      "description": "Agent performance on practical terminal tasks. Harness and version can affect comparability."
+      "description": "Vendor-published Terminal-Bench 2.1 results. Agent harness and run configuration can change the score."
     },
     {
       "id": "output-price",
@@ -68,10 +81,11 @@ export const modelRadarSnapshot = {
       "format": "usd",
       "min": 0,
       "max": 50,
+      "scale": "log",
       "sourceId": null,
       "derivedFrom": "outputPrice",
       "asOf": "2026-08-06",
-      "description": "Public list price in USD per million output tokens. Lower is better; discounts and cache tiers are excluded."
+      "description": "Public list price in USD per million output tokens. Lower is better; the visual position uses a documented log scale so sub-dollar differences remain visible. Discounts and cache tiers are excluded."
     },
     {
       "id": "context-window",
@@ -86,6 +100,174 @@ export const modelRadarSnapshot = {
       "derivedFrom": "contextTokens",
       "asOf": "2026-08-06",
       "description": "Advertised input context. Effective long-context quality is a separate question."
+    },
+    {
+      "id": "agent-last-exam",
+      "label": "Agents' Last Exam",
+      "shortLabel": "ALE",
+      "displayLabel": "长程 Agent",
+      "direction": "higher",
+      "format": "percent",
+      "min": 0,
+      "max": 60,
+      "sourceId": "benchmark-ale",
+      "asOf": "2026-08-07",
+      "radar": false,
+      "description": "Long-running professional workflows across many fields. Displayed only when the exact model configuration is documented."
+    },
+    {
+      "id": "aa-coding-agent",
+      "label": "Artificial Analysis Coding Agent Index",
+      "shortLabel": "AA CODING",
+      "displayLabel": "编程 Agent 指数",
+      "direction": "higher",
+      "format": "index",
+      "min": 0,
+      "max": 85,
+      "sourceId": "benchmark-aa-coding",
+      "asOf": "2026-08-07",
+      "radar": false,
+      "description": "Independent coding-agent index pairing models with documented agent harnesses across DeepSWE, Terminal-Bench and SWE-Atlas-QnA."
+    },
+    {
+      "id": "gdpval-aa-v2",
+      "label": "GDPval-AA v2",
+      "shortLabel": "GDPVAL-AA",
+      "displayLabel": "专业工作",
+      "direction": "higher",
+      "format": "elo",
+      "min": 1000,
+      "max": 1900,
+      "sourceId": "benchmark-aa-gdpval",
+      "asOf": "2026-08-07",
+      "radar": false,
+      "description": "Independent agentic real-world knowledge-work evaluation reported as Elo."
+    },
+    {
+      "id": "aa-briefcase",
+      "label": "AA-Briefcase Elo",
+      "shortLabel": "AA BRIEFCASE",
+      "displayLabel": "知识工作交付",
+      "direction": "higher",
+      "format": "elo",
+      "min": 1000,
+      "max": 1800,
+      "sourceId": "benchmark-aa-briefcase",
+      "asOf": "2026-08-07",
+      "radar": false,
+      "description": "Independent agentic knowledge-work benchmark combining rubric completion and output quality."
+    },
+    {
+      "id": "terminalbench-vendor",
+      "label": "Terminal-Bench 2.1 provider run",
+      "shortLabel": "TERMINAL VENDOR",
+      "displayLabel": "厂商终端 Agent",
+      "direction": "higher",
+      "format": "percent",
+      "min": 40,
+      "max": 90,
+      "sourceId": "deepseek-v4-flash",
+      "asOf": "2026-07-31",
+      "radar": false,
+      "description": "Provider-reported Terminal-Bench 2.1 result retained beside an independent run when both configurations are available."
+    },
+    {
+      "id": "nl2repo",
+      "label": "NL2Repo",
+      "shortLabel": "NL2REPO",
+      "displayLabel": "需求到仓库",
+      "direction": "higher",
+      "format": "percent",
+      "min": 0,
+      "max": 70,
+      "sourceId": "deepseek-v4-flash",
+      "asOf": "2026-07-31",
+      "radar": false,
+      "description": "Repository construction from natural-language requirements, reported with DeepSeek Harness."
+    },
+    {
+      "id": "cybergym",
+      "label": "CyberGym",
+      "shortLabel": "CYBERGYM",
+      "displayLabel": "网络任务",
+      "direction": "higher",
+      "format": "percent",
+      "min": 0,
+      "max": 90,
+      "sourceId": "deepseek-v4-flash",
+      "asOf": "2026-07-31",
+      "radar": false,
+      "description": "Cybersecurity agent tasks reported by DeepSeek under its published harness configuration."
+    },
+    {
+      "id": "deepswe",
+      "label": "DeepSWE",
+      "shortLabel": "DEEPSWE",
+      "displayLabel": "长程工程",
+      "direction": "higher",
+      "format": "percent",
+      "min": 0,
+      "max": 80,
+      "sourceId": "deepseek-v4-flash",
+      "asOf": "2026-07-31",
+      "radar": false,
+      "description": "Long-horizon software engineering tasks reported by the model provider."
+    },
+    {
+      "id": "toolathlon",
+      "label": "Toolathlon Verified",
+      "shortLabel": "TOOLATHLON",
+      "displayLabel": "工具调用",
+      "direction": "higher",
+      "format": "percent",
+      "min": 0,
+      "max": 80,
+      "sourceId": "deepseek-v4-flash",
+      "asOf": "2026-07-31",
+      "radar": false,
+      "description": "Verified multi-tool task performance reported by DeepSeek."
+    },
+    {
+      "id": "automation-bench",
+      "label": "Automation Bench Public",
+      "shortLabel": "AUTOMATION",
+      "displayLabel": "自动化工作流",
+      "direction": "higher",
+      "format": "percent",
+      "min": 0,
+      "max": 60,
+      "sourceId": "deepseek-v4-flash",
+      "asOf": "2026-07-31",
+      "radar": false,
+      "description": "Public automation workflow benchmark reported by DeepSeek."
+    },
+    {
+      "id": "dsbench-fullstack",
+      "label": "DSBench FullStack",
+      "shortLabel": "DS FULLSTACK",
+      "displayLabel": "全栈 Agent",
+      "direction": "higher",
+      "format": "percent",
+      "min": 0,
+      "max": 80,
+      "sourceId": "deepseek-v4-flash",
+      "asOf": "2026-07-31",
+      "radar": false,
+      "description": "Full-stack agent benchmark reported by DeepSeek."
+    },
+    {
+      "id": "dsbench-hard",
+      "label": "DSBench Hard",
+      "shortLabel": "DS HARD",
+      "displayLabel": "困难 Agent",
+      "direction": "higher",
+      "format": "percent",
+      "min": 0,
+      "max": 70,
+      "sourceId": "deepseek-v4-flash",
+      "asOf": "2026-07-31",
+      "radar": false,
+      "description": "Hard subset of DSBench reported by DeepSeek."
     }
   ],
   "providers": [
@@ -93,7 +275,8 @@ export const modelRadarSnapshot = {
       "id": "openai",
       "name": "OpenAI",
       "region": "US",
-      "accent": "#ff4f00",
+      "accent": "#e8e6df",
+      "accentText": "#11120f",
       "latestModelId": "openai-gpt-5-6-sol",
       "cycleLabel": "numbered frontier train",
       "releaseHistory": [
@@ -119,7 +302,8 @@ export const modelRadarSnapshot = {
       "id": "anthropic",
       "name": "Anthropic",
       "region": "US",
-      "accent": "#00a88f",
+      "accent": "#d97757",
+      "accentText": "#11120f",
       "latestModelId": "anthropic-claude-opus-5",
       "cycleLabel": "Opus/Sonnet alternating train",
       "releaseHistory": [
@@ -145,7 +329,8 @@ export const modelRadarSnapshot = {
       "id": "google",
       "name": "Google DeepMind",
       "region": "US",
-      "accent": "#ffd400",
+      "accent": "#4285f4",
+      "accentText": "#ece7d6",
       "latestModelId": "google-gemini-3-6-flash",
       "cycleLabel": "Gemini preview to stable stream",
       "releaseHistory": [
@@ -171,7 +356,8 @@ export const modelRadarSnapshot = {
       "id": "xai",
       "name": "xAI",
       "region": "US",
-      "accent": "#cfff26",
+      "accent": "#c7c9c2",
+      "accentText": "#11120f",
       "latestModelId": "xai-grok-4-5",
       "cycleLabel": "rapid Grok reasoning stream",
       "releaseHistory": [
@@ -197,8 +383,9 @@ export const modelRadarSnapshot = {
       "id": "deepseek",
       "name": "DeepSeek",
       "region": "CN",
-      "accent": "#2667ff",
-      "latestModelId": "deepseek-v4-pro",
+      "accent": "#4d6bfe",
+      "accentText": "#ece7d6",
+      "latestModelId": "deepseek-v4-flash-0731",
       "cycleLabel": "price pressure plus long reasoning",
       "releaseHistory": [
         {
@@ -211,7 +398,11 @@ export const modelRadarSnapshot = {
         },
         {
           "date": "2026-04-24",
-          "label": "DeepSeek-V4 Pro"
+          "label": "DeepSeek-V4 Pro Preview"
+        },
+        {
+          "date": "2026-07-31",
+          "label": "DeepSeek-V4 Flash 0731"
         }
       ]
     },
@@ -219,7 +410,8 @@ export const modelRadarSnapshot = {
       "id": "moonshot",
       "name": "Moonshot AI",
       "region": "CN",
-      "accent": "#ff477e",
+      "accent": "#d85c9a",
+      "accentText": "#11120f",
       "latestModelId": "moonshot-kimi-k3",
       "cycleLabel": "Kimi coding and agent stream",
       "releaseHistory": [
@@ -245,7 +437,8 @@ export const modelRadarSnapshot = {
       "id": "mistral",
       "name": "Mistral AI",
       "region": "EU",
-      "accent": "#f57c00",
+      "accent": "#f0a202",
+      "accentText": "#11120f",
       "latestModelId": "mistral-medium-3-5",
       "cycleLabel": "open and enterprise model lattice",
       "releaseHistory": [
@@ -267,7 +460,8 @@ export const modelRadarSnapshot = {
       "id": "qwen",
       "name": "Alibaba Qwen",
       "region": "CN",
-      "accent": "#985eff",
+      "accent": "#7c6cf2",
+      "accentText": "#11120f",
       "latestModelId": "qwen-3-7-max",
       "cycleLabel": "dense and MoE release stream",
       "releaseHistory": [
@@ -293,7 +487,8 @@ export const modelRadarSnapshot = {
       "id": "meta",
       "name": "Meta",
       "region": "US",
-      "accent": "#00a3ff",
+      "accent": "#168cf0",
+      "accentText": "#11120f",
       "latestModelId": "meta-muse-spark-1-1",
       "cycleLabel": "open and API multimodal waves",
       "releaseHistory": [
@@ -319,7 +514,8 @@ export const modelRadarSnapshot = {
       "id": "cohere",
       "name": "Cohere",
       "region": "CA",
-      "accent": "#00a36c",
+      "accent": "#73c69a",
+      "accentText": "#11120f",
       "latestModelId": "cohere-command-a-plus",
       "cycleLabel": "enterprise RAG and Command stream",
       "releaseHistory": [
@@ -341,7 +537,8 @@ export const modelRadarSnapshot = {
       "id": "amazon",
       "name": "Amazon",
       "region": "US",
-      "accent": "#6f7782",
+      "accent": "#ff9900",
+      "accentText": "#11120f",
       "latestModelId": "amazon-nova-2-omni",
       "cycleLabel": "Bedrock platform train",
       "releaseHistory": [
@@ -363,7 +560,8 @@ export const modelRadarSnapshot = {
       "id": "zhipu",
       "name": "Z.ai",
       "region": "CN",
-      "accent": "#e53935",
+      "accent": "#e5484d",
+      "accentText": "#ece7d6",
       "latestModelId": "zhipu-glm-5-2",
       "cycleLabel": "GLM agent and coding stream",
       "releaseHistory": [
@@ -392,7 +590,8 @@ export const modelRadarSnapshot = {
       "providerId": "openai",
       "name": "GPT-5.6 Sol",
       "modelIds": [
-        "gpt-5.6-sol"
+        "gpt-5.6-sol",
+        "gpt-5.6-sol-xhigh"
       ],
       "releasedAt": "2026-07-09",
       "stage": "frontier",
@@ -415,13 +614,50 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1483,
+          "value": 1487,
           "rank": 15,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01"
+          "asOf": "2026-08-07",
+          "variant": "xhigh"
+        },
+        "output-speed": {
+          "value": 62.9,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "max"
+        },
+        "aa-coding-agent": {
+          "value": 80,
+          "sourceId": "benchmark-aa-coding",
+          "asOf": "2026-07-17",
+          "variant": "max / Codex"
+        },
+        "gdpval-aa-v2": {
+          "value": 1730,
+          "sourceId": "benchmark-aa-gdpval",
+          "asOf": "2026-08-05",
+          "variant": "max"
+        },
+        "aa-briefcase": {
+          "value": 1495,
+          "sourceId": "benchmark-aa-briefcase",
+          "asOf": "2026-07-24",
+          "variant": "max"
         },
         "swebench-pro": {
           "value": 64.6,
+          "sourceId": "openai-gpt-56",
+          "asOf": "2026-07-09",
+          "provenance": "vendor-reported"
+        },
+        "terminalbench": {
+          "value": 88.8,
+          "sourceId": "openai-gpt-56",
+          "asOf": "2026-07-09",
+          "provenance": "vendor-reported"
+        },
+        "agent-last-exam": {
+          "value": 52.7,
           "sourceId": "openai-gpt-56",
           "asOf": "2026-07-09",
           "provenance": "vendor-reported"
@@ -436,7 +672,8 @@ export const modelRadarSnapshot = {
       "providerId": "anthropic",
       "name": "Claude Opus 5",
       "modelIds": [
-        "claude-opus-5"
+        "claude-opus-5",
+        "claude-opus-5-high"
       ],
       "releasedAt": "2026-07-24",
       "stage": "frontier",
@@ -459,10 +696,35 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1490,
-          "rank": 8,
+          "value": 1493,
+          "rank": 9,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01"
+          "asOf": "2026-08-07",
+          "variant": "high"
+        },
+        "output-speed": {
+          "value": 54.5,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "max"
+        },
+        "terminalbench": {
+          "value": 89,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-07-24",
+          "variant": "max"
+        },
+        "gdpval-aa-v2": {
+          "value": 1852,
+          "sourceId": "benchmark-aa-gdpval",
+          "asOf": "2026-08-05",
+          "variant": "max"
+        },
+        "aa-briefcase": {
+          "value": 1720,
+          "sourceId": "benchmark-aa-briefcase",
+          "asOf": "2026-07-24",
+          "variant": "max"
         }
       },
       "sourceRefs": [
@@ -488,7 +750,7 @@ export const modelRadarSnapshot = {
         "inputPerMTok": 10,
         "outputPerMTok": 50
       },
-      "posture": "Anthropic's expensive ceiling model and the current Arena preference leader.",
+      "posture": "Anthropic's expensive ceiling model and a current Arena preference front-runner.",
       "watch": "Watch for capability transfer into the cheaper Opus and Sonnet lanes.",
       "benchmarks": {
         "aa-index": {
@@ -497,10 +759,40 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1509,
-          "rank": 1,
+          "value": 1513,
+          "rank": 2,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01"
+          "asOf": "2026-08-07"
+        },
+        "output-speed": {
+          "value": 66.8,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "max"
+        },
+        "aa-coding-agent": {
+          "value": 77,
+          "sourceId": "benchmark-aa-coding",
+          "asOf": "2026-07-17",
+          "variant": "max / Claude Code"
+        },
+        "gdpval-aa-v2": {
+          "value": 1760,
+          "sourceId": "benchmark-aa-gdpval",
+          "asOf": "2026-07-17",
+          "variant": "max"
+        },
+        "aa-briefcase": {
+          "value": 1574,
+          "sourceId": "benchmark-aa-briefcase",
+          "asOf": "2026-07-24",
+          "variant": "max"
+        },
+        "agent-last-exam": {
+          "value": 40.5,
+          "sourceId": "openai-gpt-56",
+          "asOf": "2026-07-09",
+          "provenance": "vendor-reported"
         },
         "swebench-pro": {
           "value": 80,
@@ -548,11 +840,23 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1483,
-          "rank": 16,
+          "value": 1491,
+          "rank": 10,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01",
+          "asOf": "2026-08-07",
           "preliminary": true
+        },
+        "output-speed": {
+          "value": 200.5,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "high"
+        },
+        "gdpval-aa-v2": {
+          "value": 1423,
+          "sourceId": "benchmark-aa-gdpval",
+          "asOf": "2026-08-07",
+          "variant": "high"
         },
         "swebench-pro": {
           "value": 58.7,
@@ -599,10 +903,22 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1469,
-          "rank": 35,
+          "value": 1473,
+          "rank": 37,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01"
+          "asOf": "2026-08-07"
+        },
+        "output-speed": {
+          "value": 56.8,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "high"
+        },
+        "aa-coding-agent": {
+          "value": 76,
+          "sourceId": "benchmark-aa-coding",
+          "asOf": "2026-07-17",
+          "variant": "high / Grok Build"
         },
         "swebench-pro": {
           "value": 64.7,
@@ -629,7 +945,7 @@ export const modelRadarSnapshot = {
         "deepseek-v4-pro"
       ],
       "releasedAt": "2026-04-24",
-      "stage": "frontier",
+      "stage": "preview",
       "access": [
         "api"
       ],
@@ -648,10 +964,16 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1458,
-          "rank": 49,
+          "value": 1466,
+          "rank": 50,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01"
+          "asOf": "2026-08-07"
+        },
+        "output-speed": {
+          "value": 62.8,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "max"
         }
       },
       "sourceRefs": [
@@ -659,11 +981,124 @@ export const modelRadarSnapshot = {
       ]
     },
     {
+      "id": "deepseek-v4-flash-0731",
+      "providerId": "deepseek",
+      "name": "DeepSeek-V4 Flash 0731",
+      "modelIds": [
+        "deepseek-v4-flash",
+        "deepseek-v4-flash-0731",
+        "deepseek-v4-flash-high-preview"
+      ],
+      "releasedAt": "2026-07-31",
+      "stage": "frontier",
+      "access": [
+        "api"
+      ],
+      "contextTokens": 1000000,
+      "outputTokens": 384000,
+      "priceUsd": {
+        "inputPerMTok": 0.14,
+        "outputPerMTok": 0.28
+      },
+      "posture": "The board's clearest quality-per-dollar shock, with a broad official agent evaluation suite and million-token context.",
+      "watch": "Independent long-horizon replication is now the decisive follow-up signal.",
+      "benchmarks": {
+        "aa-index": {
+          "value": 50,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "max"
+        },
+        "arena-elo": {
+          "value": 1446,
+          "rank": 81,
+          "sourceId": "benchmark-arena",
+          "asOf": "2026-08-07"
+        },
+        "output-speed": {
+          "value": 102.4,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "max"
+        },
+        "terminalbench": {
+          "value": 79,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-07-31",
+          "variant": "max"
+        },
+        "terminalbench-vendor": {
+          "value": 82.7,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        },
+        "gdpval-aa-v2": {
+          "value": 1559,
+          "sourceId": "benchmark-aa-gdpval",
+          "asOf": "2026-07-31",
+          "variant": "max"
+        },
+        "nl2repo": {
+          "value": 54.2,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        },
+        "cybergym": {
+          "value": 76.7,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        },
+        "deepswe": {
+          "value": 54.4,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        },
+        "toolathlon": {
+          "value": 70.3,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        },
+        "agent-last-exam": {
+          "value": 25.2,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        },
+        "automation-bench": {
+          "value": 25.1,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        },
+        "dsbench-fullstack": {
+          "value": 68.7,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        },
+        "dsbench-hard": {
+          "value": 59.6,
+          "sourceId": "deepseek-v4-flash",
+          "asOf": "2026-07-31",
+          "provenance": "vendor-reported"
+        }
+      },
+      "sourceRefs": [
+        "deepseek-v4-flash"
+      ]
+    },
+    {
       "id": "moonshot-kimi-k3",
       "providerId": "moonshot",
       "name": "Kimi K3",
       "modelIds": [
-        "kimi-k3"
+        "kimi-k3",
+        "kimi-k3-max"
       ],
       "releasedAt": "2026-07-16",
       "stage": "open-weight",
@@ -687,11 +1122,30 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1485,
-          "rank": 13,
+          "value": 1494,
+          "rank": 8,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01",
-          "preliminary": true
+          "asOf": "2026-08-07",
+          "preliminary": true,
+          "variant": "max"
+        },
+        "output-speed": {
+          "value": 38.5,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "max"
+        },
+        "gdpval-aa-v2": {
+          "value": 1685,
+          "sourceId": "benchmark-aa-gdpval",
+          "asOf": "2026-08-05",
+          "variant": "max"
+        },
+        "aa-briefcase": {
+          "value": 1547,
+          "sourceId": "benchmark-aa-briefcase",
+          "asOf": "2026-07-17",
+          "variant": "max"
         }
       },
       "sourceRefs": [
@@ -726,10 +1180,15 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1427,
-          "rank": 94,
+          "value": 1445,
+          "rank": 82,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01"
+          "asOf": "2026-08-07"
+        },
+        "output-speed": {
+          "value": 140,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07"
         }
       },
       "sourceRefs": [
@@ -766,10 +1225,15 @@ export const modelRadarSnapshot = {
         },
         "arena-elo": {
           "value": 1475,
-          "rank": 23,
+          "rank": 33,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01",
+          "asOf": "2026-08-07",
           "preliminary": true
+        },
+        "output-speed": {
+          "value": 201.9,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07"
         }
       },
       "sourceRefs": [
@@ -803,11 +1267,29 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1490,
-          "rank": 9,
+          "value": 1488,
+          "rank": 14,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01",
+          "asOf": "2026-08-07",
           "preliminary": true
+        },
+        "output-speed": {
+          "value": 214.5,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "xhigh"
+        },
+        "aa-coding-agent": {
+          "value": 69,
+          "sourceId": "benchmark-aa-coding",
+          "asOf": "2026-07-17",
+          "variant": "xhigh / OpenCode"
+        },
+        "gdpval-aa-v2": {
+          "value": 1371,
+          "sourceId": "benchmark-aa-gdpval",
+          "asOf": "2026-08-05",
+          "variant": "xhigh"
         }
       },
       "sourceRefs": [
@@ -832,7 +1314,18 @@ export const modelRadarSnapshot = {
       "priceUsd": null,
       "posture": "Apache-licensed enterprise model with 25B active parameters and broad language coverage.",
       "watch": "Independent benchmark coverage is still thin, so the missing cells matter here.",
-      "benchmarks": {},
+      "benchmarks": {
+        "aa-index": {
+          "value": 23,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07"
+        },
+        "output-speed": {
+          "value": 197,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07"
+        }
+      },
       "sourceRefs": [
         "cohere-command-a-plus"
       ]
@@ -864,7 +1357,8 @@ export const modelRadarSnapshot = {
       "providerId": "zhipu",
       "name": "GLM-5.2",
       "modelIds": [
-        "glm-5.2"
+        "glm-5.2",
+        "glm-5.2-max"
       ],
       "releasedAt": "2026-06-16",
       "stage": "frontier",
@@ -887,10 +1381,23 @@ export const modelRadarSnapshot = {
           "asOf": "2026-08-06"
         },
         "arena-elo": {
-          "value": 1469,
-          "rank": 33,
+          "value": 1479,
+          "rank": 26,
           "sourceId": "benchmark-arena",
-          "asOf": "2026-08-01"
+          "asOf": "2026-08-07",
+          "variant": "max"
+        },
+        "output-speed": {
+          "value": 139.5,
+          "sourceId": "benchmark-aa",
+          "asOf": "2026-08-07",
+          "variant": "max"
+        },
+        "gdpval-aa-v2": {
+          "value": 1510,
+          "sourceId": "benchmark-aa-gdpval",
+          "asOf": "2026-07-31",
+          "variant": "max"
         },
         "swebench-pro": {
           "value": 62.1,
@@ -939,6 +1446,15 @@ export const modelRadarSnapshot = {
       "sourceId": "xai-grok-45"
     },
     {
+      "id": "deepseek-v4-flash-0731-live",
+      "date": "2026-07-31",
+      "status": "released",
+      "providerId": "deepseek",
+      "label": "DeepSeek-V4 Flash 0731 released",
+      "detail": "Official results cover terminal, repository, cyber, tool-use and full-stack agent tasks; independent AA measurements add intelligence and speed.",
+      "sourceId": "deepseek-v4-flash"
+    },
+    {
       "id": "qwen-38-watch",
       "date": "2026-08-01",
       "status": "watch",
@@ -979,9 +1495,9 @@ export const modelRadarSnapshot = {
         "gpt-5.6-sol",
         "swe-bench pro"
       ],
-      "sha256": "",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": false,
+      "sha256": "",
       "foundSignals": [],
       "changed": false,
       "error": "HTTP 403 Forbidden"
@@ -998,9 +1514,9 @@ export const modelRadarSnapshot = {
         "claude-opus-5",
         "1m"
       ],
-      "sha256": "4be8ecf1f3e269fa3ddbe9c8a2e2527e232210b0b57591202e65a89a1f4a1b18",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "4be8ecf1f3e269fa3ddbe9c8a2e2527e232210b0b57591202e65a89a1f4a1b18",
       "foundSignals": [
         "claude opus 5",
         "claude-opus-5",
@@ -1021,9 +1537,9 @@ export const modelRadarSnapshot = {
         "terminal-bench",
         "swe-bench"
       ],
-      "sha256": "03c0eaf36bc0aec4fbc5b8795915960e724d76db32979097c78969049c62b812",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "03c0eaf36bc0aec4fbc5b8795915960e724d76db32979097c78969049c62b812",
       "foundSignals": [
         "claude fable 5"
       ],
@@ -1042,9 +1558,9 @@ export const modelRadarSnapshot = {
         "gemini 3.5 pro",
         "1m"
       ],
-      "sha256": "bbf2a9bc844f8140a3e3ad73ec8d29dd4b94016c1732582a6544659d1816b330",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "bbf2a9bc844f8140a3e3ad73ec8d29dd4b94016c1732582a6544659d1816b330",
       "foundSignals": [
         "gemini 3.6 flash",
         "1m"
@@ -1064,9 +1580,9 @@ export const modelRadarSnapshot = {
         "terminal-bench",
         "swe-bench"
       ],
-      "sha256": "",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": false,
+      "sha256": "",
       "foundSignals": [],
       "changed": false,
       "error": "HTTP 403 Forbidden"
@@ -1075,23 +1591,39 @@ export const modelRadarSnapshot = {
       "id": "deepseek-v4",
       "providerId": "deepseek",
       "sourceType": "provider",
-      "label": "DeepSeek V4 Pro update",
+      "label": "DeepSeek V4 Pro Preview",
       "url": "https://api-docs.deepseek.com/updates/",
       "official": true,
       "watch": [
         "deepseek-v4-pro",
         "v4 pro",
-        "1m"
+        "preview"
       ],
-      "sha256": "899d498fccaa28ae24dcb6146ad1a01c2ed03c5e8abed22d7c1d9b93e93c7796",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "899d498fccaa28ae24dcb6146ad1a01c2ed03c5e8abed22d7c1d9b93e93c7796",
       "foundSignals": [
         "deepseek-v4-pro",
         "v4 pro"
       ],
       "changed": false,
       "error": ""
+    },
+    {
+      "id": "deepseek-v4-flash",
+      "providerId": "deepseek",
+      "sourceType": "provider",
+      "label": "DeepSeek V4 Flash 0731",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "official": true,
+      "watch": [
+        "deepseek-v4-flash",
+        "terminal bench 2.1",
+        "nl2repo",
+        "82.7"
+      ],
+      "ok": null,
+      "foundSignals": []
     },
     {
       "id": "moonshot-kimi-k3",
@@ -1105,9 +1637,9 @@ export const modelRadarSnapshot = {
         "open source",
         "1m"
       ],
-      "sha256": "bb47fae040fd36e866162f42a316f45a829ab6c32af8a5337bed997dae45f441",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "bb47fae040fd36e866162f42a316f45a829ab6c32af8a5337bed997dae45f441",
       "foundSignals": [
         "kimi k3",
         "open source",
@@ -1128,9 +1660,9 @@ export const modelRadarSnapshot = {
         "mistral large",
         "262k"
       ],
-      "sha256": "6cf86e76f11f013e5e7c0ca4a12e010296ed13013c4d5e9ab12387055e079171",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "6cf86e76f11f013e5e7c0ca4a12e010296ed13013c4d5e9ab12387055e079171",
       "foundSignals": [
         "medium 3.5",
         "mistral large"
@@ -1150,9 +1682,9 @@ export const modelRadarSnapshot = {
         "qwen3.8",
         "qwen max"
       ],
-      "sha256": "933633b7ee8e715f6a35edc166d2c836525aa1747dee3fcf545572d0b91fc265",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "933633b7ee8e715f6a35edc166d2c836525aa1747dee3fcf545572d0b91fc265",
       "foundSignals": [
         "qwen3.8",
         "qwen max"
@@ -1172,9 +1704,9 @@ export const modelRadarSnapshot = {
         "1.1",
         "model api"
       ],
-      "sha256": "7898aef08c96b275f42e17a5d0a1ccddd1f3f54a058c7671438a5aa9cf083874",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "7898aef08c96b275f42e17a5d0a1ccddd1f3f54a058c7671438a5aa9cf083874",
       "foundSignals": [
         "muse spark",
         "1.1",
@@ -1195,9 +1727,9 @@ export const modelRadarSnapshot = {
         "command-a-plus",
         "apache 2.0"
       ],
-      "sha256": "b0df881e4fb0c1c18b35c0e70db2bf888db37a50c630c5409a71b66b7cb7b5aa",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "b0df881e4fb0c1c18b35c0e70db2bf888db37a50c630c5409a71b66b7cb7b5aa",
       "foundSignals": [
         "command a+",
         "command-a-plus",
@@ -1218,9 +1750,9 @@ export const modelRadarSnapshot = {
         "nova 2",
         "bedrock"
       ],
-      "sha256": "c228dff2eb3b09664eee843c39cc985e94b7a8f27302df6f6cfc8c7a73c5a4c5",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "c228dff2eb3b09664eee843c39cc985e94b7a8f27302df6f6cfc8c7a73c5a4c5",
       "foundSignals": [
         "nova 2",
         "bedrock"
@@ -1240,9 +1772,9 @@ export const modelRadarSnapshot = {
         "terminal-bench",
         "swe-bench"
       ],
-      "sha256": "d0299326d21fd363483eabe4f4a719efc842022bc843f6e7c2d4ee77d4d8a5c0",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "d0299326d21fd363483eabe4f4a719efc842022bc843f6e7c2d4ee77d4d8a5c0",
       "foundSignals": [
         "glm-5.2"
       ],
@@ -1261,9 +1793,9 @@ export const modelRadarSnapshot = {
         "claude opus 5",
         "gpt-5.6"
       ],
-      "sha256": "b85301e452a182bb8ffeba5037b9c035811100fb30e81aa84e94d3b474759e41",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "b85301e452a182bb8ffeba5037b9c035811100fb30e81aa84e94d3b474759e41",
       "foundSignals": [
         "intelligence index",
         "claude opus 5",
@@ -1271,6 +1803,52 @@ export const modelRadarSnapshot = {
       ],
       "changed": true,
       "error": ""
+    },
+    {
+      "id": "benchmark-aa-coding",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "AA Coding Agent Index",
+      "url": "https://artificialanalysis.ai/agents/coding-agents",
+      "official": false,
+      "watch": [
+        "coding agent index",
+        "deepswe",
+        "terminal-bench",
+        "swe-atlas"
+      ],
+      "ok": null,
+      "foundSignals": []
+    },
+    {
+      "id": "benchmark-aa-gdpval",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "GDPval-AA v2",
+      "url": "https://artificialanalysis.ai/evaluations/gdpval-aa",
+      "official": false,
+      "watch": [
+        "gdpval-aa v2",
+        "agentic real-world work",
+        "elo"
+      ],
+      "ok": null,
+      "foundSignals": []
+    },
+    {
+      "id": "benchmark-aa-briefcase",
+      "providerId": null,
+      "sourceType": "benchmark",
+      "label": "AA-Briefcase",
+      "url": "https://artificialanalysis.ai/evaluations/aa-briefcase",
+      "official": false,
+      "watch": [
+        "aa-briefcase",
+        "agentic knowledge work",
+        "elo"
+      ],
+      "ok": null,
+      "foundSignals": []
     },
     {
       "id": "benchmark-arena",
@@ -1284,9 +1862,9 @@ export const modelRadarSnapshot = {
         "claude-fable-5",
         "qwen3.8"
       ],
-      "sha256": "014dcc01a1a4d3905e2a6541a09b4a519123c6b86441a10ca3e3c6b1cdc939a6",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "014dcc01a1a4d3905e2a6541a09b4a519123c6b86441a10ca3e3c6b1cdc939a6",
       "foundSignals": [
         "leaderboard",
         "claude-fable-5",
@@ -1307,9 +1885,9 @@ export const modelRadarSnapshot = {
         "verified",
         "pro"
       ],
-      "sha256": "32df14822f5e5cb76bc25c3d83a27ec0fb75f8f57828cec5f73821d75931b783",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "32df14822f5e5cb76bc25c3d83a27ec0fb75f8f57828cec5f73821d75931b783",
       "foundSignals": [
         "swe-bench",
         "verified",
@@ -1322,7 +1900,7 @@ export const modelRadarSnapshot = {
       "id": "benchmark-terminal",
       "providerId": null,
       "sourceType": "benchmark",
-      "label": "Terminal-Bench",
+      "label": "Terminal-Bench 2.0 reference",
       "url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
       "official": false,
       "watch": [
@@ -1330,9 +1908,9 @@ export const modelRadarSnapshot = {
         "leaderboard",
         "agent"
       ],
-      "sha256": "ad6ded3e63cdd840918091a424d51a44f68bc6bcaf2915247ab8aa8c49ff4a95",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "ad6ded3e63cdd840918091a424d51a44f68bc6bcaf2915247ab8aa8c49ff4a95",
       "foundSignals": [
         "terminal-bench",
         "leaderboard",
@@ -1353,9 +1931,9 @@ export const modelRadarSnapshot = {
         "leaderboard",
         "verified"
       ],
-      "sha256": "032a162f2850b6cd3924c304e56e32e38a7b6b27c3af9b437992b9373e326f6a",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "032a162f2850b6cd3924c304e56e32e38a7b6b27c3af9b437992b9373e326f6a",
       "foundSignals": [
         "arc-agi",
         "leaderboard",
@@ -1376,9 +1954,9 @@ export const modelRadarSnapshot = {
         "leaderboard",
         "agent"
       ],
-      "sha256": "b67ffe51f4b0dddc477409102636be9d511569faa5ca1cd616267aeffa53e7c0",
       "lastCheckedAt": "2026-08-07T01:33:20.317Z",
       "ok": true,
+      "sha256": "b67ffe51f4b0dddc477409102636be9d511569faa5ca1cd616267aeffa53e7c0",
       "foundSignals": [
         "agents last exam",
         "leaderboard",
@@ -1389,9 +1967,9 @@ export const modelRadarSnapshot = {
     }
   ],
   "notes": [
-    "Every displayed benchmark value keeps its source and measurement date. Missing coverage stays visible as N/A.",
+    "Every displayed benchmark value keeps its source and measurement date. Missing coverage stays visible as N/A with a current verification reason.",
     "Arena and Artificial Analysis are independent signals. SWE-Bench Pro and Terminal-Bench values can be vendor-reported and are labeled in the detail view.",
-    "Release clocks infer watch pressure from public release dates. They do not promise future launches.",
+    "Release timing compares elapsed days with each provider's historical average interval. It carries no launch probability or promise.",
     "The daily job checks a fixed source list serially, records page changes, and keeps curated values intact for human review."
   ]
 };

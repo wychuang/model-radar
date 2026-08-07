@@ -16,6 +16,8 @@ export function validateRadarData(snapshot) {
 
   for (const provider of snapshot.providers ?? []) {
     if (!provider.name) errors.push(`${provider.id}: missing name`);
+    if (!isHexColor(provider.accent)) errors.push(`${provider.id}: invalid accent`);
+    if (!isHexColor(provider.accentText)) errors.push(`${provider.id}: invalid accentText`);
     if (!modelIds.has(provider.latestModelId)) errors.push(`${provider.id}: unknown latestModelId ${provider.latestModelId}`);
     if (!Array.isArray(provider.releaseHistory) || provider.releaseHistory.length < 2) {
       errors.push(`${provider.id}: releaseHistory needs at least two dots`);
@@ -48,6 +50,8 @@ export function validateRadarData(snapshot) {
   for (const model of snapshot.models ?? []) {
     if (!providerIds.has(model.providerId)) errors.push(`${model.id}: unknown provider ${model.providerId}`);
     if (!model.name) errors.push(`${model.id}: missing name`);
+    if (model.accent && !isHexColor(model.accent)) errors.push(`${model.id}: invalid accent`);
+    if (model.accentText && !isHexColor(model.accentText)) errors.push(`${model.id}: invalid accentText`);
     if (!isIsoDate(model.releasedAt)) errors.push(`${model.id}: invalid releasedAt`);
     if (!Array.isArray(model.modelIds) || model.modelIds.length === 0) errors.push(`${model.id}: missing modelIds`);
     if (!Array.isArray(model.sourceRefs) || model.sourceRefs.length === 0) errors.push(`${model.id}: missing sourceRefs`);
@@ -174,6 +178,7 @@ export function formatMetricValue(metric, value) {
   if (metric.format === "elo") return new Intl.NumberFormat("en-US").format(value);
   if (metric.format === "usd") return `$${trimNumber(value)}`;
   if (metric.format === "tokens") return formatTokenWindow(value);
+  if (metric.format === "speed") return `${trimNumber(value)} t/s`;
   return trimNumber(value);
 }
 
@@ -316,6 +321,10 @@ function toDate(value) {
 
 function isIsoDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value ?? "") && !Number.isNaN(new Date(`${value}T00:00:00.000Z`).getTime());
+}
+
+function isHexColor(value) {
+  return /^#[0-9a-f]{6}$/i.test(value ?? "");
 }
 
 function clamp(value, min, max) {

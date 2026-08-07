@@ -1,16 +1,16 @@
 export function clockStatusLabel(status) {
   return {
-    cooldown: "COOL",
-    tracking: "TRACK",
-    watch: "WATCH",
-    overdue: "LATE"
-  }[status] ?? "SCAN";
+    cooldown: "周期前段",
+    tracking: "接近常见区间",
+    watch: "进入常见区间",
+    overdue: "超过常见区间"
+  }[status] ?? "节奏未知";
 }
 
 export function eventStatusLabel(status) {
   return {
     released: "已发生",
-    watch: "观察中",
+    watch: "待官方确认",
     deadline: "将到期"
   }[status] ?? "信号";
 }

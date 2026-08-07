@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="世界大模型雷达：用真实 benchmark、发布日期和公开来源观察全球模型态势。">
+    <meta name="theme-color" content="#11120f">
+    <title>World Model Radar / 信号观测站</title>
+    <link rel="stylesheet" href="./styles-radar.css?v=20260807-dual-view">
+  </head>
+  <body>
+    <a class="skip-link" href="#radar-map">跳到雷达</a>
+
+    <main class="observatory" data-smoke="model-radar-observatory">
+      <header class="mast">
+        <a class="identity" href="./radar.html" aria-label="世界大模型雷达本地新版">
+          <span class="identity-scope" aria-hidden="true"><i></i></span>
+          <span>
+            <strong>WORLD MODEL RADAR</strong>
+            <small>SIGNAL OBSERVATORY / 信号观测站</small>
+          </span>
+        </a>
+
+        <div class="snapshot-block">
+          <span>BENCHMARK AS OF</span>
+          <strong id="snapshot-date">----</strong>
+          <small id="refresh-date">CHECKED --</small>
+        </div>
+
+        <nav class="mast-nav" aria-label="页面区段">
+          <a href="#now">NOW</a>
+          <a href="#profile">PROFILE</a>
+          <a href="#next">TIMING</a>
+          <a href="./v2.html">APPLE VIEW ↗</a>
+        </nav>
+      </header>
+
+      <section class="metric-console" aria-labelledby="metric-console-title">
+        <div class="console-label">
+          <span>SCAN MODE</span>
+          <strong id="metric-console-title">选择观察口径</strong>
+        </div>
+        <div id="metric-tabs" class="metric-tabs" role="tablist" aria-labelledby="metric-console-title"></div>
+        <div id="coverage-readout" class="coverage-readout" aria-live="polite"></div>
+      </section>
+
+      <section id="now" class="radar-shell" aria-label="全球模型雷达与当前排名">
+        <div id="radar-map" class="radar-map" tabindex="-1">
+          <div class="radar-grid" aria-hidden="true">
+            <i class="radar-ring ring-one"></i>
+            <i class="radar-ring ring-two"></i>
+            <i class="radar-ring ring-three"></i>
+            <i class="radar-crosshair horizontal"></i>
+            <i class="radar-crosshair vertical"></i>
+            <i class="radar-sweep"></i>
+            <i class="radar-origin"></i>
+          </div>
+
+          <div class="no-signal-lane" aria-hidden="true">
+            <span>NO CONFIRMED SCORE / N/A</span>
+          </div>
+
+          <div class="radar-axis axis-top"><span>NEW / 0D</span></div>
+          <div class="radar-axis axis-bottom"><span>OLDER / 180D+</span></div>
+          <div class="radar-axis axis-left"><span>LOW</span></div>
+          <div class="radar-axis axis-right"><span>HIGH</span></div>
+          <div id="metric-axis" class="metric-axis">SELECTED BENCHMARK</div>
+
+          <div id="model-dots" class="model-dots" role="group" aria-label="雷达模型信号"></div>
+          <div class="radar-caption">
+            <span>Y / RELEASE FRESHNESS</span>
+            <strong id="radar-caption">X / BENCHMARK</strong>
+          </div>
+        </div>
+
+        <aside class="command-strip">
+          <section class="now-panel" aria-labelledby="now-title">
+            <header class="strip-heading">
+              <span>NOW / CURRENT ORDER</span>
+              <strong id="now-title">当前信号</strong>
+            </header>
+            <div id="leader-list" class="leader-list" role="list" aria-label="当前指标排名"></div>
+          </section>
+
+          <section id="model-inspector" class="model-inspector" aria-labelledby="inspector-title" aria-live="polite"></section>
+        </aside>
+      </section>
+
+      <p id="view-status" class="sr-only" role="status" aria-live="polite"></p>
+
+      <section id="profile" class="profile-band" aria-labelledby="profile-title">
+        <header class="profile-heading">
+          <div>
+            <span>MODEL DECISION / 5 AXES</span>
+            <h2 id="profile-title">五维选型</h2>
+            <p>选择用途，系统按已确认数据直接给出首选和最强替代。工程与 Agent 专项分数单独保留。</p>
+          </div>
+          <div class="choice-control">
+            <span>你要解决什么</span>
+            <div id="choice-modes" class="choice-modes" role="tablist" aria-label="选择模型用途"></div>
+            <div id="choice-verdict" class="choice-verdict" aria-live="polite"></div>
+          </div>
+        </header>
+        <div class="profile-workspace">
+          <div id="profile-chart" class="profile-chart" aria-label="所选模型五维能力对比图"></div>
+          <div id="profile-readout" class="profile-readout"></div>
+        </div>
+      </section>
+
+      <section id="next" class="next-band" aria-labelledby="next-title">
+        <header class="band-heading signal-heading">
+          <span>RELEASE TIMING</span>
+          <h2 id="next-title">历史发布节奏</h2>
+          <p>按过去发布间隔推算关注窗口；不表示发布概率，也不代表官方倒计时。</p>
+        </header>
+        <div id="release-clocks" class="release-clocks"></div>
+      </section>
+
+      <section class="event-band" aria-labelledby="event-title">
+        <header class="band-heading event-heading">
+          <span>DATED EVENTS</span>
+          <h2 id="event-title">已发布 / 待确认 / 截止</h2>
+        </header>
+        <div id="event-list" class="event-list"></div>
+      </section>
+
+      <section id="evidence" class="evidence-band" aria-labelledby="evidence-title">
+        <header class="band-heading evidence-heading">
+          <span>EVIDENCE</span>
+          <h2 id="evidence-title">评测来源账本</h2>
+          <p>原始值、来源日期和缺口保持可见。</p>
+        </header>
+        <div id="source-list" class="source-list"></div>
+      </section>
+
+      <footer class="method-strip">
+        <span>READING RULE</span>
+        <p id="method-note">右侧代表当前指标表现更优；上方代表发布时间更近；左侧 N/A 会在模型详情中说明缺失原因。</p>
+        <a href="./DESIGN.md">DESIGN CANON ↗</a>
+      </footer>
+    </main>
+
+    <script type="module" src="./src/app-radar.mjs?v=20260807-dual-view"></script>
+  </body>
+</html>

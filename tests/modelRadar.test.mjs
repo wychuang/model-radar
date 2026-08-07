@@ -17,8 +17,8 @@ test("snapshot covers current provider lanes and traceable benchmark sources", (
 
   assert.deepEqual(errors, []);
   assert.ok(modelRadarSnapshot.providers.length >= 12);
-  assert.ok(modelRadarSnapshot.models.length >= 13);
-  assert.ok(modelRadarSnapshot.benchmarks.length >= 6);
+  assert.ok(modelRadarSnapshot.models.length >= 14);
+  assert.ok(modelRadarSnapshot.benchmarks.length >= 14);
 
   for (const model of modelRadarSnapshot.models) {
     assert.ok(model.sourceRefs.length >= 1, `${model.id} is missing official source refs`);
@@ -30,6 +30,31 @@ test("snapshot covers current provider lanes and traceable benchmark sources", (
   }
 });
 
+test("published views share seven primary metrics and retain measured specialist evidence", () => {
+  const primaryMetricIds = modelRadarSnapshot.benchmarks
+    .filter((metric) => metric.radar !== false)
+    .map((metric) => metric.id);
+  const specialistMetricIds = new Set(
+    modelRadarSnapshot.benchmarks
+      .filter((metric) => metric.radar === false)
+      .map((metric) => metric.id)
+  );
+  const deepSeekFlash = modelRadarSnapshot.models.find((model) => model.id === "deepseek-v4-flash-0731");
+  const measuredSpecialists = Object.entries(deepSeekFlash?.benchmarks ?? {})
+    .filter(([metricId, measurement]) => specialistMetricIds.has(metricId) && Number.isFinite(measurement?.value));
+
+  assert.deepEqual(primaryMetricIds, [
+    "aa-index",
+    "arena-elo",
+    "output-speed",
+    "swebench-pro",
+    "terminalbench",
+    "output-price",
+    "context-window"
+  ]);
+  assert.equal(measuredSpecialists.length, 10);
+});
+
 test("AA index and Arena preserve their own source-backed ranking", () => {
   const aa = rankModelsByMetric(modelRadarSnapshot, "aa-index");
   const arena = rankModelsByMetric(modelRadarSnapshot, "arena-elo");
@@ -37,7 +62,7 @@ test("AA index and Arena preserve their own source-backed ranking", () => {
   assert.equal(aa[0].id, "anthropic-claude-opus-5");
   assert.equal(aa[0].metricValue, 61);
   assert.equal(arena[0].id, "anthropic-claude-fable-5");
-  assert.equal(arena[0].measurement.rank, 1);
+  assert.equal(arena[0].measurement.rank, 2);
 });
 
 test("lower-is-better metrics invert the order and leave missing rows last", () => {
@@ -45,22 +70,24 @@ test("lower-is-better metrics invert the order and leave missing rows last", () 
   const covered = price.filter((row) => Number.isFinite(row.metricValue));
   const missing = price.filter((row) => !Number.isFinite(row.metricValue));
 
-  assert.equal(covered[0].id, "deepseek-v4-pro");
-  assert.equal(covered[0].metricValue, 0.87);
+  assert.equal(covered[0].id, "deepseek-v4-flash-0731");
+  assert.equal(covered[0].metricValue, 0.28);
   assert.ok(missing.some((row) => row.id === "cohere-command-a-plus"));
   assert.ok(price.indexOf(missing[0]) > price.indexOf(covered.at(-1)));
 });
 
 test("coverage counts expose benchmark gaps instead of inventing scores", () => {
   assert.deepEqual(metricCoverage(modelRadarSnapshot, "aa-index"), {
-    covered: 11,
-    total: 13,
-    ratio: 11 / 13
+    covered: 13,
+    total: 14,
+    ratio: 13 / 14
   });
-  assert.equal(metricCoverage(modelRadarSnapshot, "terminalbench").covered, 4);
+  assert.equal(metricCoverage(modelRadarSnapshot, "output-speed").covered, 13);
+  assert.equal(metricCoverage(modelRadarSnapshot, "terminalbench").covered, 7);
+  assert.equal(metricCoverage(modelRadarSnapshot, "aa-coding-agent").covered, 4);
 });
 
-test("release clocks expose inferred watch pressure", () => {
+test("release clocks expose inferred historical cadence bands", () => {
   const clocks = estimateReleaseClocks(modelRadarSnapshot.providers, "2026-08-06");
   const anthropic = clocks.find((clock) => clock.providerId === "anthropic");
   const amazon = clocks.find((clock) => clock.providerId === "amazon");
@@ -91,9 +118,11 @@ test("view model carries benchmarks, events, sources, and glance signals", () =>
 test("metric and token values stay compact and explicit", () => {
   const percent = modelRadarSnapshot.benchmarks.find((metric) => metric.id === "swebench-pro");
   const price = modelRadarSnapshot.benchmarks.find((metric) => metric.id === "output-price");
+  const speed = modelRadarSnapshot.benchmarks.find((metric) => metric.id === "output-speed");
 
   assert.equal(formatMetricValue(percent, 64.6), "64.6%");
   assert.equal(formatMetricValue(price, 0.87), "$0.87");
+  assert.equal(formatMetricValue(speed, 102.4), "102.4 t/s");
   assert.equal(formatMetricValue(price, null), "N/A");
   assert.equal(formatTokenWindow(1050000), "1.05M");
   assert.equal(formatTokenWindow(128000), "128K");
