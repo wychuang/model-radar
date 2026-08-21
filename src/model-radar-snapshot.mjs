@@ -1,6 +1,6 @@
 export const modelRadarSnapshot = {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-20T22:41:00.834Z",
+  "generatedAt": "2026-08-21T22:36:57.891Z",
   "refresh": {
     "cadence": "daily",
     "nextRunHint": "daily low-frequency source refresh; failures keep curated benchmark rows intact",
@@ -1496,7 +1496,7 @@ export const modelRadarSnapshot = {
         "swe-bench pro"
       ],
       "sha256": "",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": false,
       "foundSignals": [],
       "changed": false,
@@ -1514,8 +1514,8 @@ export const modelRadarSnapshot = {
         "claude-opus-5",
         "1m"
       ],
-      "sha256": "28088284f64e59ffb388f36e03e9050f016d41171973912592132b84f91e9b5d",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "da5e7c8245c657a3dae36cc10aa6240e653738185a995771dfea218ed8c1864e",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "claude opus 5",
@@ -1538,12 +1538,12 @@ export const modelRadarSnapshot = {
         "swe-bench"
       ],
       "sha256": "513d08cc94423192a74ac2803322a3048ec3b4449ccd84e9c87c264cae37cdde",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "claude fable 5"
       ],
-      "changed": true,
+      "changed": false,
       "error": ""
     },
     {
@@ -1558,8 +1558,8 @@ export const modelRadarSnapshot = {
         "gemini 3.5 pro",
         "1m"
       ],
-      "sha256": "3899296468fadcc297ba90884fe739e9ccc9c7a9c50fc2ef9ef17ae2afeb0d2e",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "8e26cdd6eea7bd5540b3dbd10c2cc9261db424430ac384a921a10d7439ff3f36",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "gemini 3.6 flash",
@@ -1580,8 +1580,8 @@ export const modelRadarSnapshot = {
         "terminal-bench",
         "swe-bench"
       ],
-      "sha256": "51b6537e48f49c5847b641bdd27c71b6bed8ad879147627af537b071c0ff6830",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "d2fe5bf2fb239a295823d216943d74eb8d13f8060d3331cb8d2e052063da3220",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "grok 4.5",
@@ -1603,15 +1603,15 @@ export const modelRadarSnapshot = {
         "v4 pro",
         "preview"
       ],
-      "sha256": "7ba7d8339a99ff797a04d1001d0677ed36ebdc07677e1f02dccaa4e2a01c9453",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "27e184aadeb6f9d354ff70ec4cfec0490dfa4e28c2273b6325a24e6e9c512b7d",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "deepseek-v4-pro",
         "v4 pro",
         "preview"
       ],
-      "changed": false,
+      "changed": true,
       "error": ""
     },
     {
@@ -1627,8 +1627,8 @@ export const modelRadarSnapshot = {
         "nl2repo",
         "82.7"
       ],
-      "sha256": "7ba7d8339a99ff797a04d1001d0677ed36ebdc07677e1f02dccaa4e2a01c9453",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "27e184aadeb6f9d354ff70ec4cfec0490dfa4e28c2273b6325a24e6e9c512b7d",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "deepseek-v4-flash",
@@ -1636,7 +1636,7 @@ export const modelRadarSnapshot = {
         "nl2repo",
         "82.7"
       ],
-      "changed": false,
+      "changed": true,
       "error": ""
     },
     {
@@ -1651,8 +1651,8 @@ export const modelRadarSnapshot = {
         "open source",
         "1m"
       ],
-      "sha256": "3514b31a7f5070937383dd2b81bafb37a6598e1cc01daf80171e2baf022305d4",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "dad3e0d6765e7fd80b446f5676cd5766c57714520bec871859e70db9e68507fc",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "kimi k3",
@@ -1674,8 +1674,8 @@ export const modelRadarSnapshot = {
         "mistral large",
         "262k"
       ],
-      "sha256": "687c1db12541c7632db57903bf806bbd8c9def3702088f87c831a6e2280dc0a3",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "bac937f44d172b7f1ca3238339044abcaf164835fd5e8ad015cab95e330feffe",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "medium 3.5",
@@ -1696,8 +1696,8 @@ export const modelRadarSnapshot = {
         "qwen3.8",
         "qwen max"
       ],
-      "sha256": "02b54b6783c032da9f08c9ef233d5652e98e6c2a91af10d116f76c19eaddbe5e",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "d6299e8dbcccd41b6f303ed59e773775f7e03ab5eed28fc16440fb901fdd66c1",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "qwen3.8",
@@ -1718,8 +1718,8 @@ export const modelRadarSnapshot = {
         "1.1",
         "model api"
       ],
-      "sha256": "5ec2167b5f4be392babcb585438335371cce947ac72dc9643830b47ba1d45e66",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "03aa8d890cfead09e3946004ed29740d83ee46d0f4425bc53b4f0c3061866ebe",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "muse spark",
@@ -1742,7 +1742,7 @@ export const modelRadarSnapshot = {
         "apache 2.0"
       ],
       "sha256": "b0df881e4fb0c1c18b35c0e70db2bf888db37a50c630c5409a71b66b7cb7b5aa",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "command a+",
@@ -1764,8 +1764,8 @@ export const modelRadarSnapshot = {
         "nova 2",
         "bedrock"
       ],
-      "sha256": "24a36e11c9a465bf8a3408f62c9ee7c746156b6eb5f22ca801ee886e9ee41e2f",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "7dbf74bb6beb4c503b5061e496d142b037845e58541105a82f7e01371dfb8e4d",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "nova 2",
@@ -1787,7 +1787,7 @@ export const modelRadarSnapshot = {
         "swe-bench"
       ],
       "sha256": "63e94b9e11a2db64243ff18418011577f2a98ca7851ce9dcb0e97cfe34cc245a",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "glm-5.2"
@@ -1807,8 +1807,8 @@ export const modelRadarSnapshot = {
         "claude opus 5",
         "gpt-5.6"
       ],
-      "sha256": "5a3af180ad117ea52aa919b973f6f4e64bb54029dc080b894a92c88898dbc858",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "665426fb443b0e320179746a6a86e5c1435d3589451fe9e0ecfb61e6dc76fd4c",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "intelligence index",
@@ -1831,8 +1831,8 @@ export const modelRadarSnapshot = {
         "terminal-bench",
         "swe-atlas"
       ],
-      "sha256": "a5d3699a99475cdf5a23a34b1d99ad1b5ab0a258dde7887c5319beb308f16bb1",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "464a0d6a06abba587396a4b119d7078dbba75f42fa5707da2609a15c820c008a",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "coding agent index",
@@ -1855,8 +1855,8 @@ export const modelRadarSnapshot = {
         "agentic real-world work",
         "elo"
       ],
-      "sha256": "54b523a21667f0665df805d37299be9653b7de18e6cd72acc990872d3412585d",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "1b0365ad1f33e07b73d2457cc04a8dd6a3df58eeb6bca61574e49a3ea32ddb0d",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "gdpval-aa v2",
@@ -1877,8 +1877,8 @@ export const modelRadarSnapshot = {
         "agentic knowledge work",
         "elo"
       ],
-      "sha256": "3d1cdec8d6eda20ae96471d85a2f080c058032c5b7ee6f2205f6257a1748a5e7",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "811736b5ae3aa8b1b9e56b28b38c32f669b89538101944d5421b0cb146288cba",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "aa-briefcase",
@@ -1900,8 +1900,8 @@ export const modelRadarSnapshot = {
         "claude-fable-5",
         "qwen3.8"
       ],
-      "sha256": "5e4fd462fd183950ae2141402aed50a8c07a8770fdd304489c9ff355ae7db8d9",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "7ce0c3f8e9da43045590346f7276b939a0f9e9457fbc3aff4b4c624d4a9fcfae",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "leaderboard",
@@ -1924,7 +1924,7 @@ export const modelRadarSnapshot = {
         "pro"
       ],
       "sha256": "f70fc6c0c500d07af0e7e3d7d7f3a51c40689a7f1704eebf4702b8cacc114411",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "swe-bench",
@@ -1947,7 +1947,7 @@ export const modelRadarSnapshot = {
         "agent"
       ],
       "sha256": "e920920cd41e87742e6872b0142b33eca4dcddc479577aef3240a0bd42cdb437",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "terminal-bench",
@@ -1969,8 +1969,8 @@ export const modelRadarSnapshot = {
         "leaderboard",
         "verified"
       ],
-      "sha256": "508f5d5a66bb15c0064164791d083c96c97caf95126a9e95b9ba090e5325cec2",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "sha256": "5cab37e0ce87288a654ebc2acc2582e7418bed1de27ef432c76183f26197cc24",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "arc-agi",
@@ -1993,7 +1993,7 @@ export const modelRadarSnapshot = {
         "agent"
       ],
       "sha256": "f17242da2dcea240391696084dfe2386c503aa46dc38811ac035c9d7bcaa000f",
-      "lastCheckedAt": "2026-08-20T22:41:00.834Z",
+      "lastCheckedAt": "2026-08-21T22:36:57.891Z",
       "ok": true,
       "foundSignals": [
         "agents last exam",
