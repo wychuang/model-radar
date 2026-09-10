@@ -9,16 +9,18 @@ export const modelRadarSeed = {
   benchmarks: [
     {
       id: "aa-index",
-      label: "Artificial Analysis Intelligence Index",
-      shortLabel: "AA INTEL",
+      label: "Artificial Analysis Intelligence Index v4.3",
+      shortLabel: "AA v4.3",
       displayLabel: "AA 智力",
       direction: "higher",
       format: "index",
-      min: 20,
-      max: 65,
+      min: 0,
+      max: 60,
       sourceId: "benchmark-aa",
-      asOf: "2026-08-06",
-      description: "Independent composite intelligence index. Max-reasoning configurations are used when listed."
+      asOf: "2026-09-10",
+      description: "AA 智力指数 v4.3；2026-09-10 读取榜单。10 项评测组成，各型号保留所测推理档位；不与旧版指数直接比较。读取日不代表所有测试在当天运行。",
+      version: "4.3",
+      dateBasis: "observed"
     },
     {
       id: "arena-elo",
@@ -30,8 +32,8 @@ export const modelRadarSeed = {
       min: 1350,
       max: 1520,
       sourceId: "benchmark-arena",
-      asOf: "2026-08-07",
-      description: "Crowd preference score from blind side-by-side votes. Preliminary rows are marked."
+      asOf: "2026-09-02",
+      description: "Arena 文字偏好榜；榜单标注更新于 2026-09-02。保留原始型号、推理档位及初步结果标记。"
     },
     {
       id: "output-speed",
@@ -40,11 +42,12 @@ export const modelRadarSeed = {
       displayLabel: "生成速度",
       direction: "higher",
       format: "speed",
-      min: 30,
-      max: 220,
+      min: 0,
+      max: 400,
       sourceId: "benchmark-aa",
-      asOf: "2026-08-07",
-      description: "Measured output tokens per second from the model's first-party API or the benchmark's documented provider representation."
+      asOf: "2026-09-10",
+      description: "2026-09-10 读取 AA 输出速度；长提示词口径。速度表示开始输出后的 tokens/s，不包含思考等待时间。",
+      dateBasis: "observed"
     },
     {
       id: "swebench-pro",
@@ -61,16 +64,18 @@ export const modelRadarSeed = {
     },
     {
       id: "terminalbench",
-      label: "Terminal-Bench 2.1",
+      label: "Terminal-Bench 4.0 / AA harness",
       shortLabel: "TERMINAL",
       displayLabel: "终端 Agent",
       direction: "higher",
       format: "percent",
-      min: 40,
-      max: 90,
-      sourceId: "benchmark-terminal",
-      asOf: "2026-08-06",
-      description: "Vendor-published Terminal-Bench 2.1 results. Agent harness and run configuration can change the score."
+      min: 0,
+      max: 70,
+      sourceId: "benchmark-aa",
+      asOf: "2026-09-10",
+      description: "AA 公布的 Terminal-Bench 4.0，同一通用评测框架。与厂商框架及 2.1 版成绩分开，2026-09-10 读取。",
+      version: "4.0",
+      dateBasis: "observed"
     },
     {
       id: "output-price",
@@ -84,8 +89,8 @@ export const modelRadarSeed = {
       scale: "log",
       sourceId: null,
       derivedFrom: "outputPrice",
-      asOf: "2026-08-06",
-      description: "Public list price in USD per million output tokens. Lower is better; the visual position uses a documented log scale so sub-dollar differences remain visible. Discounts and cache tiers are excluded."
+      asOf: "2026-09-10",
+      description: "美元 / 百万输出 tokens；按各模型的价格来源与核实日期。默认标准 API，DeepSeek 采用高峰价，限时价单独注明；输入、缓存、工具调用及实际任务用量另计。"
     },
     {
       id: "context-window",
@@ -98,7 +103,7 @@ export const modelRadarSeed = {
       max: 1050000,
       sourceId: null,
       derivedFrom: "contextTokens",
-      asOf: "2026-08-06",
+      asOf: "2026-09-10",
       description: "Advertised input context. Effective long-context quality is a separate question."
     },
     {
@@ -123,11 +128,12 @@ export const modelRadarSeed = {
       direction: "higher",
       format: "index",
       min: 0,
-      max: 85,
+      max: 70,
       sourceId: "benchmark-aa-coding",
-      asOf: "2026-08-07",
+      asOf: "2026-09-09",
       radar: false,
-      description: "Independent coding-agent index pairing models with documented agent harnesses across DeepSWE, Terminal-Bench and SWE-Atlas-QnA."
+      description: "AA 2026-09-09 对比：模型搭配各自编程工具的 Coding Agent Index。保留工具名，不能当作裸模型成绩。",
+      version: "2026-09-09"
     },
     {
       id: "gdpval-aa-v2",
@@ -136,10 +142,10 @@ export const modelRadarSeed = {
       displayLabel: "专业工作",
       direction: "higher",
       format: "elo",
-      min: 1000,
+      min: 800,
       max: 1900,
       sourceId: "benchmark-aa-gdpval",
-      asOf: "2026-08-07",
+      asOf: "2026-09-10",
       radar: false,
       description: "Independent agentic real-world knowledge-work evaluation reported as Elo."
     },
@@ -150,10 +156,10 @@ export const modelRadarSeed = {
       displayLabel: "知识工作交付",
       direction: "higher",
       format: "elo",
-      min: 1000,
+      min: 400,
       max: 1800,
       sourceId: "benchmark-aa-briefcase",
-      asOf: "2026-08-07",
+      asOf: "2026-09-10",
       radar: false,
       description: "Independent agentic knowledge-work benchmark combining rubric completion and output quality."
     },
@@ -277,13 +283,14 @@ export const modelRadarSeed = {
       region: "US",
       accent: "#e8e6df",
       accentText: "#11120f",
-      latestModelId: "openai-gpt-5-6-sol",
+      latestModelId: "openai-gpt-6-astra",
       cycleLabel: "numbered frontier train",
       releaseHistory: [
         { date: "2025-08-07", label: "GPT-5" },
         { date: "2025-12-11", label: "GPT-5.2" },
         { date: "2026-04-23", label: "GPT-5.5" },
-        { date: "2026-07-09", label: "GPT-5.6 Sol" }
+        { date: "2026-07-09", label: "GPT-5.6 Sol" },
+        { date: "2026-09-03", label: "GPT-6 Astra" }
       ]
     },
     {
@@ -292,13 +299,14 @@ export const modelRadarSeed = {
       region: "US",
       accent: "#d97757",
       accentText: "#11120f",
-      latestModelId: "anthropic-claude-opus-5",
+      latestModelId: "anthropic-claude-fable-5-1",
       cycleLabel: "Opus/Sonnet alternating train",
       releaseHistory: [
         { date: "2025-11-24", label: "Claude Opus 4.5" },
         { date: "2026-02-17", label: "Claude Sonnet 4.6" },
         { date: "2026-06-09", label: "Claude Fable 5" },
-        { date: "2026-07-24", label: "Claude Opus 5" }
+        { date: "2026-07-24", label: "Claude Opus 5" },
+        { date: "2026-09-01", label: "Claude Fable 5.1" }
       ]
     },
     {
@@ -307,13 +315,14 @@ export const modelRadarSeed = {
       region: "US",
       accent: "#4285f4",
       accentText: "#ece7d6",
-      latestModelId: "google-gemini-3-6-flash",
+      latestModelId: "google-gemini-3-8-flash",
       cycleLabel: "Gemini preview to stable stream",
       releaseHistory: [
         { date: "2025-11-18", label: "Gemini 3 Pro" },
         { date: "2026-02-19", label: "Gemini 3.1 Pro" },
         { date: "2026-05-12", label: "Gemini 3.5 Flash" },
-        { date: "2026-07-21", label: "Gemini 3.6 Flash" }
+        { date: "2026-07-21", label: "Gemini 3.6 Flash" },
+        { date: "2026-09-02", label: "Gemini 3.8 Flash" }
       ]
     },
     {
@@ -322,13 +331,14 @@ export const modelRadarSeed = {
       region: "US",
       accent: "#c7c9c2",
       accentText: "#11120f",
-      latestModelId: "xai-grok-4-5",
+      latestModelId: "xai-grok-4-6",
       cycleLabel: "rapid Grok reasoning stream",
       releaseHistory: [
         { date: "2025-07-09", label: "Grok 4" },
         { date: "2025-11-17", label: "Grok 4.1" },
         { date: "2026-05-09", label: "Grok 4.3" },
-        { date: "2026-07-16", label: "Grok 4.5" }
+        { date: "2026-07-16", label: "Grok 4.5" },
+        { date: "2026-08-12", label: "Grok 4.6" }
       ]
     },
     {
@@ -337,13 +347,14 @@ export const modelRadarSeed = {
       region: "CN",
       accent: "#4d6bfe",
       accentText: "#ece7d6",
-      latestModelId: "deepseek-v4-flash-0731",
+      latestModelId: "deepseek-v4-pro",
       cycleLabel: "price pressure plus long reasoning",
       releaseHistory: [
         { date: "2025-01-20", label: "DeepSeek-R1" },
         { date: "2025-12-01", label: "DeepSeek-V3.2" },
         { date: "2026-04-24", label: "DeepSeek-V4 Pro Preview" },
-        { date: "2026-07-31", label: "DeepSeek-V4 Flash 0731" }
+        { date: "2026-07-31", label: "DeepSeek-V4 Flash 0731" },
+        { date: "2026-08-13", label: "DeepSeek-V4 Pro 0813" }
       ]
     },
     {
@@ -372,7 +383,7 @@ export const modelRadarSeed = {
       releaseHistory: [
         { date: "2025-05-07", label: "Mistral Medium 3" },
         { date: "2025-12-01", label: "Mistral Large 3" },
-        { date: "2026-03-18", label: "Mistral Medium 3.5" }
+        { date: "2026-04-28", label: "Mistral Medium 3.5" }
       ]
     },
     {
@@ -381,13 +392,14 @@ export const modelRadarSeed = {
       region: "CN",
       accent: "#7c6cf2",
       accentText: "#11120f",
-      latestModelId: "qwen-3-7-max",
+      latestModelId: "qwen-3-8-max-0902",
       cycleLabel: "dense and MoE release stream",
       releaseHistory: [
         { date: "2025-04-29", label: "Qwen3" },
         { date: "2025-07-21", label: "Qwen3 2507" },
         { date: "2026-01-15", label: "Qwen3 long context" },
-        { date: "2026-05-20", label: "Qwen3.7 Max" }
+        { date: "2026-05-20", label: "Qwen3.7 Max" },
+        { date: "2026-09-02", label: "Qwen3.8 Max 0902" }
       ]
     },
     {
@@ -396,13 +408,14 @@ export const modelRadarSeed = {
       region: "US",
       accent: "#168cf0",
       accentText: "#11120f",
-      latestModelId: "meta-muse-spark-1-1",
+      latestModelId: "meta-muse-spark-1-3",
       cycleLabel: "open and API multimodal waves",
       releaseHistory: [
         { date: "2024-12-06", label: "Llama 3.3" },
         { date: "2025-04-05", label: "Llama 4" },
-        { date: "2026-04-29", label: "Muse Spark" },
-        { date: "2026-07-09", label: "Muse Spark 1.1" }
+        { date: "2026-04-08", label: "Muse Spark" },
+        { date: "2026-07-09", label: "Muse Spark 1.1" },
+        { date: "2026-09-02", label: "Muse Spark 1.3" }
       ]
     },
     {
@@ -439,13 +452,15 @@ export const modelRadarSeed = {
       region: "CN",
       accent: "#e5484d",
       accentText: "#ece7d6",
-      latestModelId: "zhipu-glm-5-2",
+      latestModelId: "zhipu-glm-5-3-flash",
       cycleLabel: "GLM agent and coding stream",
       releaseHistory: [
         { date: "2025-06-30", label: "GLM-4.5" },
         { date: "2025-09-30", label: "GLM-4.6" },
         { date: "2026-02-11", label: "GLM-5" },
-        { date: "2026-06-16", label: "GLM-5.2" }
+        { date: "2026-06-16", label: "GLM-5.2" },
+        { date: "2026-08-18", label: "GLM-5.3" },
+        { date: "2026-08-26", label: "GLM-5.3 Flash" }
       ]
     }
   ],
@@ -460,21 +475,24 @@ export const modelRadarSeed = {
       access: ["api", "chat"],
       contextTokens: 1050000,
       outputTokens: 128000,
-      priceUsd: { inputPerMTok: 5, outputPerMTok: 30 },
-      posture: "Highest-cost general frontier lane with strong software and agent results.",
-      watch: "Track whether smaller GPT-5.6 tiers inherit Sol's agent gains.",
+      priceUsd: { inputPerMTok: 4, outputPerMTok: 20, sourceId: "openai-pricing", asOf: "2026-09-10", note: "标准 API 价；输入超过 272K 时，整次请求输出单价乘 1.5，输入单价乘 2。 当前优惠至少持续至 2026-11-21，届时复核。" },
+      posture: "GPT-5.6 的高能力档位，API 已调整为 $4 输入 / $20 输出。",
+      watch: "优惠至少持续至 2026-11-21；与 Astra 比较实际任务完成成本。",
       benchmarks: {
-        "aa-index": { value: 59, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1487, rank: 15, sourceId: "benchmark-arena", asOf: "2026-08-07", variant: "xhigh" },
-        "output-speed": { value: 62.9, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "max" },
-        "aa-coding-agent": { value: 80, sourceId: "benchmark-aa-coding", asOf: "2026-07-17", variant: "max / Codex" },
-        "gdpval-aa-v2": { value: 1730, sourceId: "benchmark-aa-gdpval", asOf: "2026-08-05", variant: "max" },
-        "aa-briefcase": { value: 1495, sourceId: "benchmark-aa-briefcase", asOf: "2026-07-24", variant: "max" },
         "swebench-pro": { value: 64.6, sourceId: "openai-gpt-56", asOf: "2026-07-09", provenance: "vendor-reported" },
-        "terminalbench": { value: 88.8, sourceId: "openai-gpt-56", asOf: "2026-07-09", provenance: "vendor-reported" },
-        "agent-last-exam": { value: 52.7, sourceId: "openai-gpt-56", asOf: "2026-07-09", provenance: "vendor-reported" }
+        "agent-last-exam": { value: 52.7, sourceId: "openai-gpt-56", asOf: "2026-07-09", provenance: "vendor-reported" },
+        "terminalbench-vendor": { value: 88.8, sourceId: "openai-gpt-56", asOf: "2026-07-09", provenance: "vendor-reported", variant: "Terminal-Bench 2.1 / provider harness" },
+        "aa-index": { value: 47.06, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Sol (max)", version: "4.3" },
+        "output-speed": { value: 64.17, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Sol (max) / long prompt" },
+        terminalbench: { value: 39.9, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Sol (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1624.11, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Sol (max)" },
+        "aa-briefcase": { value: 1475, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Sol (max)" },
+        "arena-elo": { value: 1483, rank: 17, variant: "gpt-5.6-sol-xhigh", sourceId: "benchmark-arena", asOf: "2026-09-02" },
+        "aa-coding-agent": { value: 55, variant: "max / Codex", version: "2026-09-09", asOf: "2026-09-09", sourceId: "benchmark-aa-astra" }
       },
-      sourceRefs: ["openai-gpt-56"]
+      sourceRefs: ["openai-gpt-56"],
+      contextSourceId: "openai-pricing",
+      contextAsOf: "2026-09-10"
     },
     {
       id: "anthropic-claude-opus-5",
@@ -486,18 +504,21 @@ export const modelRadarSeed = {
       access: ["api", "claude"],
       contextTokens: 1000000,
       outputTokens: 128000,
-      priceUsd: { inputPerMTok: 5, outputPerMTok: 25 },
-      posture: "Current Anthropic workhorse at near-Fable intelligence and half its price.",
+      priceUsd: { inputPerMTok: 5, outputPerMTok: 25, sourceId: "anthropic-pricing", asOf: "2026-09-10", note: "标准 API 价，非 Fast 模式；1M 上下文不额外加价。" },
+      posture: "Anthropic 的高能力型号；输出单价为 Fable 5.1 的一半。",
       watch: "The practical question is how quickly Opus 5 becomes the default agent model.",
       benchmarks: {
-        "aa-index": { value: 61, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1493, rank: 9, sourceId: "benchmark-arena", asOf: "2026-08-07", variant: "high" },
-        "output-speed": { value: 54.5, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "max" },
-        "terminalbench": { value: 89, sourceId: "benchmark-aa", asOf: "2026-07-24", variant: "max" },
-        "gdpval-aa-v2": { value: 1852, sourceId: "benchmark-aa-gdpval", asOf: "2026-08-05", variant: "max" },
-        "aa-briefcase": { value: 1720, sourceId: "benchmark-aa-briefcase", asOf: "2026-07-24", variant: "max" }
+        "aa-index": { value: 50.7, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Opus 5 (max)", version: "4.3" },
+        "output-speed": { value: 51.41, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Opus 5 (max) / long prompt" },
+        terminalbench: { value: 48.99, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Opus 5 (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1735.09, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Opus 5 (max)" },
+        "aa-briefcase": { value: 1644.9, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Opus 5 (max)" },
+        "arena-elo": { value: 1493, rank: 9, variant: "claude-opus-5-high", sourceId: "benchmark-arena", asOf: "2026-09-02" },
+        "aa-coding-agent": { value: 60, variant: "max / Claude Code", version: "2026-09-09", asOf: "2026-09-09", sourceId: "benchmark-aa-astra" }
       },
-      sourceRefs: ["anthropic-opus-5"]
+      sourceRefs: ["anthropic-opus-5"],
+      contextSourceId: "anthropic-pricing",
+      contextAsOf: "2026-09-10"
     },
     {
       id: "anthropic-claude-fable-5",
@@ -509,87 +530,98 @@ export const modelRadarSeed = {
       access: ["api", "claude"],
       contextTokens: 1000000,
       outputTokens: 128000,
-      priceUsd: { inputPerMTok: 10, outputPerMTok: 50 },
-      posture: "Anthropic's expensive ceiling model and a current Arena preference front-runner.",
+      priceUsd: { inputPerMTok: 10, outputPerMTok: 50, sourceId: "anthropic-pricing", asOf: "2026-09-10", note: "标准 API 价，非 Fast 模式；1M 上下文不额外加价。" },
+      posture: "上一版 Fable 仍有 Arena 偏好优势；与 5.1 保留为两个型号比较。",
       watch: "Watch for capability transfer into the cheaper Opus and Sonnet lanes.",
       benchmarks: {
-        "aa-index": { value: 60, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1513, rank: 2, sourceId: "benchmark-arena", asOf: "2026-08-07" },
-        "output-speed": { value: 66.8, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "max" },
-        "aa-coding-agent": { value: 77, sourceId: "benchmark-aa-coding", asOf: "2026-07-17", variant: "max / Claude Code" },
-        "gdpval-aa-v2": { value: 1760, sourceId: "benchmark-aa-gdpval", asOf: "2026-07-17", variant: "max" },
-        "aa-briefcase": { value: 1574, sourceId: "benchmark-aa-briefcase", asOf: "2026-07-24", variant: "max" },
         "agent-last-exam": { value: 40.5, sourceId: "openai-gpt-56", asOf: "2026-07-09", provenance: "vendor-reported" },
         "swebench-pro": { value: 80, sourceId: "anthropic-fable-5", asOf: "2026-06-09", provenance: "vendor-reported" },
-        "terminalbench": { value: 84.3, sourceId: "anthropic-fable-5", asOf: "2026-06-09", provenance: "vendor-reported" }
+        "terminalbench-vendor": { value: 84.3, sourceId: "anthropic-fable-5", asOf: "2026-06-09", provenance: "vendor-reported", variant: "Terminal-Bench 2.1 / provider harness" },
+        "aa-index": { value: 49.7, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5 (with fallback)", version: "4.3" },
+        "output-speed": { value: 63.26, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5 (with fallback) / long prompt" },
+        terminalbench: { value: 42.42, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5 (with fallback) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1631.46, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5 (with fallback)" },
+        "aa-briefcase": { value: 1529.62, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5 (with fallback)" },
+        "arena-elo": { value: 1507, rank: 1, variant: "claude-fable-5", sourceId: "benchmark-arena", asOf: "2026-09-02" }
       },
-      sourceRefs: ["anthropic-fable-5"]
+      sourceRefs: ["anthropic-fable-5"],
+      contextSourceId: "anthropic-pricing",
+      contextAsOf: "2026-09-10"
     },
     {
-      id: "google-gemini-3-6-flash",
+      id: "google-gemini-3-8-flash",
       providerId: "google",
-      name: "Gemini 3.6 Flash",
-      modelIds: ["gemini-3.6-flash"],
-      releasedAt: "2026-07-21",
+      name: "Gemini 3.8 Flash",
+      modelIds: ["gemini-3.8-flash"],
+      releasedAt: "2026-09-02",
       stage: "frontier",
-      access: ["api", "ai-studio", "vertex"],
+      access: ["api"],
       contextTokens: 1000000,
       outputTokens: 65536,
-      priceUsd: { inputPerMTok: 1.5, outputPerMTok: 7.5 },
-      posture: "High-throughput multimodal model with unusually strong agent scores for a Flash tier.",
-      watch: "The next signal is whether Gemini's Pro lane converts this speed into a new ceiling.",
+      priceUsd: { inputPerMTok: 0.75, outputPerMTok: 3.75, sourceId: "google-gemini-38", asOf: "2026-09-10", note: "优惠价至 2026-12-31；2027-01-01 起输入 $1.50、输出 $7.50 / 百万 tokens。" },
+      posture: "生成速度快，支持图片、视频及长上下文；当前采用年末前的优惠价。",
+      watch: "关注长任务中的实际耗时，以及 2027 年起的价格变化。",
       benchmarks: {
-        "aa-index": { value: 50, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1491, rank: 10, sourceId: "benchmark-arena", asOf: "2026-08-07", preliminary: true },
-        "output-speed": { value: 200.5, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "high" },
-        "gdpval-aa-v2": { value: 1423, sourceId: "benchmark-aa-gdpval", asOf: "2026-08-07", variant: "high" },
-        "swebench-pro": { value: 58.7, sourceId: "google-gemini", asOf: "2026-07-21", provenance: "vendor-reported" },
-        "terminalbench": { value: 78, sourceId: "google-gemini", asOf: "2026-07-21", provenance: "vendor-reported" }
+        "aa-index": { value: 41.19, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.8 Flash (high)", version: "4.3" },
+        "output-speed": { value: 271.29, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.8 Flash (high) / long prompt" },
+        terminalbench: { value: 19.7, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.8 Flash (high) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1463.81, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.8 Flash (high)" },
+        "aa-briefcase": { value: 1201.59, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.8 Flash (high)" },
+        "arena-elo": { value: 1494, rank: 8, variant: "gemini-3.8-flash-high", sourceId: "benchmark-arena", asOf: "2026-09-02", preliminary: true }
       },
-      sourceRefs: ["google-gemini"]
+      sourceRefs: ["google-gemini-38"],
+      contextSourceId: "google-gemini-38",
+      contextAsOf: "2026-09-10"
     },
     {
-      id: "xai-grok-4-5",
+      id: "xai-grok-4-6",
       providerId: "xai",
-      name: "Grok 4.5",
-      modelIds: ["grok-4.5"],
-      releasedAt: "2026-07-16",
+      name: "Grok 4.6",
+      modelIds: ["grok-4.6"],
+      releasedAt: "2026-08-12",
       stage: "frontier",
-      access: ["api", "x"],
+      access: ["api"],
       contextTokens: 500000,
-      outputTokens: 131072,
-      priceUsd: { inputPerMTok: 2, outputPerMTok: 6 },
-      posture: "Fast reasoning and terminal-agent challenger with aggressive list pricing.",
-      watch: "Latency and sustained tool-use reliability are now the pressure points.",
+      outputTokens: null,
+      priceUsd: { inputPerMTok: 2, outputPerMTok: 6, sourceId: "xai-grok-46", asOf: "2026-09-10", note: "输入少于 200K 的标准价；超过 200K 时采用输入 $4、输出 $12 的长上下文档。" },
+      posture: "支持图片理解、工具调用和 500K 上下文，提供多档思考强度。",
+      watch: "Arena high 档位仍为初步结果，继续观察偏好分数。",
       benchmarks: {
-        "aa-index": { value: 54, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1473, rank: 37, sourceId: "benchmark-arena", asOf: "2026-08-07" },
-        "output-speed": { value: 56.8, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "high" },
-        "aa-coding-agent": { value: 76, sourceId: "benchmark-aa-coding", asOf: "2026-07-17", variant: "high / Grok Build" },
-        "swebench-pro": { value: 64.7, sourceId: "xai-grok-45", asOf: "2026-07-16", provenance: "vendor-reported" },
-        "terminalbench": { value: 83.3, sourceId: "xai-grok-45", asOf: "2026-07-16", provenance: "vendor-reported" }
+        "aa-index": { value: 44.41, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Grok 4.6 (high)", version: "4.3" },
+        "output-speed": { value: 52.76, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Grok 4.6 (high) / long prompt" },
+        terminalbench: { value: 21.21, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Grok 4.6 (high) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1642.96, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Grok 4.6 (high)" },
+        "aa-briefcase": { value: 1534.13, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Grok 4.6 (high)" },
+        "arena-elo": { value: 1461, rank: 49, variant: "grok-4.6-high", sourceId: "benchmark-arena", asOf: "2026-09-02", preliminary: true }
       },
-      sourceRefs: ["xai-grok-45"]
+      sourceRefs: ["xai-grok-46"],
+      contextSourceId: "xai-grok-46",
+      contextAsOf: "2026-09-10"
     },
     {
       id: "deepseek-v4-pro",
       providerId: "deepseek",
-      name: "DeepSeek-V4 Pro",
+      name: "DeepSeek-V4 Pro 0813",
       modelIds: ["deepseek-v4-pro"],
-      releasedAt: "2026-04-24",
-      stage: "preview",
-      access: ["api"],
+      releasedAt: "2026-08-13",
+      stage: "open-weight",
+      access: ["api", "open-weight"],
       contextTokens: 1000000,
       outputTokens: 384000,
-      priceUsd: { inputPerMTok: 0.435, outputPerMTok: 0.87 },
-      posture: "The strongest price shock in this board, paired with a million-token context.",
-      watch: "Its economics force every frontier provider to explain its premium.",
+      priceUsd: { inputPerMTok: 1.32, outputPerMTok: 3.96, sourceId: "deepseek-pricing", asOf: "2026-09-10", note: "图中采用高峰价；闲时输入 $0.66、输出 $1.98 / 百万 tokens。高峰为 UTC 01–04、06–10 点（北京时间 09–12、14–18 点），2026-08-16 16:00 UTC 起生效。" },
+      posture: "V4 Pro 已转正式版，强化 Agent 工作流，并加入原生 Responses API。",
+      watch: "官方 API 别名不变；使用时核对 0813 版本与峰谷计费时段。",
       benchmarks: {
-        "aa-index": { value: 44, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1466, rank: 50, sourceId: "benchmark-arena", asOf: "2026-08-07" },
-        "output-speed": { value: 62.8, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "max" }
+        "aa-index": { value: 36.28, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "DeepSeek V4 Pro 0813 (max)", version: "4.3" },
+        "output-speed": { value: 78.47, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "DeepSeek V4 Pro 0813 (max) / long prompt" },
+        terminalbench: { value: 14.14, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "DeepSeek V4 Pro 0813 (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1493.31, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "DeepSeek V4 Pro 0813 (max)" },
+        "aa-briefcase": { value: 1264.67, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "DeepSeek V4 Pro 0813 (max)" },
+        "arena-elo": { value: 1460, rank: 52, variant: "deepseek-v4-pro-high-20260813", sourceId: "benchmark-arena", asOf: "2026-09-02" }
       },
-      sourceRefs: ["deepseek-v4"]
+      sourceRefs: ["deepseek-pro-0813"],
+      contextSourceId: "deepseek-pricing",
+      contextAsOf: "2026-09-10"
     },
     {
       id: "deepseek-v4-flash-0731",
@@ -601,26 +633,25 @@ export const modelRadarSeed = {
       access: ["api"],
       contextTokens: 1000000,
       outputTokens: 384000,
-      priceUsd: { inputPerMTok: 0.14, outputPerMTok: 0.28 },
-      posture: "The board's clearest quality-per-dollar shock, with a broad official agent evaluation suite and million-token context.",
+      priceUsd: { inputPerMTok: 0.44, outputPerMTok: 1.32, sourceId: "deepseek-pricing", asOf: "2026-09-10", note: "图中采用高峰价；闲时输入 $0.22、输出 $0.66 / 百万 tokens。高峰为 UTC 01–04、06–10 点（北京时间 09–12、14–18 点），2026-08-16 16:00 UTC 起生效。" },
+      posture: "保留 0731 正式版；低价且输出较快，API 已更新为峰谷定价。",
       watch: "Independent long-horizon replication is now the decisive follow-up signal.",
       benchmarks: {
-        "aa-index": { value: 50, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "max" },
-        "arena-elo": { value: 1446, rank: 81, sourceId: "benchmark-arena", asOf: "2026-08-07" },
-        "output-speed": { value: 102.4, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "max" },
-        "terminalbench": { value: 79, sourceId: "benchmark-aa", asOf: "2026-07-31", variant: "max" },
         "terminalbench-vendor": { value: 82.7, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
-        "gdpval-aa-v2": { value: 1559, sourceId: "benchmark-aa-gdpval", asOf: "2026-07-31", variant: "max" },
-        "nl2repo": { value: 54.2, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
-        "cybergym": { value: 76.7, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
-        "deepswe": { value: 54.4, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
-        "toolathlon": { value: 70.3, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
+        nl2repo: { value: 54.2, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
+        cybergym: { value: 76.7, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
+        deepswe: { value: 54.4, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
+        toolathlon: { value: 70.3, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
         "agent-last-exam": { value: 25.2, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
         "automation-bench": { value: 25.1, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
         "dsbench-fullstack": { value: 68.7, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
-        "dsbench-hard": { value: 59.6, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" }
+        "dsbench-hard": { value: 59.6, sourceId: "deepseek-v4-flash", asOf: "2026-07-31", provenance: "vendor-reported" },
+        "aa-index": { value: 35, sourceId: "benchmark-aa-flash", asOf: "2026-09-10", dateBasis: "observed", variant: "max / 0731", version: "4.3" },
+        "output-speed": { value: 122.6, sourceId: "benchmark-aa-flash", asOf: "2026-09-10", dateBasis: "observed", variant: "max / 0731" }
       },
-      sourceRefs: ["deepseek-v4-flash"]
+      sourceRefs: ["deepseek-v4-flash"],
+      contextSourceId: "deepseek-pricing",
+      contextAsOf: "2026-09-10"
     },
     {
       id: "moonshot-kimi-k3",
@@ -630,87 +661,96 @@ export const modelRadarSeed = {
       releasedAt: "2026-07-16",
       stage: "open-weight",
       access: ["api", "web", "open-weight"],
-      contextTokens: 1000000,
+      contextTokens: 1048576,
       outputTokens: 131072,
-      priceUsd: { inputPerMTok: 3, outputPerMTok: 15 },
+      priceUsd: { inputPerMTok: 3, outputPerMTok: 15, sourceId: "kimi-pricing", asOf: "2026-09-10" },
       posture: "Large open-weight coding and agent model competing in the global top tier.",
       watch: "Open weights turn leaderboard movement into immediate deployment pressure.",
       benchmarks: {
-        "aa-index": { value: 57, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1494, rank: 8, sourceId: "benchmark-arena", asOf: "2026-08-07", preliminary: true, variant: "max" },
-        "output-speed": { value: 38.5, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "max" },
-        "gdpval-aa-v2": { value: 1685, sourceId: "benchmark-aa-gdpval", asOf: "2026-08-05", variant: "max" },
-        "aa-briefcase": { value: 1547, sourceId: "benchmark-aa-briefcase", asOf: "2026-07-17", variant: "max" }
+        "aa-index": { value: 43.78, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Kimi K3 (max)", version: "4.3" },
+        "output-speed": { value: 35.51, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Kimi K3 (max) / long prompt" },
+        terminalbench: { value: 12.63, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Kimi K3 (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1583.53, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Kimi K3 (max)" },
+        "aa-briefcase": { value: 1496.56, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Kimi K3 (max)" },
+        "arena-elo": { value: 1489, rank: 12, variant: "kimi-k3-max", sourceId: "benchmark-arena", asOf: "2026-09-02" }
       },
-      sourceRefs: ["moonshot-kimi-k3"]
+      sourceRefs: ["moonshot-kimi-k3"],
+      contextSourceId: "benchmark-aa",
+      contextAsOf: "2026-09-10"
     },
     {
       id: "mistral-medium-3-5",
       providerId: "mistral",
       name: "Mistral Medium 3.5",
-      modelIds: ["mistral-medium-3.5"],
-      releasedAt: "2026-03-18",
-      stage: "enterprise",
-      access: ["api", "enterprise"],
-      contextTokens: 262144,
+      modelIds: ["mistral-medium-3-5"],
+      releasedAt: "2026-04-28",
+      stage: "open-weight",
+      access: ["api", "open-weight", "enterprise"],
+      contextTokens: 256000,
       outputTokens: 65536,
-      priceUsd: { inputPerMTok: 1.5, outputPerMTok: 7.5 },
+      priceUsd: { inputPerMTok: 1.5, outputPerMTok: 7.5, sourceId: "mistral-medium-spec", asOf: "2026-09-10" },
       posture: "European enterprise alternative optimized around deployment control and latency.",
       watch: "A new Mistral flagship would reset the oldest clock on this board.",
       benchmarks: {
-        "aa-index": { value: 30, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1445, rank: 82, sourceId: "benchmark-arena", asOf: "2026-08-07" },
-        "output-speed": { value: 140, sourceId: "benchmark-aa", asOf: "2026-08-07" }
+        "aa-index": { value: 14.89, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Mistral Medium 3.5", version: "4.3" },
+        "output-speed": { value: 136.55, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Mistral Medium 3.5 / long prompt" },
+        terminalbench: { value: 0, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Mistral Medium 3.5 / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 875.14, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Mistral Medium 3.5" },
+        "aa-briefcase": { value: 523.63, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Mistral Medium 3.5" },
+        "arena-elo": { value: 1427, rank: 103, variant: "mistral-medium-3.5", sourceId: "benchmark-arena", asOf: "2026-09-02" }
       },
-      sourceRefs: ["mistral-models"]
+      sourceRefs: ["mistral-medium-spec"],
+      contextSourceId: "mistral-medium-spec",
+      contextAsOf: "2026-09-10"
     },
     {
-      id: "qwen-3-7-max",
+      id: "qwen-3-8-max-0902",
       providerId: "qwen",
-      name: "Qwen3.7 Max",
-      modelIds: ["qwen3.7-max", "qwen3.7-max-preview"],
-      releasedAt: "2026-05-20",
-      stage: "preview",
-      access: ["api", "web"],
+      name: "Qwen3.8 Max 0902",
+      modelIds: ["qwen3.8-max-0902"],
+      releasedAt: "2026-09-02",
+      stage: "frontier",
+      access: ["api"],
       contextTokens: 1000000,
       outputTokens: 131072,
-      priceUsd: { inputPerMTok: 2.5, outputPerMTok: 7.5 },
-      posture: "Chinese general frontier model with strong human-preference placement.",
-      watch: "Arena already shows a Qwen3.8 label; official confirmation is the next decisive event.",
-      benchmarks: {
-        "aa-index": { value: 46, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1475, rank: 33, sourceId: "benchmark-arena", asOf: "2026-08-07", preliminary: true },
-        "output-speed": { value: 201.9, sourceId: "benchmark-aa", asOf: "2026-08-07" }
-      },
-      sourceRefs: ["qwen-models"]
+      priceUsd: { inputPerMTok: 2, outputPerMTok: 6, sourceId: "qwen-38-0902", asOf: "2026-09-10", note: "QwenCloud 国际 API 标价；精确对应 0902 快照，不继承旧版评测。" },
+      posture: "9 月 2 日快照加强工程项目、工具协作与视觉理解，保留 1M 上下文。",
+      watch: "等待 0902 精确版本的独立评测；不沿用 Qwen3.8 Max 或开放权重版的分数。",
+      benchmarks: {  },
+      sourceRefs: ["qwen-38-0902"],
+      contextSourceId: "qwen-38-0902",
+      contextAsOf: "2026-09-10"
     },
     {
-      id: "meta-muse-spark-1-1",
+      id: "meta-muse-spark-1-3",
       providerId: "meta",
-      name: "Muse Spark 1.1",
-      modelIds: ["muse-spark-1.1"],
-      releasedAt: "2026-07-09",
+      name: "Muse Spark 1.3",
+      modelIds: ["muse-spark-1.3"],
+      releasedAt: "2026-09-02",
       stage: "preview",
-      access: ["api-preview"],
+      access: ["api"],
       contextTokens: 1000000,
-      outputTokens: 65536,
-      priceUsd: { inputPerMTok: 1.25, outputPerMTok: 4.25 },
-      posture: "Meta's multimodal agentic API model and a sharp break from the Llama-only storyline.",
-      watch: "Public API availability and open-weight strategy remain the missing pieces.",
+      outputTokens: null,
+      priceUsd: { inputPerMTok: 1.25, outputPerMTok: 4.25, sourceId: "benchmark-aa", asOf: "2026-09-10", note: "AA 记录的 Meta API 价格；2026-09-10 读取，官方定价页尚未直接复核。" },
+      posture: "Meta 多模态模型更新到 1.3，主攻长程 Agent 与编程，输出速度较快。",
+      watch: "API 仍为 public preview；价格暂采用 AA 记录，等待官方定价页直接复核。",
       benchmarks: {
-        "aa-index": { value: 51, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1488, rank: 14, sourceId: "benchmark-arena", asOf: "2026-08-07", preliminary: true },
-        "output-speed": { value: 214.5, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "xhigh" },
-        "aa-coding-agent": { value: 69, sourceId: "benchmark-aa-coding", asOf: "2026-07-17", variant: "xhigh / OpenCode" },
-        "gdpval-aa-v2": { value: 1371, sourceId: "benchmark-aa-gdpval", asOf: "2026-08-05", variant: "xhigh" }
+        "aa-index": { value: 48.17, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Muse Spark 1.3 (max)", version: "4.3" },
+        "output-speed": { value: 219.66, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Muse Spark 1.3 (max) / long prompt" },
+        terminalbench: { value: 33.33, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Muse Spark 1.3 (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1703.34, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Muse Spark 1.3 (max)" },
+        "aa-briefcase": { value: 1589.18, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Muse Spark 1.3 (max)" },
+        "aa-coding-agent": { value: 54, variant: "max / Muse Code", version: "2026-09-09", asOf: "2026-09-09", sourceId: "benchmark-aa-astra" }
       },
-      sourceRefs: ["meta-muse"]
+      sourceRefs: ["meta-muse"],
+      contextSourceId: "benchmark-aa",
+      contextAsOf: "2026-09-10"
     },
     {
       id: "cohere-command-a-plus",
       providerId: "cohere",
       name: "Command A+",
-      modelIds: ["command-a-plus"],
+      modelIds: ["command-a-plus-05-2026"],
       releasedAt: "2026-05-20",
       stage: "open-weight",
       access: ["open-weight", "enterprise"],
@@ -719,11 +759,10 @@ export const modelRadarSeed = {
       priceUsd: null,
       posture: "Apache-licensed enterprise model with 25B active parameters and broad language coverage.",
       watch: "Independent benchmark coverage is still thin, so the missing cells matter here.",
-      benchmarks: {
-        "aa-index": { value: 23, sourceId: "benchmark-aa", asOf: "2026-08-07" },
-        "output-speed": { value: 197, sourceId: "benchmark-aa", asOf: "2026-08-07" }
-      },
-      sourceRefs: ["cohere-command-a-plus"]
+      benchmarks: {  },
+      sourceRefs: ["cohere-command-a-plus"],
+      contextSourceId: "cohere-command-a-plus",
+      contextAsOf: "2026-09-10"
     },
     {
       id: "amazon-nova-2-omni",
@@ -731,134 +770,658 @@ export const modelRadarSeed = {
       name: "Amazon Nova 2 Omni",
       modelIds: ["amazon.nova-2-omni-v1:0"],
       releasedAt: "2025-12-02",
-      stage: "platform",
-      access: ["bedrock"],
+      stage: "preview",
+      access: ["bedrock-preview", "nova-forge"],
       contextTokens: 1000000,
       outputTokens: 32000,
       priceUsd: null,
       posture: "Bedrock-native multimodal model whose distribution signal exceeds public benchmark coverage.",
-      watch: "The next Nova lifecycle update matters most to existing AWS fleets.",
-      benchmarks: {},
-      sourceRefs: ["amazon-nova"]
+      watch: "官方目前仍写明 Nova Forge 客户预览，未确认普通公开 API 价格与同版本独立分数。",
+      benchmarks: {  },
+      sourceRefs: ["amazon-nova"],
+      contextSourceId: "amazon-nova",
+      contextAsOf: "2026-09-10"
     },
     {
-      id: "zhipu-glm-5-2",
+      id: "zhipu-glm-5-3",
       providerId: "zhipu",
-      name: "GLM-5.2",
-      modelIds: ["glm-5.2", "glm-5.2-max"],
-      releasedAt: "2026-06-16",
-      stage: "frontier",
-      access: ["api", "chat"],
+      name: "GLM-5.3",
+      modelIds: ["glm-5.3"],
+      releasedAt: "2026-08-18",
+      stage: "open-weight",
+      access: ["api", "open-weight"],
       contextTokens: 1000000,
-      outputTokens: 131072,
-      priceUsd: { inputPerMTok: 1.4, outputPerMTok: 4.4 },
-      posture: "Fast Chinese frontier challenger with strong terminal and software results.",
-      watch: "Its speed and price make sustained agent reliability the key follow-up test.",
+      outputTokens: null,
+      priceUsd: { inputPerMTok: 1.4, outputPerMTok: 4.4, sourceId: "zhipu-pricing", asOf: "2026-09-10" },
+      posture: "GLM 的新旗舰，重点提升编码、长任务与工具协作。",
+      watch: "将厂商框架的能力报告与独立测试分开观察。",
       benchmarks: {
-        "aa-index": { value: 51, sourceId: "benchmark-aa", asOf: "2026-08-06" },
-        "arena-elo": { value: 1479, rank: 26, sourceId: "benchmark-arena", asOf: "2026-08-07", variant: "max" },
-        "output-speed": { value: 139.5, sourceId: "benchmark-aa", asOf: "2026-08-07", variant: "max" },
-        "gdpval-aa-v2": { value: 1510, sourceId: "benchmark-aa-gdpval", asOf: "2026-07-31", variant: "max" },
-        "swebench-pro": { value: 62.1, sourceId: "zhipu-glm-52", asOf: "2026-06-16", provenance: "vendor-reported" },
-        "terminalbench": { value: 81, sourceId: "zhipu-glm-52", asOf: "2026-06-16", provenance: "vendor-reported" }
+        "aa-index": { value: 44.86, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3 (max)", version: "4.3" },
+        "output-speed": { value: 58.79, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3 (max) / long prompt" },
+        terminalbench: { value: 41.92, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3 (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1674.94, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3 (max)" },
+        "aa-briefcase": { value: 1514.59, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3 (max)" },
+        "arena-elo": { value: 1482, rank: 20, variant: "glm-5.3-max", sourceId: "benchmark-arena", asOf: "2026-09-02" }
       },
-      sourceRefs: ["zhipu-glm-52"]
+      sourceRefs: ["zhipu-release"],
+      contextSourceId: "benchmark-aa",
+      contextAsOf: "2026-09-10"
+    },
+    {
+      id: "openai-gpt-6-astra",
+      providerId: "openai",
+      name: "GPT-6 Astra",
+      modelIds: ["gpt-6-astra"],
+      releasedAt: "2026-09-03",
+      stage: "frontier",
+      access: ["api"],
+      contextTokens: 1050000,
+      outputTokens: 128000,
+      priceUsd: { inputPerMTok: 10, outputPerMTok: 50, sourceId: "openai-astra", asOf: "2026-09-10", note: "标准 API 价；输入超过 272K 时，整次请求输出单价乘 1.5，输入单价乘 2。" },
+      posture: "OpenAI 最新高端型号，覆盖复杂推理、编程与完整工作任务。",
+      watch: "单价高；同样任务下的总 token 消耗和完成质量更值得实测。",
+      benchmarks: {
+        "aa-index": { value: 52.81, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-6 Astra (max)", version: "4.3" },
+        "output-speed": { value: 54.29, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-6 Astra (max) / long prompt" },
+        terminalbench: { value: 59.09, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-6 Astra (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1580.2, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-6 Astra (max)" },
+        "aa-briefcase": { value: 1562.01, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-6 Astra (max)" },
+        "aa-coding-agent": { value: 62, variant: "max / Codex", version: "2026-09-09", asOf: "2026-09-09", sourceId: "benchmark-aa-astra" }
+      },
+      sourceRefs: ["openai-astra"],
+      contextSourceId: "openai-astra",
+      contextAsOf: "2026-09-10"
+    },
+    {
+      id: "openai-gpt-5-6-terra",
+      providerId: "openai",
+      name: "GPT-5.6 Terra",
+      modelIds: ["gpt-5.6-terra"],
+      releasedAt: "2026-07-09",
+      stage: "frontier",
+      access: ["api"],
+      contextTokens: 1050000,
+      outputTokens: 128000,
+      priceUsd: { inputPerMTok: 2, outputPerMTok: 12, sourceId: "openai-pricing", asOf: "2026-09-10", note: "标准 API 价；输入超过 272K 时，整次请求输出单价乘 1.5，输入单价乘 2。" },
+      posture: "GPT-5.6 的中间档位，支持 1.05M 上下文。",
+      watch: "比较具体工作中相对 Sol 的能力损失与费用节省。",
+      benchmarks: {
+        "aa-index": { value: 42.25, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Terra (max)", version: "4.3" },
+        "output-speed": { value: 82.17, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Terra (max) / long prompt" },
+        terminalbench: { value: 35.35, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Terra (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1476.96, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Terra (max)" },
+        "aa-briefcase": { value: 1330, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Terra (max)" },
+        "arena-elo": { value: 1466, rank: 43, variant: "gpt-5.6-terra-xhigh", sourceId: "benchmark-arena", asOf: "2026-09-02" }
+      },
+      sourceRefs: ["openai-pricing"],
+      contextSourceId: "openai-pricing",
+      contextAsOf: "2026-09-10"
+    },
+    {
+      id: "openai-gpt-5-6-luna",
+      providerId: "openai",
+      name: "GPT-5.6 Luna",
+      modelIds: ["gpt-5.6-luna"],
+      releasedAt: "2026-07-09",
+      stage: "frontier",
+      access: ["api"],
+      contextTokens: 1050000,
+      outputTokens: 128000,
+      priceUsd: { inputPerMTok: 0.2, outputPerMTok: 1.2, sourceId: "openai-luna", asOf: "2026-09-10", note: "标准 API 价；输入超过 272K 时，整次请求输出单价乘 1.5，输入单价乘 2。" },
+      posture: "GPT-5.6 的低价型号，适合高频、预算敏感任务。",
+      watch: "评测使用 max 思考档；真实任务的等待时间与 token 消耗需另测。",
+      benchmarks: {
+        "aa-index": { value: 37.5, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Luna (max)", version: "4.3" },
+        "output-speed": { value: 109.98, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Luna (max) / long prompt" },
+        terminalbench: { value: 11.62, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Luna (max) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1489.33, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Luna (max)" },
+        "aa-briefcase": { value: 1339.38, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GPT-5.6 Luna (max)" },
+        "arena-elo": { value: 1453, rank: 65, variant: "gpt-5.6-luna-xhigh", sourceId: "benchmark-arena", asOf: "2026-09-02" }
+      },
+      sourceRefs: ["openai-luna"],
+      contextSourceId: "openai-luna",
+      contextAsOf: "2026-09-10"
+    },
+    {
+      id: "anthropic-claude-fable-5-1",
+      providerId: "anthropic",
+      name: "Claude Fable 5.1",
+      modelIds: ["claude-fable-5-1"],
+      releasedAt: "2026-09-01",
+      stage: "frontier",
+      access: ["api"],
+      contextTokens: 1000000,
+      outputTokens: 128000,
+      priceUsd: { inputPerMTok: 10, outputPerMTok: 50, sourceId: "anthropic-pricing", asOf: "2026-09-10", note: "标准 API 价，非 Fast 模式；1M 上下文不额外加价。" },
+      posture: "Anthropic 最新公开型号，保留 1M 上下文，降低了缓存命中价格。",
+      watch: "AA 使用 max with fallback；非常接近的分数差不代表实际任务稳赢。",
+      benchmarks: {
+        "aa-index": { value: 53.37, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5.1 (max with fallback)", version: "4.3" },
+        "output-speed": { value: 65.24, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5.1 (max with fallback) / long prompt" },
+        terminalbench: { value: 52.02, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5.1 (max with fallback) / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1763.64, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5.1 (max with fallback)" },
+        "aa-briefcase": { value: 1661.82, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Claude Fable 5.1 (max with fallback)" },
+        "arena-elo": { value: 1504, rank: 3, variant: "claude-fable-5.1-max", sourceId: "benchmark-arena", asOf: "2026-09-02" },
+        "aa-coding-agent": { value: 62, variant: "max / Claude Code", version: "2026-09-09", asOf: "2026-09-09", sourceId: "benchmark-aa-astra" }
+      },
+      sourceRefs: ["anthropic-fable-51"],
+      contextSourceId: "anthropic-pricing",
+      contextAsOf: "2026-09-10"
+    },
+    {
+      id: "zhipu-glm-5-3-flash",
+      providerId: "zhipu",
+      name: "GLM-5.3 Flash",
+      modelIds: ["glm-5.3-flash"],
+      releasedAt: "2026-08-26",
+      stage: "open-weight",
+      access: ["api", "open-weight"],
+      contextTokens: 1000000,
+      outputTokens: null,
+      priceUsd: { inputPerMTok: 0.15, outputPerMTok: 0.5, sourceId: "zhipu-pricing", asOf: "2026-09-10" },
+      posture: "原生多模态的低价模型；每百万输出 tokens 为 $0.50。",
+      watch: "斩杀线表现突出，仍需按自己的代码、文档和图片任务检验。",
+      benchmarks: {
+        "aa-index": { value: 41.91, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3-Flash", version: "4.3" },
+        "output-speed": { value: 75.97, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3-Flash / long prompt" },
+        terminalbench: { value: 32.83, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3-Flash / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1669.27, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3-Flash" },
+        "aa-briefcase": { value: 1454.58, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "GLM-5.3-Flash" },
+        "arena-elo": { value: 1474, rank: 29, variant: "glm-5.3-flash", sourceId: "benchmark-arena", asOf: "2026-09-02" }
+      },
+      sourceRefs: ["zhipu-release"],
+      contextSourceId: "benchmark-aa",
+      contextAsOf: "2026-09-10"
+    },
+    {
+      id: "google-gemini-3-5-flash-lite",
+      providerId: "google",
+      name: "Gemini 3.5 Flash-Lite",
+      modelIds: ["gemini-3.5-flash-lite"],
+      releasedAt: "2026-07-21",
+      stage: "frontier",
+      access: ["api"],
+      contextTokens: 1000000,
+      outputTokens: null,
+      priceUsd: { inputPerMTok: 0.3, outputPerMTok: 2.5, sourceId: "benchmark-aa", asOf: "2026-09-10", note: "AA 记录的 API 价格；2026-09-10 读取，官方定价页尚未直接复核。" },
+      posture: "高吞吐小型号，适合快速处理大量轻量请求。",
+      watch: "AA 公布的 API 价格暂作为参考，和更强模型比较任务成功率。",
+      benchmarks: {
+        "aa-index": { value: 22.66, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.5 Flash-Lite", version: "4.3" },
+        "output-speed": { value: 369.2, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.5 Flash-Lite / long prompt" },
+        terminalbench: { value: 1.01, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.5 Flash-Lite / AA harness", version: "4.0" },
+        "gdpval-aa-v2": { value: 1063.25, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.5 Flash-Lite" },
+        "aa-briefcase": { value: 645.32, sourceId: "benchmark-aa", asOf: "2026-09-10", dateBasis: "observed", variant: "Gemini 3.5 Flash-Lite" },
+        "arena-elo": { value: 1457, rank: 57, variant: "gemini-3.5-flash-lite", sourceId: "benchmark-arena", asOf: "2026-09-02" }
+      },
+      sourceRefs: ["google-gemini"],
+      contextSourceId: "benchmark-aa",
+      contextAsOf: "2026-09-10"
     }
   ],
   events: [
     {
-      id: "opus-5-live",
-      date: "2026-07-24",
+      id: "astra-live",
+      date: "2026-09-03",
       status: "released",
-      providerId: "anthropic",
-      label: "Claude Opus 5 released",
-      detail: "AA leader at 61; priced at $5 / $25 per million tokens.",
-      sourceId: "anthropic-opus-5"
+      providerId: "openai",
+      label: "GPT-6 Astra 已发布",
+      detail: "新增高端型号；标准 API 每百万 tokens 输入 $10、输出 $50。",
+      sourceId: "openai-astra"
     },
     {
-      id: "gemini-36-live",
-      date: "2026-07-21",
+      id: "fable-51-live",
+      date: "2026-09-01",
+      status: "released",
+      providerId: "anthropic",
+      label: "Claude Fable 5.1 已发布",
+      detail: "公开 API 已上线；AA max with fallback 与 Arena max 分开记录。",
+      sourceId: "anthropic-fable-51"
+    },
+    {
+      id: "gemini-38-live",
+      date: "2026-09-02",
       status: "released",
       providerId: "google",
-      label: "Gemini 3.6 Flash released",
-      detail: "A Flash-tier model enters the front pack on speed and agent tasks.",
-      sourceId: "google-gemini"
+      label: "Gemini 3.8 Flash 已发布",
+      detail: "输出速度与长程任务更新，年末前采用 $0.75 / $3.75 优惠价。",
+      sourceId: "google-gemini-38"
     },
     {
-      id: "july-frontier-cluster",
-      date: "2026-07-16",
+      id: "qwen-0902-live",
+      date: "2026-09-02",
       status: "released",
-      providerId: "xai",
-      label: "Grok 4.5 and Kimi K3 land together",
-      detail: "Two different release strategies converge on coding and agent work.",
-      sourceId: "xai-grok-45"
+      providerId: "qwen",
+      label: "Qwen3.8 Max 0902 已发布",
+      detail: "官方版本已确认；等待精确对应 0902 的独立成绩。",
+      sourceId: "qwen-38-0902"
     },
     {
-      id: "deepseek-v4-flash-0731-live",
-      date: "2026-07-31",
+      id: "muse-13-live",
+      date: "2026-09-02",
+      status: "released",
+      providerId: "meta",
+      label: "Muse Spark 1.3 已发布",
+      detail: "重点提升长程编程任务；Meta Model API 仍为公开预览。",
+      sourceId: "meta-muse"
+    },
+    {
+      id: "glm-flash-live",
+      date: "2026-08-26",
+      status: "released",
+      providerId: "zhipu",
+      label: "GLM-5.3 Flash 已发布",
+      detail: "原生多模态，标准 API 输出 $0.50 / 百万 tokens。",
+      sourceId: "zhipu-release"
+    },
+    {
+      id: "glm-53-live",
+      date: "2026-08-18",
+      status: "released",
+      providerId: "zhipu",
+      label: "GLM-5.3 已发布",
+      detail: "强化编码与长程 Agent；厂商与独立测试框架分别保留。",
+      sourceId: "zhipu-release"
+    },
+    {
+      id: "deepseek-pro-ga",
+      date: "2026-08-13",
       status: "released",
       providerId: "deepseek",
-      label: "DeepSeek-V4 Flash 0731 released",
-      detail: "Official results cover terminal, repository, cyber, tool-use and full-stack agent tasks; independent AA measurements add intelligence and speed.",
-      sourceId: "deepseek-v4-flash"
+      label: "DeepSeek V4 Pro 转正式版",
+      detail: "0813 版本上线；8 月 17 日北京时间零点起采用峰谷定价。",
+      sourceId: "deepseek-pro-0813"
     },
     {
-      id: "qwen-38-watch",
-      date: "2026-08-01",
-      status: "watch",
-      providerId: "qwen",
-      label: "Qwen3.8 appears in Arena",
-      detail: "A preliminary leaderboard row is visible; official model confirmation is pending.",
-      sourceId: "benchmark-arena"
+      id: "grok-46-live",
+      date: "2026-08-12",
+      status: "released",
+      providerId: "xai",
+      label: "Grok 4.6 已发布",
+      detail: "500K 上下文，图片输入、工具调用及多档思考强度。",
+      sourceId: "xai-grok-46"
     },
     {
-      id: "sonnet-price-window",
-      date: "2026-08-31",
-      status: "deadline",
+      id: "sonnet-price-confirmed",
+      date: "2026-09-10",
+      status: "released",
       providerId: "anthropic",
-      label: "Claude Sonnet 5 launch pricing window",
-      detail: "Temporary launch pricing is scheduled to close; verify the API page before purchase decisions.",
-      sourceId: "anthropic-opus-5"
+      label: "Sonnet 5 保持 $2 / $10",
+      detail: "本次核实：原定 9 月 1 日涨至 $3 / $15 的安排已取消，启动优惠价成为标准价。",
+      sourceId: "anthropic-pricing"
     },
     {
-      id: "qwen-retirement",
-      date: "2026-10-10",
+      id: "sol-price-review",
+      date: "2026-11-21",
       status: "deadline",
-      providerId: "qwen",
-      label: "Legacy Qwen snapshot retirement window",
-      detail: "Pinned production deployments should check model aliases before this date.",
-      sourceId: "qwen-models"
+      providerId: "openai",
+      label: "Sol 优惠价格复核日",
+      detail: "官方保证 $4 / $20 优惠至少持续到此日，未承诺当日涨价。",
+      sourceId: "openai-pricing"
+    },
+    {
+      id: "gemini-price-window",
+      date: "2026-12-31",
+      status: "deadline",
+      providerId: "google",
+      label: "Gemini 3.8 Flash 优惠结束",
+      detail: "2027-01-01 起输入 $1.50、输出 $7.50 / 百万 tokens。",
+      sourceId: "google-gemini-38"
     }
   ],
   sources: [
-    { id: "openai-gpt-56", providerId: "openai", sourceType: "provider", label: "OpenAI GPT-5.6", url: "https://openai.com/index/gpt-5-6", official: true, watch: ["gpt-5.6", "gpt-5.6-sol", "swe-bench pro"] },
-    { id: "anthropic-opus-5", providerId: "anthropic", sourceType: "provider", label: "Anthropic Claude Opus 5", url: "https://www.anthropic.com/news/claude-opus-5", official: true, watch: ["claude opus 5", "claude-opus-5", "1m"] },
-    { id: "anthropic-fable-5", providerId: "anthropic", sourceType: "provider", label: "Anthropic Claude Fable 5", url: "https://www.anthropic.com/news/claude-fable-5-mythos-5", official: true, watch: ["claude fable 5", "terminal-bench", "swe-bench"] },
-    { id: "google-gemini", providerId: "google", sourceType: "provider", label: "Google Gemini models", url: "https://deepmind.google/models/gemini/", official: true, watch: ["gemini 3.6 flash", "gemini 3.5 pro", "1m"] },
-    { id: "xai-grok-45", providerId: "xai", sourceType: "provider", label: "xAI Grok 4.5", url: "https://x.ai/news/grok-4-5", official: true, watch: ["grok 4.5", "terminal-bench", "swe-bench"] },
-    { id: "deepseek-v4", providerId: "deepseek", sourceType: "provider", label: "DeepSeek V4 Pro Preview", url: "https://api-docs.deepseek.com/updates/", official: true, watch: ["deepseek-v4-pro", "v4 pro", "preview"] },
-    { id: "deepseek-v4-flash", providerId: "deepseek", sourceType: "provider", label: "DeepSeek V4 Flash 0731", url: "https://api-docs.deepseek.com/updates/", official: true, watch: ["deepseek-v4-flash", "terminal bench 2.1", "nl2repo", "82.7"] },
-    { id: "moonshot-kimi-k3", providerId: "moonshot", sourceType: "provider", label: "Moonshot Kimi K3", url: "https://www.kimi.com/blog/kimi-k3", official: true, watch: ["kimi k3", "open source", "1m"] },
-    { id: "mistral-models", providerId: "mistral", sourceType: "provider", label: "Mistral model overview", url: "https://docs.mistral.ai/getting-started/models/models_overview/", official: true, watch: ["medium 3.5", "mistral large", "262k"] },
-    { id: "qwen-models", providerId: "qwen", sourceType: "provider", label: "Qwen official models", url: "https://qwen.ai/home", official: true, watch: ["qwen3.7", "qwen3.8", "qwen max"] },
-    { id: "meta-muse", providerId: "meta", sourceType: "provider", label: "Meta Muse Spark 1.1", url: "https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/", official: true, watch: ["muse spark", "1.1", "model api"] },
-    { id: "cohere-command-a-plus", providerId: "cohere", sourceType: "provider", label: "Cohere Command A+", url: "https://docs.cohere.com/docs/command-a-plus", official: true, watch: ["command a+", "command-a-plus", "apache 2.0"] },
-    { id: "amazon-nova", providerId: "amazon", sourceType: "provider", label: "Amazon Nova", url: "https://aws.amazon.com/ai/generative-ai/nova/", official: true, watch: ["nova 2 omni", "nova 2", "bedrock"] },
-    { id: "zhipu-glm-52", providerId: "zhipu", sourceType: "provider", label: "Z.ai GLM-5.2", url: "https://z.ai/blog/glm-5.2", official: true, watch: ["glm-5.2", "terminal-bench", "swe-bench"] },
-    { id: "benchmark-aa", providerId: null, sourceType: "benchmark", label: "Artificial Analysis", url: "https://artificialanalysis.ai/models", official: false, watch: ["intelligence index", "claude opus 5", "gpt-5.6"] },
-    { id: "benchmark-aa-coding", providerId: null, sourceType: "benchmark", label: "AA Coding Agent Index", url: "https://artificialanalysis.ai/agents/coding-agents", official: false, watch: ["coding agent index", "deepswe", "terminal-bench", "swe-atlas"] },
-    { id: "benchmark-aa-gdpval", providerId: null, sourceType: "benchmark", label: "GDPval-AA v2", url: "https://artificialanalysis.ai/evaluations/gdpval-aa", official: false, watch: ["gdpval-aa v2", "agentic real-world work", "elo"] },
-    { id: "benchmark-aa-briefcase", providerId: null, sourceType: "benchmark", label: "AA-Briefcase", url: "https://artificialanalysis.ai/evaluations/aa-briefcase", official: false, watch: ["aa-briefcase", "agentic knowledge work", "elo"] },
-    { id: "benchmark-arena", providerId: null, sourceType: "benchmark", label: "Arena Text Leaderboard", url: "https://arena.ai/leaderboard/text", official: false, watch: ["leaderboard", "claude-fable-5", "qwen3.8"] },
-    { id: "benchmark-swe", providerId: null, sourceType: "benchmark", label: "SWE-bench", url: "https://www.swebench.com/", official: false, watch: ["swe-bench", "verified", "pro"] },
-    { id: "benchmark-terminal", providerId: null, sourceType: "benchmark", label: "Terminal-Bench 2.0 reference", url: "https://www.tbench.ai/leaderboard/terminal-bench/2.0", official: false, watch: ["terminal-bench", "leaderboard", "agent"] },
-    { id: "benchmark-arc", providerId: null, sourceType: "benchmark", label: "ARC Prize Leaderboard", url: "https://arcprize.org/leaderboard", official: false, watch: ["arc-agi", "leaderboard", "verified"] },
-    { id: "benchmark-ale", providerId: null, sourceType: "benchmark", label: "Agents Last Exam", url: "https://agents-last-exam.org/", official: false, watch: ["agents last exam", "leaderboard", "agent"] }
+    {
+      id: "openai-gpt-56",
+      providerId: "openai",
+      sourceType: "provider",
+      label: "OpenAI GPT-5.6",
+      url: "https://openai.com/index/gpt-5-6",
+      official: true,
+      watch: ["gpt-5.6", "gpt-5.6-sol", "swe-bench pro"]
+    },
+    {
+      id: "anthropic-opus-5",
+      providerId: "anthropic",
+      sourceType: "provider",
+      label: "Anthropic Claude Opus 5",
+      url: "https://www.anthropic.com/news/claude-opus-5",
+      official: true,
+      watch: ["claude opus 5", "claude-opus-5", "1m"]
+    },
+    {
+      id: "anthropic-fable-5",
+      providerId: "anthropic",
+      sourceType: "provider",
+      label: "Anthropic Claude Fable 5",
+      url: "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      official: true,
+      watch: ["claude fable 5", "terminal-bench", "swe-bench"]
+    },
+    {
+      id: "google-gemini",
+      providerId: "google",
+      sourceType: "provider",
+      label: "Google Gemini models",
+      url: "https://deepmind.google/models/gemini/",
+      official: true,
+      watch: ["gemini 3.6 flash", "gemini 3.5 pro", "1m"]
+    },
+    {
+      id: "xai-grok-45",
+      providerId: "xai",
+      sourceType: "provider",
+      label: "xAI Grok 4.5",
+      url: "https://x.ai/news/grok-4-5",
+      official: true,
+      watch: ["grok 4.5", "terminal-bench", "swe-bench"]
+    },
+    {
+      id: "deepseek-v4",
+      providerId: "deepseek",
+      sourceType: "provider",
+      label: "DeepSeek · 更新记录",
+      url: "https://api-docs.deepseek.com/updates/",
+      official: true,
+      watch: ["v4-pro", "0813", "flash-vision"]
+    },
+    {
+      id: "deepseek-v4-flash",
+      providerId: "deepseek",
+      sourceType: "provider",
+      label: "DeepSeek V4 Flash 0731",
+      url: "https://api-docs.deepseek.com/updates/",
+      official: true,
+      watch: ["deepseek-v4-flash", "terminal bench 2.1", "nl2repo", "82.7"]
+    },
+    {
+      id: "moonshot-kimi-k3",
+      providerId: "moonshot",
+      sourceType: "provider",
+      label: "Moonshot Kimi K3",
+      url: "https://www.kimi.com/blog/kimi-k3",
+      official: true,
+      watch: ["kimi k3", "open source", "1m"]
+    },
+    {
+      id: "mistral-models",
+      providerId: "mistral",
+      sourceType: "provider",
+      label: "Mistral model overview",
+      url: "https://docs.mistral.ai/models",
+      official: true,
+      watch: ["medium 3.5", "small 4"]
+    },
+    {
+      id: "qwen-models",
+      providerId: "qwen",
+      sourceType: "provider",
+      label: "Qwen official models",
+      url: "https://qwen.ai/home",
+      official: true,
+      watch: ["qwen3.7", "qwen3.8", "qwen max"]
+    },
+    {
+      id: "meta-muse",
+      providerId: "meta",
+      sourceType: "provider",
+      label: "Meta Muse · 最新型号",
+      url: "https://ai.meta.com/llama",
+      official: true,
+      watch: ["muse spark 1.3", "public preview"]
+    },
+    {
+      id: "cohere-command-a-plus",
+      providerId: "cohere",
+      sourceType: "provider",
+      label: "Cohere Command A+",
+      url: "https://docs.cohere.com/docs/command-a-plus",
+      official: true,
+      watch: ["command a+", "command-a-plus", "apache 2.0"]
+    },
+    {
+      id: "amazon-nova",
+      providerId: "amazon",
+      sourceType: "provider",
+      label: "Amazon Nova",
+      url: "https://aws.amazon.com/ai/generative-ai/nova/",
+      official: true,
+      watch: ["nova 2 omni", "nova 2", "bedrock"]
+    },
+    {
+      id: "zhipu-glm-52",
+      providerId: "zhipu",
+      sourceType: "provider",
+      label: "Z.ai GLM-5.2",
+      url: "https://z.ai/blog/glm-5.2",
+      official: true,
+      watch: ["glm-5.2", "terminal-bench", "swe-bench"]
+    },
+    {
+      id: "benchmark-aa",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "Artificial Analysis · 智力 v4.3",
+      url: "https://artificialanalysis.ai/models",
+      official: false,
+      watch: ["v4.3", "gpt-6-astra", "glm-5.3-flash"]
+    },
+    {
+      id: "benchmark-aa-coding",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "AA Coding Agent Index",
+      url: "https://artificialanalysis.ai/agents/coding-agents",
+      official: false,
+      watch: ["coding agent index", "deepswe", "terminal-bench", "swe-atlas"]
+    },
+    {
+      id: "benchmark-aa-gdpval",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "GDPval-AA v2",
+      url: "https://artificialanalysis.ai/evaluations/gdpval-aa",
+      official: false,
+      watch: ["gdpval-aa v2", "agentic real-world work", "elo"]
+    },
+    {
+      id: "benchmark-aa-briefcase",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "AA-Briefcase",
+      url: "https://artificialanalysis.ai/evaluations/aa-briefcase",
+      official: false,
+      watch: ["aa-briefcase", "agentic knowledge work", "elo"]
+    },
+    {
+      id: "benchmark-arena",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "Arena Text Leaderboard",
+      url: "https://arena.ai/leaderboard/text",
+      official: false,
+      watch: ["leaderboard", "claude-fable-5", "qwen3.8"]
+    },
+    {
+      id: "benchmark-swe",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "SWE-bench",
+      url: "https://www.swebench.com/",
+      official: false,
+      watch: ["swe-bench", "verified", "pro"]
+    },
+    {
+      id: "benchmark-terminal",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "Terminal-Bench 2.0 reference",
+      url: "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+      official: false,
+      watch: ["terminal-bench", "leaderboard", "agent"]
+    },
+    {
+      id: "benchmark-arc",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "ARC Prize Leaderboard",
+      url: "https://arcprize.org/leaderboard",
+      official: false,
+      watch: ["arc-agi", "leaderboard", "verified"]
+    },
+    {
+      id: "benchmark-ale",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "Agents Last Exam",
+      url: "https://agents-last-exam.org/",
+      official: false,
+      watch: ["agents last exam", "leaderboard", "agent"]
+    },
+    {
+      id: "openai-astra",
+      providerId: "openai",
+      sourceType: "provider",
+      label: "OpenAI GPT-6 Astra · 规格与价格",
+      url: "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      official: true,
+      watch: ["gpt-6-astra", "50.00"]
+    },
+    {
+      id: "openai-pricing",
+      providerId: "openai",
+      sourceType: "provider",
+      label: "OpenAI Sol / Terra · 规格与价格",
+      url: "https://developers.openai.com/api/docs/models/compare",
+      official: true,
+      watch: ["gpt-5.6-sol", "gpt-5.6-terra"]
+    },
+    {
+      id: "openai-luna",
+      providerId: "openai",
+      sourceType: "provider",
+      label: "OpenAI GPT-5.6 Luna · 规格与价格",
+      url: "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      official: true,
+      watch: ["gpt-5.6-luna", "1.20"]
+    },
+    {
+      id: "anthropic-fable-51",
+      providerId: "anthropic",
+      sourceType: "provider",
+      label: "Claude Fable 5.1 · 发布与规格",
+      url: "https://platform.claude.com/docs/en/models/fable-5-1/overview",
+      official: true,
+      watch: ["claude-fable-5-1", "1m"]
+    },
+    {
+      id: "anthropic-pricing",
+      providerId: "anthropic",
+      sourceType: "provider",
+      label: "Claude · 官方价格",
+      url: "https://platform.claude.com/docs/en/about-claude/pricing",
+      official: true,
+      watch: ["fable 5.1", "sonnet 5", "standard price"]
+    },
+    {
+      id: "google-gemini-38",
+      providerId: "google",
+      sourceType: "provider",
+      label: "Gemini 3.8 Flash · 规格与优惠价",
+      url: "https://ai.google.dev/gemini-api/docs/latest-model",
+      official: true,
+      watch: ["gemini-3.8-flash", "introductory", "3.75"]
+    },
+    {
+      id: "xai-grok-46",
+      providerId: "xai",
+      sourceType: "provider",
+      label: "Grok 4.6 · 官方规格与价格",
+      url: "https://docs.x.ai/developers/grok-4-6",
+      official: true,
+      watch: ["grok-4.6", "500,000"]
+    },
+    {
+      id: "deepseek-pricing",
+      providerId: "deepseek",
+      sourceType: "provider",
+      label: "DeepSeek · 峰谷价格与版本",
+      url: "https://api-docs.deepseek.com/quick_start/pricing",
+      official: true,
+      watch: ["0813", "0731", "peak"]
+    },
+    {
+      id: "deepseek-pro-0813",
+      providerId: "deepseek",
+      sourceType: "provider",
+      label: "DeepSeek V4 Pro 0813 · 正式版发布",
+      url: "https://api-docs.deepseek.com/news/news260813/",
+      official: true,
+      watch: ["v4-pro", "off-peak"]
+    },
+    {
+      id: "kimi-pricing",
+      providerId: "moonshot",
+      sourceType: "provider",
+      label: "Kimi · 官方 API 价格",
+      url: "https://platform.kimi.ai/",
+      official: true,
+      watch: ["kimi k3", "15.00"]
+    },
+    {
+      id: "mistral-medium-spec",
+      providerId: "mistral",
+      sourceType: "provider",
+      label: "Mistral Medium 3.5 · 规格与价格",
+      url: "https://docs.mistral.ai/models/mistral-medium-3-5-26-04",
+      official: true,
+      watch: ["medium 3.5", "256k"]
+    },
+    {
+      id: "qwen-38-0902",
+      providerId: "qwen",
+      sourceType: "provider",
+      label: "Qwen3.8-Max-0902 · 规格与价格",
+      url: "https://www.qwencloud.com/models/qwen3.8-max-0902",
+      official: true,
+      watch: ["qwen3.8-max-0902", "upgraded snapshot"]
+    },
+    {
+      id: "zhipu-release",
+      providerId: "zhipu",
+      sourceType: "provider",
+      label: "GLM-5.3 / Flash · 发布记录",
+      url: "https://docs.z.ai/release-notes/new-released",
+      official: true,
+      watch: ["glm-5.3", "glm-5.3-flash"]
+    },
+    {
+      id: "zhipu-pricing",
+      providerId: "zhipu",
+      sourceType: "provider",
+      label: "Z.ai · 官方价格",
+      url: "https://docs.z.ai/guides/overview/pricing",
+      official: true,
+      watch: ["glm-5.3-flash", "0.50"]
+    },
+    {
+      id: "benchmark-aa-flash",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "AA · DeepSeek V4 Flash 0731",
+      url: "https://artificialanalysis.ai/models/deepseek-v4-flash",
+      official: false,
+      watch: ["v4.3", "0731"]
+    },
+    {
+      id: "benchmark-aa-astra",
+      providerId: null,
+      sourceType: "benchmark",
+      label: "AA · Astra 与最新编程 Agent 对比",
+      url: "https://artificialanalysis.ai/articles/benchmarking-gpt-6-astra",
+      official: false,
+      watch: ["astra", "coding agent", "terminal-bench"]
+    }
   ],
-  notes: [
-    "Every displayed benchmark value keeps its source and measurement date. Missing coverage stays visible as N/A with a current verification reason.",
-    "Arena and Artificial Analysis are independent signals. SWE-Bench Pro and Terminal-Bench values can be vendor-reported and are labeled in the detail view.",
-    "Release timing compares elapsed days with each provider's historical average interval. It carries no launch probability or promise.",
-    "The daily job checks a fixed source list serially, records page changes, and keeps curated values intact for human review."
-  ]
+  notes: ["模型资料人工核实于 2026-09-10；AA 统一 v4.3，日期表示榜单读取日；Arena 保留榜单公布的 2026-09-02。", "价格保留各自来源、核实日期及适用条件；Meta 与 Gemini Flash-Lite 当前采用 AA 记录，明确注明。", "终端主指标统一为 AA Terminal-Bench 4.0；旧版厂商成绩仅作带日期的专项记录。", "新型号不继承旧版分数。Qwen 0902、Command A+、Nova 2 Omni 的可比缺口保持 N/A。", "每日任务仅低频串行检查固定来源，失败保留人工核实数据；不会自动将观察词转换为模型或分数。", "历史发布节奏只提示关注时间，不承诺发布日期或发布概率。"],
+  curatedAt: "2026-09-10"
 };

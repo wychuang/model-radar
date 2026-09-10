@@ -17,6 +17,15 @@ Radar observatory / 雷达观测站:
 
 <https://wychuang.github.io/model-radar/radar.html>
 
+模型斩杀线 / Intelligence × price:
+
+打开 `radar.html#value-frontier`。把所有具有可比数据的模型放在智能与价格散点图中，
+点选模型即可看到更优替代、差价和智能分差。预算与最低智能滑块筛选前沿模型。
+判断采用 AA 智力原始值与每百万输出 tokens 的美元单价；更便宜且不弱、或同价更强，
+即可淘汰缺乏优势的选择。缺少价格或智能的模型单独列出。
+
+本地研究、具体案例及维护建议见 [`REVIEW.md`](./REVIEW.md)。
+
 V2 keeps the same curated snapshot and ranking logic while presenting the
 current leader, NOW/NEXT signals, evidence labels, and release timing in a
 responsive evidence workspace. Its main switcher uses the same seven comparable
@@ -49,7 +58,7 @@ benchmark，纵轴显示发布新鲜度，缺失测量进入清晰的 `NO SIGNAL
 
 ## What It Shows / 展示内容
 
-- 14 current model rows across 12 provider lanes, including DeepSeek-V4 Flash 0731.
+- 20 model rows across 12 provider lanes, curated on 2026-09-10; 17 have comparable intelligence and output-price evidence.
 - Seven switchable views: Artificial Analysis Intelligence Index, Arena Text,
   output speed, SWE-Bench Pro, Terminal-Bench, output price, and advertised context.
 - Raw values, measurement dates, source links, preliminary/vendor labels, and
@@ -61,9 +70,9 @@ benchmark，纵轴显示发布新鲜度，缺失测量进入清晰的 `NO SIGNAL
 - Dated release/confirmation/deadline events and cadence windows inferred from public release dates.
 - Additional watched sources for ARC Prize and Agents Last Exam.
 
-- 12 家企业、14 个当前模型条目，包含 DeepSeek-V4 Flash 0731。
-- 7 种可切换视图：AA 智力指数、Arena 人类偏好、生成速度、SWE-Bench Pro、
-  Terminal-Bench、输出价格、标称上下文。
+- 12 家企业、20 个模型条目，2026-09-10 核实；17 个具有可比的智能与输出价格记录。
+- 7 种可切换视图：AA 智力指数 v4.3、Arena 人类偏好、生成速度、SWE-Bench Pro、
+  Terminal-Bench 4.0（AA 框架）、输出价格、标称上下文。
 - 展示原始分值、测量日期、来源链接、初步/厂商自报标签；缺少可比证据时明确显示 `N/A`。
 - 带证据门槛、真实缺口、模型家族色和四种用途自动推荐的五维选型。
 - 模型详情按需显示 AA Coding Agent Index、GDPval-AA、AA-Briefcase、
@@ -83,23 +92,37 @@ Open V2 at <http://127.0.0.1:4174/v2.html>.
 
 Open the local radar edition at <http://127.0.0.1:4174/radar.html>.
 
+Open the model kill line at <http://127.0.0.1:4174/radar.html#value-frontier>.
+
+Requires Node.js 22 or later. No dependency installation is needed.
+
+需要 Node.js 22 或更新版本，无需安装项目依赖。
+
 ## Refresh / 刷新
 
 ```powershell
 npm run update
 ```
 
-The refresh performs one serial pass over a fixed 23-page allowlist. It records
+The refresh performs one serial pass over a fixed 39-page allowlist. It records
 freshness, page hashes, failures, and watched terms. It has no login, cookies,
 proxy, link crawling, endpoint discovery, bypass behavior, or retry loop.
 
-刷新任务每天串行检查固定的 23 个公开页面，记录新鲜度、页面摘要、失败状态和观察词。任务不登录、不带 cookie、不使用代理、不扩展爬取链接、不探测接口、不绕过限制，也不进行循环重试。
+刷新任务每天串行检查固定的 39 个公开页面，记录新鲜度、页面摘要、失败状态和观察词。任务不登录、不带 cookie、不使用代理、不扩展爬取链接、不探测接口、不绕过限制，也不进行循环重试。
 
 Benchmark values stay curated because leaderboards use different harnesses,
 variants, and update schedules. A source page change becomes a review signal;
 it does not silently overwrite a score.
 
 Benchmark 分数保留人工确认流程，因为各榜单的 harness、模型变体和更新时间并不统一。来源页面变化会形成复核信号，不会静默覆盖已有分数。
+
+三个页面都展示评测记录的实际日期范围、最新记录距今多少天，以及来源检查成功/失败数。
+“来源与变化”展示全部厂商与评测页面，失败项优先，并直接显示错误原因。
+
+更新器保留 `lastSuccessAt`、`lastChangedAt` 和最近一次 `signalChange`（观察词新增/消失及日期）。
+失败时保留最近成功的页面摘要和观察词。更换来源 URL 后重新建立基线，首次检查不报新增。
+`changed` 仍然只表示本轮页面摘要发生变化；历史变化日期在后续内容不变时继续保留。
+页面摘要可能受动态内容影响，观察词变化也需要人工核实。历史记录从新版检查器运行后逐步积累。
 
 GitHub automation:
 

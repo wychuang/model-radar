@@ -5,14 +5,14 @@ import {
   getBenchmarkMetric,
   getMetricMeasurement,
   metricCoverage,
-  rankModelsByMetric,
-  sourceFreshnessLabel
+  rankModelsByMetric
 } from "./model-radar.mjs";
 import { modelRadarSnapshot } from "./model-radar-snapshot.mjs";
+import { initValueFrontier } from "./frontier-view.mjs";
 import { autoMatchModel, CHOICE_MODES, evidenceLabel as choiceEvidenceLabel } from "./model-choice.mjs";
 import { buildModelProfile, missingMetricReason, profileGeometry } from "./model-profile.mjs";
 import { modelAgeDays, placeRadarLabels, projectRadarModels, radarSweepDiameter, shortModelName } from "./radar-layout.mjs";
-import { clockStatusLabel, eventStatusLabel, isoShortDate, shortDate } from "./ui-helpers.mjs";
+import { clockStatusLabel, eventStatusLabel, isoShortDate, shortDate, evidenceSummaryLabel, sourceCheckSummaryLabel, sourceStatusLabel } from "./ui-helpers.mjs";
 
 const today = new Date();
 const view = buildRadarViewModel(modelRadarSnapshot, today);
@@ -55,6 +55,8 @@ const elements = {
 };
 
 function init() {
+  document.querySelector("#evidence-summary").textContent = evidenceSummaryLabel(view.evidenceSummary);
+  document.querySelector("#source-summary").textContent = sourceCheckSummaryLabel(view.evidenceSummary);
   elements.snapshotDate.textContent = view.asOfLabel;
   elements.refreshDate.textContent = `CHECKED ${view.refreshedLabel}`;
   renderMetricTabs();
@@ -62,6 +64,7 @@ function init() {
   renderReleaseClocks();
   renderEvents();
   renderSources();
+  initValueFrontier(modelRadarSnapshot);
   syncRadarSweepGeometry();
   bindResponsiveRadar();
 }
@@ -357,7 +360,13 @@ function renderInspector(metric, ranking) {
     official.append(externalLink(source.url, `打开 ${source.label}`, "", `${source.label} ↗`));
   }
 
-  elements.modelInspector.replaceChildren(head, score, facts, matrix, specialty, official);
+  const priceNote = createElement("p", "price-evidence");
+  if (model.priceUsd) {
+    priceNote.append(createElement("span", "", model.priceUsd.note ?? "标准 API 价格，输入、缓存与工具调用另计。"));
+    const priceSource = sourceById(model.priceUsd.sourceId);
+    if (priceSource) priceNote.append(externalLink(priceSource.url, "打开价格来源", "", `价格核实 ${model.priceUsd.asOf} ↗`));
+  } else priceNote.hidden = true;
+  elements.modelInspector.replaceChildren(head, score, facts, matrix, priceNote, specialty, official);
 }
 
 function renderMetricCell(model, metric) {
@@ -681,7 +690,7 @@ function renderEvents() {
     if (source) setExternalLink(item, source.url, `打开 ${event.label} 来源`);
 
     const meta = createElement("div", "event-meta");
-    meta.append(createElement("span", "", isoShortDate(event.date)), createElement("span", "", eventStatusLabel(event.status)));
+    meta.append(createElement("span", "", isoShortDate(event.date)), createElement("span", "", eventStatusLabel(event.status, event.date, today)));
     item.append(meta, createElement("strong", "", event.label), createElement("p", "", event.detail));
     return item;
   });
@@ -690,13 +699,14 @@ function renderEvents() {
 }
 
 function renderSources() {
-  const sources = view.sources.filter((source) => source.sourceType === "benchmark");
+  const sources = view.sources;
   const rows = sources.map((source, index) => {
     const link = externalLink(source.url, `打开 ${source.label}`, "source-row");
+    link.dataset.status = source.ok === false ? "error" : source.changed ? "changed" : "ok";
     const copy = createElement("span", "source-copy");
     copy.append(
       createElement("strong", "", source.label),
-      createElement("small", "", sourceStatus(source))
+      createElement("small", "", sourceStatusLabel(source))
     );
     link.append(
       createElement("span", "source-index", String(index + 1).padStart(2, "0")),
@@ -725,12 +735,6 @@ function evidenceLabel(measurement) {
   return "INDEPENDENT";
 }
 
-function sourceStatus(source) {
-  const freshness = sourceFreshnessLabel(source, today).toUpperCase();
-  if (source.ok === false) return `${freshness} / CHECK FAILED`;
-  if (source.changed) return `${freshness} / PAGE CHANGED`;
-  return `${freshness} / ${source.foundSignals?.slice(0, 2).join(" / ") || "WATCHING"}`;
-}
 
 function sourceForMeasurement(measurement, metric, model) {
   return sourceById(measurement?.sourceId ?? metric?.sourceId ?? model?.sourceRefs?.[0]);

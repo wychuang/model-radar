@@ -1608,9 +1608,35 @@ a.specialty-score:focus-visible small {
 
 .source-copy strong,
 .source-copy small {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+}
+
+.source-copy small {
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.source-row[data-status="error"] {
+  border-left: 3px solid var(--hot);
+}
+
+.evidence-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+  color: var(--paper-soft);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.evidence-status a {
+  color: var(--acid);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .method-strip {
@@ -1969,4 +1995,83 @@ a.specialty-score:focus-visible small {
   .signal-node {
     transition: none;
   }
+}
+
+/* Price and intelligence: a second instrument, with independent truthful axes. */
+.frontier-band [hidden] { display: none; }
+.frontier-band { border-top: 1px solid var(--line-strong); scroll-margin-top: 16px; }
+.frontier-heading { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; padding: 36px 32px 28px; background: var(--acid); color: var(--ink); }
+.frontier-eyebrow { font: 11px var(--mono); }
+.frontier-heading h2 { margin: 18px 0; font-size: clamp(32px, 4.5vw, 62px); line-height: 1.12; font-weight: 750; }
+.frontier-heading p { max-width: 520px; line-height: 1.8; font-size: 14px; }
+.frontier-heading-note { display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; }
+.frontier-heading-note strong { font-size: 20px; }
+#frontier-counts { border-top: 1px solid currentColor; padding-top: 14px; font: 12px var(--mono); }
+.frontier-controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; padding: 24px 32px; border-bottom: 1px solid var(--line); }
+.frontier-controls label { display: grid; grid-template-columns: 1fr auto; align-content: start; align-items: center; gap: 10px; min-width: 0; font-size: 13px; }
+.frontier-controls output { color: var(--acid); font: 20px var(--mono); }
+.frontier-controls input { grid-column: 1 / -1; width: 100%; margin: 0; accent-color: var(--acid); cursor: pointer; }
+.frontier-controls small { grid-column: 1 / -1; color: var(--muted); font-size: 11px; }
+.frontier-controls select { grid-column: 1 / -1; width: 100%; min-height: 42px; padding: 8px; border: 1px solid var(--line-strong); background: var(--panel); color: var(--paper); font: 13px var(--sans); }
+.frontier-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 340px; }
+.frontier-chart { position: relative; min-width: 0; height: 490px; background: var(--night); }
+.frontier-field { position: absolute; inset: 60px 42px 78px 58px; }
+.frontier-y-title, .frontier-x-title { position: absolute; left: 28px; color: var(--paper-soft); font: 11px var(--mono); }
+.frontier-y-title { top: 20px; }
+.frontier-x-title { bottom: 16px; right: 20px; text-align: center; line-height: 1.6; }
+.frontier-gridline { position: absolute; left: 0; right: 0; height: 1px; background: var(--line); pointer-events: none; }
+.frontier-gridline span { position: absolute; right: calc(100% + 14px); transform: translateY(-50%); color: var(--muted); font: 11px var(--mono); }
+.frontier-price-tick { position: absolute; top: calc(100% + 14px); transform: translateX(-50%); color: var(--muted); font: 11px var(--mono); }
+.frontier-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.frontier-line polyline { fill: none; stroke: var(--acid); stroke-width: 2; stroke-dasharray: 5 5; opacity: 0.7; }
+.frontier-zone { position: absolute; background: rgba(239, 93, 145, 0.09); border-top: 1px dashed var(--rose); border-left: 1px dashed var(--rose); pointer-events: none; }
+.frontier-dot { position: absolute; width: 30px; height: 30px; padding: 0; transform: translate(-50%, -50%); border: 0; background: transparent; color: var(--dot-color); cursor: pointer; z-index: 2; }
+.frontier-dot::before { content: ''; position: absolute; inset: 9px; border: 2px solid currentColor; background: var(--night); border-radius: 50%; }
+.frontier-dot[data-frontier="true"]::before { background: currentColor; }
+.frontier-dot[data-filtered="true"] { opacity: 0.24; }
+.frontier-dot[aria-pressed="true"] { z-index: 3; }
+.frontier-dot[aria-pressed="true"]::after { content: ''; position: absolute; inset: 3px; border: 1px solid currentColor; border-radius: 50%; }
+.frontier-dot:hover, .frontier-dot:focus-visible { opacity: 1; z-index: 5; outline: none; }
+.frontier-dot:focus-visible::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--paper); border-radius: 50%; }
+.frontier-dot-label { display: none; position: absolute; left: 30px; top: 0; width: max-content; max-width: 190px; padding: 7px 9px; background: var(--paper); border: 1px solid currentColor; color: var(--ink); text-align: left; font: 11px var(--mono); line-height: 1.5; pointer-events: none; }
+.frontier-dot[data-side="left"] .frontier-dot-label { left: auto; right: 30px; }
+.frontier-dot:hover .frontier-dot-label, .frontier-dot:focus-visible .frontier-dot-label { display: block; }
+.frontier-inspector { padding: 26px 24px; background: var(--paper); color: var(--ink); min-width: 0; border-left: 1px solid var(--line); }
+.frontier-verdict { display: block; color: #943e22; font-size: 12px; }
+.frontier-inspector h3 { margin: 16px 0 10px; font-size: 27px; line-height: 1.2; overflow-wrap: anywhere; }
+.frontier-values { font: 24px var(--mono); margin-bottom: 16px; }
+.frontier-inspector > p:not(.frontier-values) { font-size: 13px; line-height: 1.8; }
+.price-evidence { margin: 0; padding: 12px 16px; font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; border-bottom: 1px solid var(--ink); }
+.price-evidence a { display: block; margin-top: 6px; color: inherit; }
+.frontier-filter-note { margin-top: 12px; color: #943e22; }
+.frontier-alternatives { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+.frontier-alternatives small { flex-basis: 100%; margin-bottom: 4px; }
+.frontier-alternatives button { padding: 5px 8px; border: 1px solid rgba(17,18,15,.3); color: var(--ink); background: transparent; cursor: pointer; font-size: 11px; }
+.frontier-alternatives button:hover { background: var(--ink); color: var(--paper); }
+.frontier-evidence { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; font-size: 11px; }
+.frontier-evidence a { text-decoration: underline; text-underline-offset: 3px; }
+.frontier-legend { display: flex; flex-wrap: wrap; gap: 14px 24px; padding: 14px 32px; border-block: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+.frontier-legend i { display: inline-block; width: 8px; height: 8px; border: 1px solid var(--acid); margin-right: 5px; border-radius: 50%; }
+.frontier-legend span:first-child i { background: var(--acid); }
+.frontier-shortlist { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 24px 32px; }
+.frontier-shortlist strong { flex-basis: 100%; font-size: 15px; margin-bottom: 4px; }
+.frontier-shortlist button { padding: 10px 14px; border: 1px solid var(--line-strong); color: var(--paper); background: var(--panel); cursor: pointer; font-size: 12px; }
+.frontier-shortlist button:hover { border-color: var(--acid); color: var(--acid); }
+.frontier-footnote { padding: 0 32px 24px; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.frontier-footnote p { margin-bottom: 8px; }
+.frontier-footnote a { color: var(--paper); text-decoration: underline; }
+@media (max-width: 900px) {
+  .frontier-workspace { grid-template-columns: minmax(0, 1fr); }
+  .frontier-inspector { border-left: 0; }
+  .frontier-controls { grid-template-columns: 1fr 1fr; }
+  .frontier-controls label:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .frontier-heading { grid-template-columns: 1fr; gap: 24px; padding: 28px 20px; }
+  .frontier-controls { gap: 24px 18px; padding: 22px 20px; }
+  .frontier-chart { height: 410px; }
+  .frontier-field { inset: 52px 28px 78px 44px; }
+  .frontier-dot-label { max-width: 135px; font-size: 10px; }
+  .frontier-legend, .frontier-shortlist { padding: 18px 20px; }
+  .frontier-footnote { padding: 0 20px 24px; }
 }

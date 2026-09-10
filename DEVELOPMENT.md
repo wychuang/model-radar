@@ -46,6 +46,8 @@ benchmark values remain unchanged until reviewed in the seed file.
 - `src/radar-layout.mjs`: pure benchmark/freshness projection and compact signal labels.
 - `src/model-profile.mjs`: five-axis normalization, incomplete geometry, and reasoned missing states.
 - `src/model-choice.mjs`: transparent use-case weights, evidence coverage, ranking, and automatic comparison selection.
+- `src/model-frontier.mjs`: raw intelligence/output-price dominance, Pareto frontier, and inclusive budget/ability filters; missing evidence never participates in dominance.
+- `src/frontier-view.mjs`: the model kill line, persistent plot geometry, selectable points, rival explanations, and shortlist.
 - `src/app-radar.mjs`: linked radar, five-axis profile, metric, ranking, inspector, event, cadence, and source interactions.
 - `radar.html` and `styles-radar.css`: published radar-first entry with a direct switch to the Apple-inspired research desk.
 - `scripts/update-model-radar.mjs`: serial low-frequency source checker and snapshot writer.
@@ -115,3 +117,52 @@ winner and automatic comparison without exposing a manual pair selector.
 - 请求保持串行、每天一次、无重试。
 - 不加入登录、cookie、代理、伪装请求头、验证码处理、链接发现、接口发现或安全探测。
 - 来源失败时保留人工整理行，通过生成快照里的 `ok`、`error`、`changed` 复核。
+
+## Source history / 来源历史
+
+`lastCheckedAt` records an attempt; `lastSuccessAt` records a successful read.
+`lastChangedAt` survives unchanged checks. `signalChange` keeps the most recent
+watched-term difference and its date. Failed reads retain the last successful
+hash and watched terms. History is keyed by source ID and exact URL; a URL change
+starts a new baseline. Existing snapshots remain readable without these fields.
+
+`lastSuccessfulWatch` preserves the watched-term configuration of the last successful
+read. Signal changes compare only terms watched on both reads; adding or removing
+a local watch term does not generate a false page signal, including after a failure.
+
+观察词增减只比较已有固定词表，无法自动发现词表以外的新型号。更新分数时应核对
+benchmark 版本；不要把升级前后的分数混排。评测日期展示来自真实模型记录，
+不会被每日检查生成的 `generatedAt` 覆盖。
+
+## Kill line / 斩杀线
+
+For A to dominate B: `A.price <= B.price && A.intelligence >= B.intelligence`,
+with at least one strict inequality. Identical pairs both remain eligible.
+Zero prices are valid, missing/negative prices and missing intelligence are not.
+The plot uses `log(1 + output price)` horizontally and raw AA intelligence vertically.
+The price scale is visual only; dominance and budget filters use raw numbers.
+Budget is an inclusive maximum; intelligence is an inclusive minimum. The shortlist
+contains only frontier models satisfying both. Filtering never hides or relocates dots.
+
+快速检查：点 DeepSeek-V4 Pro 0813，应显示 GLM-5.3 Flash 输出价便宜 $3.46、智能高 5.63 分
+（2026-09-10 的 AA v4.3 与高峰价格记录，数据更新后以记录为准）。预算调到 0 应显示空结果；用 Tab、
+方向键操作滑块和模型选择器，移动端也可用下拉框选择重叠的模型点。
+
+
+## Curated evidence / 人工核实资料
+
+`curatedAt` is the manual review date, independent of `generatedAt`. Each AA
+intelligence row declares `version: "4.3"`; Terminal-Bench rows declare `version: "4.0"`.
+The validator rejects mismatched versions, and the metric reader excludes them
+from ranking, profiles, recommendations, and the value frontier. New snapshots
+must not inherit their predecessors' scores. `dateBasis: "observed"` means the
+leaderboard was read on `asOf`, not that all runs occurred on that day.
+
+Each numeric `priceUsd` includes its own `sourceId` and `asOf`, plus `note` for
+introductory pricing, peak/off-peak rates, context tiers, or secondary evidence.
+Keep these fields with the price; a release announcement is not automatically
+a pricing source. For context, use `contextSourceId` and `contextAsOf` when verified.
+
+本轮保留 DeepSeek 高峰价，闲时价在条件中注明；Meta 与 Gemini Flash-Lite
+暂采用 AA 的价格记录，不能标为已直接核实官方定价。Arena 当前来源日期为
+2026-09-02，不跟随资料核实日变化。

@@ -17,7 +17,7 @@
           <span class="identity-scope" aria-hidden="true"><i></i></span>
           <span>
             <strong>WORLD MODEL RADAR</strong>
-            <small>SIGNAL OBSERVATORY / 信号观测站</small>
+            <small>看看谁更强，谁更值得选</small>
           </span>
         </a>
 
@@ -28,17 +28,22 @@
         </div>
 
         <nav class="mast-nav" aria-label="页面区段">
-          <a href="#now">NOW</a>
-          <a href="#profile">PROFILE</a>
-          <a href="#next">TIMING</a>
-          <a href="./v2.html">APPLE VIEW ↗</a>
+          <a href="#now">模型雷达</a>
+          <a href="#value-frontier">斩杀线 ↘</a>
+          <a href="#profile">按用途选</a>
+          <a href="./v2.html">研究桌面 ↗</a>
         </nav>
       </header>
+
+      <aside class="evidence-status" aria-label="数据与来源检查状态">
+        <span id="evidence-summary"></span>
+        <a id="source-summary" href="#evidence"></a>
+      </aside>
 
       <section class="metric-console" aria-labelledby="metric-console-title">
         <div class="console-label">
           <span>SCAN MODE</span>
-          <strong id="metric-console-title">选择观察口径</strong>
+            <strong id="metric-console-title">你更在意什么？</strong>
         </div>
         <div id="metric-tabs" class="metric-tabs" role="tablist" aria-labelledby="metric-console-title"></div>
         <div id="coverage-readout" class="coverage-readout" aria-live="polite"></div>
@@ -88,6 +93,49 @@
 
       <p id="view-status" class="sr-only" role="status" aria-live="polite"></p>
 
+      <section id="value-frontier" class="frontier-band" aria-labelledby="frontier-title">
+        <header class="frontier-heading">
+          <div>
+            <span class="frontier-eyebrow">THE MODEL KILL LINE / 智能 × 价格</span>
+            <h2 id="frontier-title">贵，可以。<br>贵还没它聪明？</h2>
+            <p>欢迎来到大模型斩杀线。点一个模型，看看它斩杀了谁，或者被谁斩杀。</p>
+          </div>
+          <div class="frontier-heading-note">
+            <strong>往左更便宜，往上更聪明。</strong>
+            <p>更便宜且不弱，或同价更强，就能“斩杀”对手。<br>能守住自己价位的模型，组成性价比前沿。</p>
+            <span id="frontier-counts"></span>
+          </div>
+        </header>
+        <div class="frontier-controls">
+          <label for="frontier-budget">最多愿意花 <output id="frontier-budget-value" for="frontier-budget"></output>
+            <input id="frontier-budget" type="range" min="0" max="50" step="0.01" value="50">
+            <small>每百万输出 tokens / 美元</small>
+          </label>
+          <label for="frontier-minimum">智能至少要 <output id="frontier-minimum-value" for="frontier-minimum"></output>
+            <input id="frontier-minimum" type="range" min="20" max="70" step="1" value="20">
+            <small>Artificial Analysis 智力指数</small>
+          </label>
+          <label for="frontier-model">点图上的模型，或在这里选
+            <select id="frontier-model"></select>
+          </label>
+        </div>
+        <div class="frontier-workspace">
+          <div class="frontier-chart" aria-label="模型智能与输出价格散点图">
+            <span class="frontier-y-title">更聪明 ↑ · AA 智力 v4.3</span>
+            <div class="frontier-field" role="group" aria-label="可选择的模型点"></div>
+            <span class="frontier-x-title">← 更便宜 · 输出单价（美元 / 百万 tokens，对数刻度）</span>
+          </div>
+          <aside id="frontier-inspector" class="frontier-inspector" aria-live="polite"></aside>
+        </div>
+        <div class="frontier-legend"><span><i></i> 性价比前沿</span><span><i></i> 有更优替代</span><span>淡红区：选中模型可以斩杀的范围</span><span>淡出点：超出筛选条件</span></div>
+        <div id="frontier-shortlist" class="frontier-shortlist" aria-live="polite"></div>
+        <footer class="frontier-footnote">
+          <p id="frontier-missing"></p>
+          <p>资料核实于 2026-09-10。AA 智力统一 v4.3，日期表示榜单读取日；价格来源和条件见选中模型。DeepSeek 采用高峰价，Gemini 3.8 Flash 采用年末前优惠价。这里只比较智能与输出单价，未计输入、缓存、工具调用及任务用量；接近的分差不能视为实用能力的确定差距。虚线仅连接前沿模型，不代表中间价位有对应产品。</p>
+          <a href="https://artificialanalysis.ai/articles/gpt-5-6-intelligence-vs-cost-across-sol-terra-luna" target="_blank" rel="noreferrer">了解性价比前沿的比较方法 ↗</a>
+        </footer>
+      </section>
+
       <section id="profile" class="profile-band" aria-labelledby="profile-title">
         <header class="profile-heading">
           <div>
@@ -127,7 +175,7 @@
       <section id="evidence" class="evidence-band" aria-labelledby="evidence-title">
         <header class="band-heading evidence-heading">
           <span>EVIDENCE</span>
-          <h2 id="evidence-title">评测来源账本</h2>
+          <h2 id="evidence-title">来源与变化</h2>
           <p>原始值、来源日期和缺口保持可见。</p>
         </header>
         <div id="source-list" class="source-list"></div>

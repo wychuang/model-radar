@@ -5,8 +5,7 @@ import {
   getBenchmarkMetric,
   getMetricMeasurement,
   metricCoverage,
-  rankModelsByMetric,
-  sourceFreshnessLabel
+  rankModelsByMetric
 } from "./model-radar.mjs";
 import { modelRadarSnapshot } from "./model-radar-snapshot.mjs";
 import {
@@ -14,7 +13,10 @@ import {
   eventStatusLabel,
   isoShortDate,
   metricBarStyle,
-  shortDate
+  shortDate,
+  evidenceSummaryLabel,
+  sourceCheckSummaryLabel,
+  sourceStatusLabel
 } from "./ui-helpers.mjs";
 
 const today = new Date();
@@ -43,6 +45,8 @@ const elements = {
 };
 
 function init() {
+  document.querySelector("#evidence-summary").textContent = evidenceSummaryLabel(view.evidenceSummary);
+  document.querySelector("#source-summary").textContent = sourceCheckSummaryLabel(view.evidenceSummary);
   elements.asOfLabel.textContent = view.asOfLabel;
   elements.refreshLabel.textContent = `checked ${view.refreshedLabel}`;
   renderSignals();
@@ -132,7 +136,7 @@ function renderMetricHero(metric, ranking) {
     </div>
     <p class="metric-description">${metric.description}</p>
     ${source ? `<a class="raw-link" href="${source.url}" target="_blank" rel="noreferrer">OPEN SOURCE ↗</a>` : ""}
-    <small>MEASURED ${metric.asOf}</small>
+    <small>${metric.dateBasis === "observed" ? "READ" : "AS OF"} ${metric.asOf}</small>
   `;
 }
 
@@ -199,6 +203,8 @@ function renderSelected(activeMetric, ranking) {
       <div><span>OUTPUT</span><strong>${formatTokenWindow(model.outputTokens)}</strong></div>
       <div><span>PRICE IN / OUT</span><strong>${formatPricePair(model.priceUsd)}</strong></div>
     </div>
+    ${model.priceUsd ? `<p class="price-evidence">${model.priceUsd.note ?? "标准 API 价格，输入、缓存与工具调用另计。"}
+      <a href="${sourceById(model.priceUsd.sourceId)?.url ?? "#"}" target="_blank" rel="noreferrer">价格核实 ${model.priceUsd.asOf} ↗</a></p>` : ""}
     <div class="benchmark-matrix">
       ${view.benchmarks.map((metric) => renderBenchmarkCell(model, metric)).join("")}
     </div>
@@ -244,7 +250,7 @@ function renderEvents() {
     }
     item.innerHTML = `
       <span>${isoShortDate(event.date)}</span>
-      <b>${eventStatusLabel(event.status)}</b>
+      <b>${eventStatusLabel(event.status, event.date, today)}</b>
       <strong>${event.label}</strong>
       <p>${event.detail}</p>
     `;
@@ -269,19 +275,21 @@ function renderClocks() {
 }
 
 function renderSources() {
-  const benchmarkSources = view.sources.filter((source) => source.sourceType === "benchmark");
+  const benchmarkSources = view.sources;
   elements.sourceList.replaceChildren(...benchmarkSources.map((source, index) => {
     const link = document.createElement("a");
     link.className = "source-row";
     link.href = source.url;
     link.target = "_blank";
     link.rel = "noreferrer";
+    link.dataset.status = source.ok === false ? "error" : source.changed ? "changed" : "ok";
     link.innerHTML = `
       <span>${String(index + 1).padStart(2, "0")}</span>
       <strong>${source.label}</strong>
-      <small>${sourceFreshnessLabel(source, today)} / ${source.foundSignals?.slice(0, 2).join(" · ") || "watching"}</small>
+      <small></small>
       <b>↗</b>
     `;
+    link.querySelector("small").textContent = sourceStatusLabel(source);
     return link;
   }));
 }

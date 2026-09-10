@@ -91,7 +91,7 @@ export function rankModelsForMode(snapshot, modeId = CHOICE_MODES[0].id) {
       mode,
       evidence,
       evidenceRatio,
-      eligible: evidenceRatio >= mode.minEvidence,
+      eligible: evidenceRatio + Number.EPSILON >= mode.minEvidence,
       score: round(score * 100)
     };
   });
@@ -132,9 +132,7 @@ export function autoMatchModel(snapshot, selectedId, modeId = CHOICE_MODES[0].id
 
 export function evidenceLabel(evidenceRatio) {
   const percent = Math.round((Number(evidenceRatio) || 0) * 100);
-  if (percent >= 90) return `高置信 / ${percent}%`;
-  if (percent >= 70) return `可用 / ${percent}%`;
-  return `证据不足 / ${percent}%`;
+  return `证据覆盖 ${percent}%`;
 }
 
 function round(value) {

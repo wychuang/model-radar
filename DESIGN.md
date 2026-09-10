@@ -23,7 +23,7 @@ with a reason.
 
 产品承担观测与比较职责。Benchmark 分数来自可追溯来源。历史发布节奏根据公开记录
 推算，不携带发布概率。缺失证据始终显示为带原因的 `N/A`。用途推荐采用公开权重和
-最低证据覆盖，界面只显示选择顺序与覆盖置信，不把内部排序值冒充 benchmark。
+最低证据覆盖，界面只显示选择顺序与证据覆盖，不把内部排序值冒充 benchmark。
 
 ### First-glance map / 一眼读取地图
 
@@ -357,3 +357,19 @@ comes from the farthest corner of the measured field and is tested at 2K and
 narrow sizes. DeepSeek-V4 Flash 0731 adds independent intelligence, speed,
 Terminal-Bench and GDPval results beside its provider-reported agent suite; the
 source ledger gains dedicated Coding Agent, GDPval-AA, and AA-Briefcase entries.
+
+### 2026-09-10: Make model value directly explorable
+
+The user wants a memorable, approachable public site. The radar remains the
+first instrument; a second intelligence-versus-price surface makes the model
+"kill line" visible. Better intelligence is up, lower output price is left.
+A model dominates another when it is cheaper and no weaker, or equally priced
+and stronger. Raw AA intelligence and output price stay separate; there is no
+new aggregate score. Provider colors identify dots, filled dots mark the frontier,
+and a subtle rose region shows which price/intelligence pairs the selected model
+dominates. A picker provides access to overlapping dots on touch screens.
+
+用户可以调预算与最低智能，直接看前沿候选；点击模型获得具体差价与分差。
+筛选只淡化不符合条件的点，不移动坐标。缺失价格或智能时列明原因。
+“证据覆盖”只描述已有指标比例。页首明确评测日期范围和来源检查结果，
+每日来源检查不改变分数日期。公开首页与研究桌面都有斩杀线入口。

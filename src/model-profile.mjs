@@ -28,7 +28,7 @@ const MISSING_REASONS = {
   terminalbench: {
     code: "comparable-result-unpublished",
     short: "未公布同口径成绩",
-    detail: "当前官方资料未确认同版本、同 harness 的 Terminal-Bench 2.1 成绩。"
+    detail: "当前资料未确认同版本、同 AA 框架的 Terminal-Bench 4.0 成绩。"
   },
   "output-speed": {
     code: "independent-speed-unconfirmed",

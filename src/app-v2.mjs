@@ -5,8 +5,7 @@ import {
   getBenchmarkMetric,
   getMetricMeasurement,
   metricCoverage,
-  rankModelsByMetric,
-  sourceFreshnessLabel
+  rankModelsByMetric
 } from "./model-radar.mjs";
 import { modelRadarSnapshot } from "./model-radar-snapshot.mjs";
 import {
@@ -14,7 +13,10 @@ import {
   eventStatusLabel,
   isoShortDate,
   metricBarStyle,
-  shortDate
+  shortDate,
+  evidenceSummaryLabel,
+  sourceCheckSummaryLabel,
+  sourceStatusLabel
 } from "./ui-helpers.mjs";
 
 const today = new Date();
@@ -47,6 +49,8 @@ const elements = {
 };
 
 function init() {
+  document.querySelector("#evidence-summary").textContent = evidenceSummaryLabel(view.evidenceSummary);
+  document.querySelector("#source-summary").textContent = sourceCheckSummaryLabel(view.evidenceSummary);
   elements.snapshotDate.textContent = view.asOfLabel;
   elements.refreshDate.textContent = `checked ${view.refreshedLabel}`;
   renderMetricTabs();
@@ -157,7 +161,7 @@ function renderLeaderStory(metric, ranking) {
   );
 
   const summary = createElement("p", "leader-summary");
-  summary.append(document.createTextNode(`${provider} · 测量日期 ${leader.measurement?.asOf ?? metric.asOf}`));
+  summary.append(document.createTextNode(`${provider} · ${leader.measurement?.dateBasis === "observed" ? "榜单读取" : "来源日期"} ${leader.measurement?.asOf ?? metric.asOf}`));
   if (runnerUp) {
     const gap = Math.abs(leader.metricValue - runnerUp.metricValue);
     const relation = metric.direction === "lower" ? "低于" : "领先";
@@ -330,7 +334,13 @@ function renderInspector(activeMetric, ranking) {
     official.append(externalLink(source.url, `打开 ${source.label}`, "", `${source.label} ↗`));
   }
 
-  elements.modelInspector.replaceChildren(header, activeScore, facts, matrix, specialist, watch, official);
+  const priceNote = createElement("p", "price-evidence");
+  if (model.priceUsd) {
+    priceNote.append(createElement("span", "", model.priceUsd.note ?? "标准 API 价格，输入、缓存与工具调用另计。"));
+    const priceSource = sourceById(model.priceUsd.sourceId);
+    if (priceSource) priceNote.append(externalLink(priceSource.url, "打开价格来源", "", `价格核实 ${model.priceUsd.asOf} ↗`));
+  } else priceNote.hidden = true;
+  elements.modelInspector.replaceChildren(header, activeScore, facts, priceNote, matrix, specialist, watch, official);
 }
 
 function renderSpecialistEvidence(model) {
@@ -441,7 +451,7 @@ function renderEvents() {
     top.append(
       marker,
       createElement("span", "", isoShortDate(event.date)),
-      createElement("b", "", eventStatusLabel(event.status))
+      createElement("b", "", eventStatusLabel(event.status, event.date, today))
     );
     item.append(top, createElement("strong", "", event.label), createElement("p", "", event.detail));
     return item;
@@ -480,14 +490,14 @@ function renderReleaseClocks() {
 }
 
 function renderSources() {
-  const benchmarkSources = view.sources.filter((source) => source.sourceType === "benchmark");
+  const benchmarkSources = view.sources;
   const rows = benchmarkSources.map((source, index) => {
     const link = externalLink(source.url, `打开 ${source.label}`, "source-row");
     link.dataset.status = source.ok === false ? "error" : source.changed ? "changed" : "ok";
     link.append(
       createElement("span", "source-index", String(index + 1).padStart(2, "0")),
       createElement("strong", "", source.label),
-      createElement("small", "", sourceSignalSummary(source)),
+      createElement("small", "", sourceStatusLabel(source)),
       createElement("b", "", "↗")
     );
     return link;
@@ -504,12 +514,6 @@ function renderNotes() {
   elements.methodNotes.replaceChildren(...notes);
 }
 
-function sourceSignalSummary(source) {
-  const freshness = sourceFreshnessLabel(source, today);
-  if (source.ok === false) return `${freshness} · check failed`;
-  if (source.changed) return `${freshness} · page changed`;
-  return `${freshness} · ${source.foundSignals?.slice(0, 2).join(" · ") || "watching"}`;
-}
 
 function sourceForMeasurement(measurement, metric) {
   return sourceById(measurement?.sourceId ?? metric?.sourceId);

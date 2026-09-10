@@ -45,8 +45,9 @@ export async function buildSourceStatus(source, options = {}) {
   }
 }
 
-export function mergeSourceStatuses(seed, statuses, generatedAt = new Date().toISOString()) {
+export function mergeSourceStatuses(seed, statuses, generatedAt = new Date().toISOString(), previousSnapshot = seed) {
   const statusesById = new Map(statuses.map((status) => [status.id, status]));
+  const previousSources = new Map((previousSnapshot?.sources ?? []).map((source) => [source.id, source]));
 
   return {
     ...seed,
@@ -57,39 +58,50 @@ export function mergeSourceStatuses(seed, statuses, generatedAt = new Date().toI
     },
     sources: seed.sources.map((source) => {
       const status = statusesById.get(source.id);
-      if (!status) return { ...source, ok: null, foundSignals: [] };
+      const candidate = previousSources.get(source.id);
+      const previous = candidate?.url === source.url ? candidate : {};
+      const changed = Boolean(status?.ok && previous.sha256 && previous.sha256 !== status.sha256);
+      const lastSuccessAt = previous.lastSuccessAt ?? (previous.ok === true ? previous.lastCheckedAt : null) ?? null;
+      const lastChangedAt = previous.lastChangedAt ?? (previous.changed ? previous.lastCheckedAt : null) ?? null;
+      const lastSuccessfulWatch = previous.lastSuccessfulWatch ?? (previous.ok === true ? previous.watch : null) ?? [];
+      let signalChange = previous.signalChange ?? null;
+
+      // A first fetch (or a legacy failure without successful signals) establishes a baseline.
+      if (status?.ok && (previous.ok === true || lastSuccessAt) && Array.isArray(previous.foundSignals)) {
+        // Compare only terms watched on both successful reads; local edits are not page changes.
+        const added = status.foundSignals.filter((term) => lastSuccessfulWatch.includes(term) && !previous.foundSignals.includes(term));
+        const removed = previous.foundSignals.filter((term) => source.watch.includes(term) && !status.foundSignals.includes(term));
+        if (added.length || removed.length) signalChange = { detectedAt: status.lastCheckedAt, added, removed };
+      }
 
       return {
         ...source,
-        lastCheckedAt: status.lastCheckedAt,
-        ok: status.ok,
-        sha256: status.ok ? status.sha256 : source.sha256 ?? "",
-        foundSignals: status.foundSignals,
-        changed: Boolean(status.ok && source.sha256 && source.sha256 !== status.sha256),
-        error: status.error
+        lastCheckedAt: status?.lastCheckedAt ?? previous.lastCheckedAt ?? null,
+        ok: status?.ok ?? null,
+        lastSuccessAt: status?.ok ? status.lastCheckedAt : lastSuccessAt,
+        lastSuccessfulWatch: status?.ok ? source.watch : lastSuccessfulWatch,
+        sha256: status?.ok ? status.sha256 : previous.sha256 ?? "",
+        foundSignals: status?.ok ? status.foundSignals : previous.foundSignals ?? [],
+        changed,
+        lastChangedAt: changed ? status.lastCheckedAt : lastChangedAt,
+        signalChange,
+        error: status?.error ?? ""
       };
     })
   };
 }
 
-export async function runUpdate({ seed = modelRadarSeed, previousSnapshot = modelRadarSnapshot, outputPath = snapshotPath } = {}) {
+export async function runUpdate({ seed = modelRadarSeed, previousSnapshot = modelRadarSnapshot,
+  outputPath = snapshotPath, fetchText = defaultFetchText, delayMs = politeDelayMs } = {}) {
   const fetchedAt = new Date().toISOString();
   const statuses = [];
-  const previousSources = new Map((previousSnapshot?.sources ?? []).map((source) => [source.id, source]));
-  const seedWithHistory = {
-    ...seed,
-    sources: seed.sources.map((source) => ({
-      ...source,
-      sha256: previousSources.get(source.id)?.sha256 ?? source.sha256 ?? ""
-    }))
-  };
 
-  for (const source of seedWithHistory.sources) {
-    statuses.push(await buildSourceStatus(source, { fetchedAt }));
-    await delay(politeDelayMs);
+  for (const source of seed.sources) {
+    statuses.push(await buildSourceStatus(source, { fetchedAt, fetchText }));
+    await delay(delayMs);
   }
 
-  const snapshot = mergeSourceStatuses(seedWithHistory, statuses, fetchedAt);
+  const snapshot = mergeSourceStatuses(seed, statuses, fetchedAt, previousSnapshot);
   await writeSnapshot(outputPath, snapshot);
 
   return snapshot;
@@ -127,17 +139,24 @@ function isAllowedOfficialUrl(rawUrl) {
   const url = new URL(rawUrl);
   const allowedHosts = new Set([
     "openai.com",
+    "developers.openai.com",
     "www.anthropic.com",
+    "platform.claude.com",
     "deepmind.google",
+    "ai.google.dev",
     "x.ai",
+    "docs.x.ai",
     "api-docs.deepseek.com",
     "www.kimi.com",
+    "platform.kimi.ai",
     "docs.mistral.ai",
     "qwen.ai",
+    "www.qwencloud.com",
     "ai.meta.com",
     "docs.cohere.com",
     "aws.amazon.com",
     "z.ai",
+    "docs.z.ai",
     "artificialanalysis.ai",
     "arena.ai",
     "www.swebench.com",

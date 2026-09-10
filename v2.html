@@ -30,9 +30,15 @@
         <nav class="utility-nav" aria-label="页面导航">
           <a href="#timeline">NOW / NEXT</a>
           <a href="#sources">来源</a>
+          <a class="view-switch" href="./radar.html#value-frontier">斩杀线 ↗</a>
           <a class="view-switch" href="./radar.html">RADAR VIEW ↗</a>
         </nav>
       </header>
+
+      <aside class="evidence-status" aria-label="数据与来源检查状态">
+        <span id="evidence-summary"></span>
+        <a id="source-summary" href="#sources"></a>
+      </aside>
 
       <main id="main-content">
         <section class="situation-deck" aria-labelledby="situation-title">
@@ -109,7 +115,7 @@
             <header class="section-heading">
               <div>
                 <p class="eyebrow">SOURCE LEDGER</p>
-                <h2 id="source-title">评测来源</h2>
+                <h2 id="source-title">来源与变化</h2>
               </div>
               <p>状态来自最近一次低频检查。</p>
             </header>

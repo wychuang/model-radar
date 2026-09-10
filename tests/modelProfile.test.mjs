@@ -11,13 +11,13 @@ test("five-dimensional profile keeps lower price as higher value", () => {
   const fableValue = fable.dimensions.find((dimension) => dimension.metricId === "output-price");
 
   assert.ok(deepseekValue.score > fableValue.score);
-  assert.equal(deepseekValue.measurement.value, 0.87);
+  assert.equal(deepseekValue.measurement.value, 3.96);
   assert.equal(deepseek.accent, "#4d6bfe");
   assert.equal(fable.accent, "#d97757");
 });
 
 test("complete profiles close while incomplete profiles preserve gaps", () => {
-  const grok = buildModelProfile(modelRadarSnapshot, "xai-grok-4-5");
+  const grok = buildModelProfile(modelRadarSnapshot, "xai-grok-4-6");
   const command = buildModelProfile(modelRadarSnapshot, "cohere-command-a-plus");
   const grokGeometry = profileGeometry(grok);
   const commandGeometry = profileGeometry(command);
@@ -32,7 +32,7 @@ test("complete profiles close while incomplete profiles preserve gaps", () => {
 });
 
 test("five-axis frame geometry stays fixed across model selections", () => {
-  const grokGeometry = profileGeometry(buildModelProfile(modelRadarSnapshot, "xai-grok-4-5"));
+  const grokGeometry = profileGeometry(buildModelProfile(modelRadarSnapshot, "xai-grok-4-6"));
   const commandGeometry = profileGeometry(buildModelProfile(modelRadarSnapshot, "cohere-command-a-plus"));
   const frame = (geometry) => ({
     center: geometry.center,

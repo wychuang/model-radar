@@ -15,8 +15,9 @@ test("balanced mode produces one direct winner from well-covered evidence", () =
 });
 
 test("automatic comparison uses the mode winner unless it is already selected", () => {
-  const flashDecision = autoMatchModel(modelRadarSnapshot, "deepseek-v4-flash-0731", "value");
-  assert.equal(flashDecision.winner.id, "deepseek-v4-flash-0731");
+  const winner = rankModelsForMode(modelRadarSnapshot, "value")[0];
+  const flashDecision = autoMatchModel(modelRadarSnapshot, winner.id, "value");
+  assert.equal(flashDecision.winner.id, winner.id);
   assert.notEqual(flashDecision.comparison.id, flashDecision.winner.id);
   assert.notEqual(flashDecision.comparison.providerId, flashDecision.winner.providerId);
 
@@ -26,12 +27,18 @@ test("automatic comparison uses the mode winner unless it is already selected", 
 
 test("code-agent mode requires enough specialist evidence", () => {
   const decision = autoMatchModel(modelRadarSnapshot, "amazon-nova-2-omni", "code-agent");
-  const flash = decision.ranking.find((model) => model.id === "deepseek-v4-flash-0731");
+  const flash = decision.ranking.find((model) => model.id === "zhipu-glm-5-3-flash");
   const nova = decision.ranking.find((model) => model.id === "amazon-nova-2-omni");
 
-  assert.equal(decision.winner.id, "openai-gpt-5-6-sol");
+  assert.equal(decision.winner.eligible, true);
+  assert.ok(decision.winner.evidence.some((entry) => entry.metric.id === "aa-coding-agent"));
   assert.equal(flash.eligible, true);
   assert.ok(flash.evidence.some((entry) => entry.metric.id === "terminalbench"));
   assert.equal(nova.eligible, false);
-  assert.match(evidenceLabel(nova.evidenceRatio), /证据不足/);
+  assert.match(evidenceLabel(nova.evidenceRatio), /证据覆盖/);
+});
+
+test("evidence coverage is described without claiming recommendation confidence", () => {
+  assert.equal(evidenceLabel(1), "证据覆盖 100%");
+  assert.equal(evidenceLabel(0.55), "证据覆盖 55%");
 });

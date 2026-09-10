@@ -63,6 +63,12 @@ export function validateRadarData(snapshot) {
       if (!Number.isFinite(entry.value)) errors.push(`${model.id}: invalid ${benchmarkId} value`);
       if (!sourceIds.has(entry.sourceId)) errors.push(`${model.id}: unknown benchmark source ${entry.sourceId}`);
       if (!isIsoDate(entry.asOf)) errors.push(`${model.id}: invalid ${benchmarkId} asOf`);
+      const metric = snapshot.benchmarks.find((item) => item.id === benchmarkId);
+      if (metric?.version && entry.version !== metric.version) errors.push(`${model.id}: incompatible ${benchmarkId} version`);
+    }
+    if (model.priceUsd && Number.isFinite(model.priceUsd.outputPerMTok)) {
+      if (!sourceIds.has(model.priceUsd.sourceId)) errors.push(`${model.id}: missing price source`);
+      if (!isIsoDate(model.priceUsd.asOf)) errors.push(`${model.id}: missing price verification date`);
     }
   }
 
@@ -94,6 +100,12 @@ export function buildRadarViewModel(snapshot, today = new Date()) {
     .filter((event) => event.status !== "released" || daysBetween(event.date, now) <= 45)
     .sort((left, right) => toDate(left.date) - toDate(right.date))
     .map((event) => ({ kind: "event", label: event.label, sourceId: event.sourceId }));
+  const measurementDates = (snapshot.models ?? [])
+    .flatMap((model) => Object.values(model.benchmarks ?? {}))
+    .filter((measurement) => Number.isFinite(measurement.value))
+    .map((measurement) => measurement.asOf).filter(isIsoDate).sort();
+  const newest = measurementDates.at(-1) ?? null;
+  const sources = [...(snapshot.sources ?? [])].sort((left, right) => sourcePriority(left) - sourcePriority(right));
 
   return {
     generatedAt: snapshot.generatedAt,
@@ -104,11 +116,27 @@ export function buildRadarViewModel(snapshot, today = new Date()) {
     providers: snapshot.providers,
     providerClocks,
     events: [...(snapshot.events ?? [])].sort((left, right) => toDate(right.date) - toDate(left.date)),
-    sources: snapshot.sources,
+    sources,
+    evidenceSummary: {
+      oldest: measurementDates[0] ?? null,
+      newest,
+      ageDays: newest ? Math.max(0, Math.floor(daysBetween(newest, now))) : null,
+      total: sources.length,
+      successful: sources.filter((source) => source.ok === true).length,
+      failed: sources.filter((source) => source.ok === false).length,
+      unchecked: sources.filter((source) => source.ok !== true && source.ok !== false).length
+    },
     watchlist: [...eventAlerts.slice(0, 4), ...sourceAlerts.slice(0, 6)],
     worldSignals: buildWorldSignals(snapshot, defaultRanking, now),
     notes: snapshot.notes ?? []
   };
+}
+
+function sourcePriority(source) {
+  if (source.ok === false) return 0;
+  if (source.ok !== true) return 1;
+  if (source.signalChange?.detectedAt === source.lastCheckedAt) return 2;
+  return source.changed ? 3 : 4;
 }
 
 export function rankModelsByMetric(snapshot, metricId) {
@@ -161,15 +189,19 @@ export function getMetricMeasurement(model, metric) {
   if (metric.derivedFrom === "outputPrice") {
     const value = model.priceUsd?.outputPerMTok;
     return Number.isFinite(value)
-      ? { value, derived: true, asOf: metric.asOf, sourceId: model.sourceRefs?.[0] }
+      ? { value, derived: true, asOf: model.priceUsd.asOf ?? metric.asOf,
+        sourceId: model.priceUsd.sourceId ?? model.sourceRefs?.[0], note: model.priceUsd.note }
       : null;
   }
   if (metric.derivedFrom === "contextTokens") {
     return Number.isFinite(model.contextTokens)
-      ? { value: model.contextTokens, derived: true, asOf: metric.asOf, sourceId: model.sourceRefs?.[0] }
+      ? { value: model.contextTokens, derived: true, asOf: model.contextAsOf ?? metric.asOf,
+        sourceId: model.contextSourceId ?? model.sourceRefs?.[0] }
       : null;
   }
-  return model.benchmarks?.[metric.id] ?? null;
+  const measurement = model.benchmarks?.[metric.id];
+  if (metric.version && measurement?.version !== metric.version) return null;
+  return measurement ?? null;
 }
 
 export function formatMetricValue(metric, value) {

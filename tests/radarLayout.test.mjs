@@ -25,8 +25,8 @@ test("radar inverts lower-is-better metrics without changing raw values", () => 
   const fable = points.find((entry) => entry.id === "anthropic-claude-fable-5");
 
   assert.ok(deepseek.radar.x > fable.radar.x);
-  assert.equal(deepseek.metricValue, 0.87);
-  assert.ok(metricQuality(0.87, metric) > metricQuality(50, metric));
+  assert.equal(deepseek.metricValue, 3.96);
+  assert.ok(metricQuality(3.96, metric) > metricQuality(50, metric));
 });
 
 test("confirmed measurements leave the no-signal lane", () => {
@@ -34,7 +34,7 @@ test("confirmed measurements leave the no-signal lane", () => {
   const ranking = rankModelsByMetric(modelRadarSnapshot, metric.id);
   const points = projectRadarModels(ranking, metric, "2026-08-06");
   const openai = points.find((entry) => entry.id === "openai-gpt-5-6-sol");
-  const grok = points.find((entry) => entry.id === "xai-grok-4-5");
+  const grok = points.find((entry) => entry.id === "xai-grok-4-6");
 
   assert.equal(openai.radar.missing, false);
   assert.ok(openai.radar.x > grok.radar.x);
